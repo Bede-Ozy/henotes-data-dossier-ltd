@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services | Henotes Data Dossier</title>
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .page-hero {
+            height: 50vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(rgba(1, 15, 64, 0.8), rgba(0, 30, 128, 0.8)), url('images/analysts-banner.jpg');
+            background-size: cover;
+            background-position: center;
+            margin-top: 80px;
+            color: white;
+            text-align: center;
+        }
+
+        .page-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .page-hero h1 {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .service-details {
+            max-width: 800px;
+            margin: 0 auto 60px;
+            color: var(--text-dark);
+        }
+
+        .service-details p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            color: var(--text-light);
+        }
+
+        .service-details h2 {
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .service-details ul {
+            margin-left: 1.5rem;
+            list-style-type: disc;
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+        }
+
+        .service-details li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/Henotes-loge.png" alt="Henotes Logo">
+                </a>
+            </div>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Henotes</a></li>
+                    <li><a href="services.html" class="active">Our Services</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Hero -->
+    <header class="page-hero">
+        <div class="container">
+            <div class="page-hero-content fade-section">
+                <h1>Our Data Services</h1>
+                <p style="font-size: 1.2rem; margin-top: 1rem; color: #cbd5e1;">We empower organizations with practical,
+                    scalable, and cost-effective solutions to build a data-capable workforce and workflow.</p>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- Intro -->
+        <section class="section" style="padding: 80px 0 40px;">
+            <div class="container text-center fade-section">
+                <p style="font-size: 1.2rem; max-width: 800px; margin: 0 auto; color: var(--text-dark);">
+                    Henotes Data Dossier provides a range of data capability and analytics services designed to help
+                    organisations move from fragmented reporting to confident, data-informed decision making.
+                </p>
+                <p style="margin-top: 20px; color: var(--text-light);">
+                    Our services are modular and flexible. Organisations can engage with a single service or adopt a
+                    structured progression based on their current maturity, goals, and constraints.
+                </p>
+            </div>
+        </section>
+
+        <!-- Services Grid -->
+        <section class="info-section">
+            <div class="container">
+                <div class="card-grid">
+                    <div class="card fade-section">
+                        <div class="card-icon"><i class="ri-folder-chart-fill"></i></div>
+                        <h3>Data Capability Assessment</h3>
+                        <p>Understand where your organisation stands today and what must change to improve data-driven
+                            decision making.</p>
+                        <button class="btn btn-secondary mt-2"
+                            style="margin-top: 20px; font-size: 0.9rem; padding: 8px 20px;">Learn More</button>
+                    </div>
+
+                    <div class="card fade-section">
+                        <div class="card-icon"><i class="ri-graduation-cap-fill"></i></div>
+                        <h3>Data Literacy & Training</h3>
+                        <p>Equip teams at all levels with practical data skills using tools they already work with, from
+                            Spreadsheets to BI platforms.</p>
+                        <button class="btn btn-secondary mt-2"
+                            style="margin-top: 20px; font-size: 0.9rem; padding: 8px 20px;">Learn More</button>
+                    </div>
+
+                    <div class="card fade-section">
+                        <div class="card-icon"><i class="ri-bubble-chart-fill"></i></div>
+                        <h3>Analytics & BI Enablement</h3>
+                        <p>Design dashboards, reports, and analytics workflows that support real business decisions, not
+                            just visuals.</p>
+                        <button class="btn btn-secondary mt-2"
+                            style="margin-top: 20px; font-size: 0.9rem; padding: 8px 20px;">Learn More</button>
+                    </div>
+
+                    <div class="card fade-section">
+                        <div class="card-icon"><i class="ri-team-fill"></i></div>
+                        <h3>Data Governance & Strategy</h3>
+                        <p>Implement governance frameworks and strategies to ensure data integrity, compliance, and
+                            long-term usability.</p>
+                        <button class="btn btn-secondary mt-2"
+                            style="margin-top: 20px; font-size: 0.9rem; padding: 8px 20px;">Learn More</button>
+                    </div>
+
+                    <div class="card fade-section">
+                        <div class="card-icon"><i class="ri-archive-fill"></i></div>
+                        <h3>Reporting & Insights</h3>
+                        <p>Deliver actionable insights through custom dashboards, reports, and analytics workflows
+                            designed for your business goals.</p>
+                        <button class="btn btn-secondary mt-2"
+                            style="margin-top: 20px; font-size: 0.9rem; padding: 8px 20px;">Learn More</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Details -->
+        <section class="section" style="padding: 60px 0; background: var(--bg-light);">
+            <div class="container fade-section">
+                <div class="service-details">
+                    <h2>How Organisations Typically Engage</h2>
+                    <p>Most of our engagements start with a simple but crucial step: understanding how data is currently
+                        being used across the organisation. We don’t just look at tools or reports; we explore how
+                        people interact with data, the processes in place, and where gaps or opportunities exist.</p>
+                    <p>From there, we partner with teams to strengthen foundational skills, improve analytics delivery,
+                        and provide leadership with decision-focused insights that truly drive action.</p>
+
+                    <h2>How Our Services Fit Together</h2>
+                    <p>HDD’s services are designed to operate as an integrated system rather than as a collection of
+                        separate offerings. Each piece complements the others, creating a full-circle approach to
+                        building data capability.</p>
+                    <p>It begins with a data capability assessment, which identifies strengths, gaps, and priorities.
+                        That insight informs our training programs, equipping teams with the skills they need to turn
+                        data into meaningful action.</p>
+
+                    <h2>Who Our Services Are For</h2>
+                    <p>Our services are built to support organisations at any stage of their data journey:</p>
+                    <ul>
+                        <li>Leadership teams seeking clarity, confidence, and alignment in decision-making.</li>
+                        <li>Operational teams looking to improve reporting, analysis, and performance tracking.</li>
+                        <li>Data and analytics teams aiming to deliver insights that are not only accurate but also
+                            impactful.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="section text-center fade-section" style="padding: 80px 0;">
+            <div class="container">
+                <h2 class="mb-2">Ready to boost your data capability?</h2>
+                <a href="contact.html" class="btn btn-primary">Get In Touch</a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="images/Henotes-loge.png" alt="Henotes Logo"
+                        style="filter: brightness(0) invert(1); width: 150px;">
+                    <p>Building data-capable organisations by focusing on people, process, and practical analytics.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Henotes</a></li>
+                        <li><a href="services.html">Our Services</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h4>Connect</h4>
+                    <a href="https://www.linkedin.com" target="_blank"><i class="ri-linkedin-box-fill"></i> LinkedIn</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Henotes Data Dossier. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>

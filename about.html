@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Henotes | Data Capability & Analytics</title>
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Extra specific styles for about page moved to inline or specific class overrides in style.css, 
+         but here we can use the unified system directly. I'll add a few custom styles inline or assume 
+         style.css handles the 'modern-hero' concept I created before, I will migrate those specific 
+         classes to an internal style or ensure style.css supported them. 
+         
+         Decision: I'll include the necessary specific CSS for components like the "modern-hero" 
+         inside style.css or here. To keep it clean, I will use the 'hero' class but modify it 
+         inline or add a 'page-hero' variant.
+    -->
+    <style>
+        .page-hero {
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #010f40 0%, #001e80 100%);
+            position: relative;
+            margin-top: 80px;
+            /* Navbar height */
+            color: white;
+            overflow: hidden;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(0, 199, 235, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+            border-radius: 50%;
+        }
+
+        .page-hero h1 {
+            font-size: 3.5rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .story-img-container {
+            position: relative;
+        }
+
+        .story-stat {
+            position: absolute;
+            bottom: -30px;
+            left: -30px;
+            background: white;
+            padding: 20px 30px;
+            border-radius: 15px;
+            box-shadow: var(--shadow-lg);
+            border-left: 5px solid var(--primary);
+        }
+
+        .story-stat span {
+            display: block;
+        }
+
+        .story-stat .num {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1;
+        }
+
+        .story-stat .txt {
+            font-weight: 600;
+            color: var(--secondary);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .team-member {
+            text-align: center;
+        }
+
+        .team-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 20px;
+            border: 4px solid white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .team-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
+        }
+
+        .team-member:hover .team-img img {
+            transform: scale(1.1);
+        }
+    </style>
+
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/Henotes-loge.png" alt="Henotes Logo">
+                </a>
+            </div>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html" class="active">About Henotes</a></li>
+                    <li><a href="services.html">Our Services</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Hero -->
+    <header class="page-hero">
+        <div class="container position-relative" style="z-index: 2;">
+            <div class="hero-content-inner fade-section">
+                <h1>Data Culture.<br>Redefined.</h1>
+                <p style="font-size: 1.2rem; max-width: 600px; color: #cbd5e1;">We empower organizations with practical,
+                    scalable, and cost-effective solutions to build a data-capable workforce and workflow.</p>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Story Section -->
+        <section class="section" style="padding: 100px 0;">
+            <div class="container">
+                <div class="carousel-slide" style="grid-template-columns: 1fr 1fr; align-items: start; padding: 0;">
+                    <div class="story-img-container fade-section">
+                        <img src="images/about-story.jpg" alt="Our story"
+                            style="border-radius: 20px; box-shadow: var(--shadow-lg);">
+                        <div class="story-stat">
+                            <span class="num">120+</span>
+                            <span class="txt">Professionals Trained</span>
+                        </div>
+                    </div>
+
+                    <div class="story-text fade-section" style="padding-left: 40px; padding-top: 20px;">
+                        <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Our Story</h2>
+                        <p class="mb-1"><strong>Welcome to Henotes Data Dossier.</strong> We are a brand focused on
+                            building and fostering a strong data culture in the workplace. As a data capability and
+                            analytics enablement company, we help organisations make better decisions using data.</p>
+                        <p class="mb-1" style="color: var(--text-light);">Nigeria and Africa are yet to fully tap into
+                            the vast advantages that data offers. Most first-world countries invested heavily in
+                            data-driven thinking, and this mindset accelerated technological advancement.</p>
+                        <p style="color: var(--text-light);">Our mission is to build globally capable data teams through
+                            practical skills, efficient processes, and cost-effective solutions. We believe that if data
+                            becomes a culture at work, it can become a culture in society.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Values Section -->
+        <section class="section fade-section" style="padding: 100px 0; background: var(--bg-light);">
+            <div class="container">
+                <div class="text-center mb-3">
+                    <h2>Our Values</h2>
+                    <p>The core principles that guide every decision we make.</p>
+                </div>
+
+                <div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-handshake"></i></div>
+                        <h3>Honesty</h3>
+                        <p>We communicate truthfully and transparently in everything we do.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
+                        <h3>Integrity</h3>
+                        <p>We uphold strong ethical standards and deliver on our promises.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-lightbulb"></i></div>
+                        <h3>Innovation</h3>
+                        <p>We constantly explore better ways to use data for impact.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-users"></i></div>
+                        <h3>Collaboration</h3>
+                        <p>We believe progress happens faster when people work together.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section class="section fade-section" style="padding: 100px 0;">
+            <div class="container">
+                <div class="text-center mb-3">
+                    <h2>Meet the Team</h2>
+                    <p>The minds behind the data.</p>
+                </div>
+
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="team-img">
+                            <img src="images/team1.jpg" alt="Anderinsola">
+                        </div>
+                        <h3>Anderinsola</h3>
+                        <span style="color: var(--primary); font-weight: 500;">Founder & Data Analyst</span>
+                        <div style="margin-top: 10px;">
+                            <a href="#" style="color: var(--text-light); font-size: 1.2rem;"><i
+                                    class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="team-img">
+                            <img src="images/team2.jpg" alt="Bede">
+                        </div>
+                        <h3>Bede</h3>
+                        <span style="color: var(--primary); font-weight: 500;">Junior Data Analyst</span>
+                        <div style="margin-top: 10px;">
+                            <a href="#" style="color: var(--text-light); font-size: 1.2rem;"><i
+                                    class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="section text-center fade-section"
+            style="padding: 80px 0; background-color: var(--secondary); color: white;">
+            <div class="container">
+                <h2 style="color: white; margin-bottom: 2rem;">Ready to Build a Data-Driven Culture?</h2>
+                <a href="contact.html" class="btn btn-primary" style="background: white; color: var(--secondary);">Get
+                    in Touch</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="images/Henotes-loge.png" alt="Henotes Logo"
+                        style="filter: brightness(0) invert(1); width: 150px;">
+                    <p>Building data-capable organisations by focusing on people, process, and practical analytics.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Henotes</a></li>
+                        <li><a href="services.html">Our Services</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h4>Connect</h4>
+                    <a href="https://www.linkedin.com" target="_blank"><i class="ri-linkedin-box-fill"></i> LinkedIn</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Henotes Data Dossier. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>
