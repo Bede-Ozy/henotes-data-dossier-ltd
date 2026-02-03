@@ -10,7 +10,7 @@ if (menuToggle && navLinks) {
     menuToggle.addEventListener('click', () => {
         menuToggle.classList.toggle('active');
         navLinks.classList.toggle('active');
-        
+
         // Prevent scrolling when menu is open
         if (navLinks.classList.contains('active')) {
             document.body.style.overflow = 'hidden';
@@ -43,7 +43,7 @@ const observer = new IntersectionObserver((entries) => {
         if (entry.isIntersecting) {
             entry.target.classList.add('visible');
             // Stop observing once visible to avoid re-triggering (optional)
-            observer.unobserve(entry.target); 
+            observer.unobserve(entry.target);
         }
     });
 }, observerOptions);
@@ -106,12 +106,48 @@ if (track && slides.length > 0) {
     // Auto play (optional)
     setInterval(() => {
         if (!document.hidden) { // Only scroll when tab is active
-             currentIndex++;
-             if (currentIndex >= slides.length) currentIndex = 0;
-             updateCarousel();
+            currentIndex++;
+            if (currentIndex >= slides.length) currentIndex = 0;
+            updateCarousel();
         }
     }, 5000);
 
     // Initial sizing handling
     window.addEventListener('resize', updateCarousel);
+}
+
+// =========================================
+//   EmailJS Contact Form
+// =========================================
+
+const contactForm = document.getElementById('contact-form');
+if (contactForm) {
+    contactForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        // Change button state
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn.textContent;
+        submitBtn.textContent = 'Sending...';
+        submitBtn.disabled = true;
+
+        const serviceID = 'service_rtmfhfq';
+        const templateID = 'template_y51xeuo';
+
+        emailjs.sendForm(serviceID, templateID, this)
+            .then(() => {
+                submitBtn.textContent = 'Message Sent!';
+                alert('Thank you! Your message has been sent successfully.');
+                contactForm.reset();
+            }, (err) => {
+                submitBtn.textContent = 'Error!';
+                alert('Oops... ' + JSON.stringify(err));
+            })
+            .finally(() => {
+                setTimeout(() => {
+                    submitBtn.textContent = originalBtnText;
+                    submitBtn.disabled = false;
+                }, 3000);
+            });
+    });
 }
