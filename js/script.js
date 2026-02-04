@@ -121,6 +121,47 @@ if (track && slides.length > 0) {
 // =========================================
 
 const contactForm = document.getElementById('contact-form');
+
+// Function to pre-fill form from URL parameters
+function prefillForm() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const service = urlParams.get('service');
+    const messageField = document.getElementById('message');
+
+    if (service && messageField) {
+        let prefilledMessage = "";
+        switch (service.toLowerCase()) {
+            case 'assessment':
+                prefilledMessage = "I am interested in a Data Capability Assessment for my organization.";
+                break;
+            case 'training':
+                prefilledMessage = "I would like to learn more about your Data Literacy & Training programs.";
+                break;
+            case 'analytics':
+                prefilledMessage = "I'm interested in Analytics & BI Enablement services.";
+                break;
+            case 'governance':
+                prefilledMessage = "I'd like to discuss Data Governance & Strategy for our team.";
+                break;
+            case 'reporting':
+                prefilledMessage = "We need help with Reporting & Insights. Please provide more details.";
+                break;
+            case 'scanning':
+                prefilledMessage = "I'm interested in your Bulk Scanning Services for document digitization.";
+                break;
+            case 'ai':
+                prefilledMessage = "I'd like to explore how Business AI Agents can help our workflows.";
+                break;
+            default:
+                prefilledMessage = `I'm interested in learning more about your ${service} service.`;
+        }
+        messageField.value = prefilledMessage;
+    }
+}
+
+// Call prefill on load
+document.addEventListener('DOMContentLoaded', prefillForm);
+
 if (contactForm) {
     contactForm.addEventListener('submit', function (event) {
         event.preventDefault();

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bulk Scanning Services | Henotes Data Dossier</title>
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .service-hero {
+            padding: 140px 0 80px;
+            background: linear-gradient(rgba(1, 15, 64, 0.9), rgba(0, 30, 128, 0.9)), url('images/analysts-banner.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+        }
+
+        .service-content {
+            padding: 80px 0;
+        }
+
+        .scanning-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .scan-card {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 350px;
+            /* Ensure uniform height for centering */
+        }
+
+        .scan-card:hover {
+            border: 2px solid var(--primary);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-5px);
+        }
+
+        .scan-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .cta-box {
+            background: var(--bg-light);
+            padding: 60px;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 60px;
+        }
+    </style>
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="../images/Henotes-loge.png" alt="Henotes Logo">
+                </a>
+            </div>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../about.html">About Henotes</a></li>
+                    <li><a href="../services.html" class="active">Our Services</a></li>
+                    <li><a href="../contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="service-hero">
+        <div class="container">
+            <div class="fade-section">
+                <a href="../services.html" class="back-link"><i class="ri-arrow-left-line"></i> Back to Services</a>
+                <h1>Bulk Scanning Services</h1>
+                <p style="color: #cbd5e1; max-width: 700px; margin: 20px auto 0;">Empowering your workforce with instant
+                    access to historical records while reclaiming physical office space.</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="service-content">
+        <div class="container">
+            <div class="row fade-section text-center">
+                <div class="col" style="max-width: 800px; margin: 0 auto;">
+                    <h2>Digitize Your Legacy Archive</h2>
+                    <p style="font-size: 1.2rem; line-height: 1.8; color: var(--text-light); margin-top: 20px;">
+                        Paper archives can limit your company's agility—they take up space, are difficult to search, and
+                        slow down your workforce. Our Bulk Scanning Services provide a fast, secure way to convert
+                        physical records into searchable digital assets. By digitizing your legacy, you equip your
+                        employees to find information in seconds, allowing your organization to scale without being held
+                        back by physical paperwork.
+                    </p>
+                </div>
+            </div>
+
+            <div class="scanning-grid fade-section">
+                <div class="scan-card">
+                    <i class="ri-printer-line scan-icon"></i>
+                    <h3>High-Speed Digitization</h3>
+                    <p>Professional-grade output for thousands of documents, enabling your staff to access critical data
+                        from anywhere, anytime.</p>
+                </div>
+                <div class="scan-card">
+                    <i class="ri-file-search-line scan-icon"></i>
+                    <h3>Indexing & OCR</h3>
+                    <p>Fully searchable PDF files with custom indexing, reducing hours of manual searching and
+                        increasing team productivity.</p>
+                </div>
+                <div class="scan-card">
+                    <i class="ri-shield-check-line scan-icon"></i>
+                    <h3>Secure Handling</h3>
+                    <p>End-to-end chain of custody ensures your sensitive records are protected as you modernize your
+                        company's operations.</p>
+                </div>
+            </div>
+
+            <div class="cta-box fade-section">
+                <h2>Ready to go paperless?</h2>
+                <p style="margin: 15px 0 30px; color: var(--text-light);">Modernize your records management and reclaim
+                    your physical space.</p>
+                <a href="../contact.html?service=scanning" class="btn btn-primary btn-lg">Get Started Now</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="../images/Henote-Logo-white-blue.png" alt="Henotes Logo" style="width: 150px;">
+                    <p>Building data-capable organisations by focusing on people, process, and practical analytics.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../about.html">About Henotes</a></li>
+                        <li><a href="../services.html">Our Services</a></li>
+                        <li><a href="../contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h4>Connect</h4>
+                    <a href="https://www.linkedin.com/company/henotes-data-dossier/" target="_blank"><i
+                            class="ri-linkedin-box-fill"></i> LinkedIn</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Henotes Data Dossier. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+</body>
+
+</html>

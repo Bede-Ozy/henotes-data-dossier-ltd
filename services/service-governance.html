@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Governance & Strategy | Henotes Data Dossier</title>
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .service-hero {
+            padding: 140px 0 80px;
+            background: linear-gradient(rgba(1, 15, 64, 0.9), rgba(0, 30, 128, 0.9)), url('images/analysts-banner.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+        }
+
+        .service-content {
+            padding: 80px 0;
+        }
+
+        .governance-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            /* Fixed 2 columns */
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .governance-grid {
+                grid-template-columns: 1fr;
+                /* 1 column on mobile */
+            }
+        }
+
+        .gov-card {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: var(--shadow-md);
+            border-left: 5px solid var(--secondary);
+            transition: transform 0.3s ease;
+        }
+
+        .gov-card:hover {
+            transform: scale(1.02);
+        }
+
+        .gov-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .cta-box {
+            background: var(--bg-light);
+            padding: 60px;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 60px;
+        }
+    </style>
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="../images/Henotes-loge.png" alt="Henotes Logo">
+                </a>
+            </div>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../about.html">About Henotes</a></li>
+                    <li><a href="../services.html" class="active">Our Services</a></li>
+                    <li><a href="../contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="service-hero">
+        <div class="container">
+            <div class="fade-section">
+                <a href="../services.html" class="back-link"><i class="ri-arrow-left-line"></i> Back to Services</a>
+                <h1>Data Governance & Strategy</h1>
+                <p style="color: #cbd5e1; max-width: 700px; margin: 20px auto 0;">Ensuring your workforce can trust and
+                    leverage data to scale your company safely.</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="service-content">
+        <div class="container">
+            <div class="row fade-section text-center">
+                <div class="col" style="max-width: 800px; margin: 0 auto;">
+                    <h2>Protect Your Most Valuable Asset</h2>
+                    <p style="font-size: 1.2rem; line-height: 1.8; color: var(--text-light); margin-top: 20px;">
+                        Data is only as good as the trust your people have in it. Our Data Governance & Strategy service
+                        ensures that your information is accurate, compliant, and accessible. We help you establish a
+                        culture of data confidence by defining clear roles and responsibilities, ensuring your workforce
+                        can leverage data to drive long-term growth and trust across the organization.
+                    </p>
+                </div>
+            </div>
+
+            <div class="governance-grid fade-section">
+                <div class="gov-card">
+                    <h3>Data Quality Standards</h3>
+                    <p>Establish clear protocols that empower your staff to maintain high-quality data at every
+                        touchpoint.</p>
+                </div>
+                <div class="gov-card">
+                    <h3>Compliance & Security</h3>
+                    <p>Ensure your workforce's data practices align with regulatory requirements, protecting your
+                        scaling operations.</p>
+                </div>
+                <div class="gov-card">
+                    <h3>Strategic Planning</h3>
+                    <p>Develop a vision for your data that provides a clear roadmap for your team as the company
+                        expands.</p>
+                </div>
+                <div class="gov-card">
+                    <h3>Roles & Responsibility</h3>
+                    <p>Define clear ownership to ensure accountability, clarity, and empowerment for everyone handling
+                        data.</p>
+                </div>
+            </div>
+
+            <div class="cta-box fade-section">
+                <h2>Secure your organization's data future</h2>
+                <p style="margin: 15px 0 30px; color: var(--text-light);">Build a culture of data trust and integrity
+                    that lasts.</p>
+                <a href="../contact.html?service=governance" class="btn btn-primary btn-lg">Get Started Now</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="../images/Henote-Logo-white-blue.png" alt="Henotes Logo" style="width: 150px;">
+                    <p>Building data-capable organisations by focusing on people, process, and practical analytics.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../about.html">About Henotes</a></li>
+                        <li><a href="../services.html">Our Services</a></li>
+                        <li><a href="../contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h4>Connect</h4>
+                    <a href="https://www.linkedin.com/company/henotes-data-dossier/" target="_blank"><i
+                            class="ri-linkedin-box-fill"></i> LinkedIn</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Henotes Data Dossier. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+</body>
+
+</html>

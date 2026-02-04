@@ -9,12 +9,14 @@
     /* Colors */
     --primary: #00c7eb;
     --primary-dark: #00a0bc;
+    --primary-light: #e0faff;
     --secondary: #010f40;
     --accent: #226ff8;
     --text-dark: #0f172a;
     --text-light: #64748b;
     --bg-white: #ffffff;
-    --bg-light: #f8fbff;
+    --bg-light: #f1f5f9;
+    /* Adjusted for better contrast */
     --glass-bg: rgba(255, 255, 255, 0.7);
     --glass-border: rgba(255, 255, 255, 0.5);
 
@@ -23,9 +25,11 @@
     --font-secondary: 'Inter', sans-serif;
 
     /* Shadows */
-    --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 10px 30px -5px rgba(0, 0, 0, 0.08);
-    --shadow-lg: 0 20px 40px -5px rgba(0, 199, 235, 0.15);
+    --shadow-sm: 0 4px 10px -1px rgba(0, 0, 0, 0.08);
+    /* Darkened slightly */
+    --shadow-md: 0 10px 35px -5px rgba(0, 0, 0, 0.12);
+    /* Darkened slightly */
+    --shadow-lg: 0 20px 50px -5px rgba(0, 199, 235, 0.2);
     --shadow-glow: 0 0 20px rgba(0, 199, 235, 0.3);
 }
 
@@ -189,18 +193,31 @@ header {
 .nav-container {
     width: 90%;
     max-width: 1200px;
+    height: 100%;
+    /* Fill navbar height */
     display: flex;
     justify-content: space-between;
     align-items: center;
+    /* Vertically center items in container */
+}
+
+.logo a {
+    display: flex;
+    align-items: center;
+    height: 100%;
 }
 
 .logo img {
-    height: 50px;
+    height: 40px;
+    /* Reduced from 50px */
     width: auto;
+    object-fit: contain;
 }
 
 .nav-links ul {
     display: flex;
+    align-items: center;
+    /* Vertically center items */
     gap: 40px;
 }
 
@@ -209,12 +226,15 @@ header {
     font-weight: 500;
     color: var(--secondary);
     position: relative;
+    padding: 10px 0;
+    /* Add some vertical padding for better hit area */
 }
 
 .nav-links a::after {
     content: '';
     position: absolute;
-    bottom: -5px;
+    bottom: 5px;
+    /* Adjusted from -5px */
     left: 0;
     width: 0;
     height: 2px;
@@ -230,8 +250,12 @@ header {
 .menu-toggle {
     display: none;
     flex-direction: column;
+    justify-content: center;
+    /* Center spansvertically */
     gap: 6px;
     cursor: pointer;
+    height: 30px;
+    /* Give it a fixed height for centering */
 }
 
 .menu-toggle span {
@@ -239,7 +263,20 @@ header {
     height: 3px;
     background: var(--secondary);
     border-radius: 2px;
-    transition: 0.3s;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 6px);
+}
+
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-20px);
+}
+
+.menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -6px);
 }
 
 /* =========================================
@@ -683,6 +720,46 @@ header {
 }
 
 /* =========================================
+   Service Detail Specifics
+   ========================================= */
+
+.service-hero h1 {
+    color: var(--primary) !important;
+    font-size: clamp(3rem, 6vw, 4.5rem);
+    margin-bottom: 1.5rem;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    padding: 10px 15px;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(5px);
+    border-radius: 50px;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+    position: sticky;
+    top: 100px;
+    z-index: 10;
+}
+
+.back-link:hover {
+    transform: translateX(-5px);
+    background: var(--primary);
+    color: white;
+}
+
+.back-link i {
+    font-size: 1.2rem;
+}
+
+/* =========================================
    Footer
    ========================================= */
 
@@ -743,6 +820,8 @@ footer {
 
     .menu-toggle {
         display: flex;
+        align-items: center;
+        /* Center hamburger icon items */
         z-index: 1001;
     }
 
@@ -753,8 +832,10 @@ footer {
         width: 80%;
         height: 100vh;
         background: white;
+        display: flex;
         flex-direction: column;
         justify-content: center;
+        align-items: center;
         transition: 0.4s ease;
         box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
     }
@@ -783,7 +864,38 @@ footer {
     }
 
     .hero-btns {
-        justify-content: center;
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .hero-btns .btn {
+        width: 100%;
+    }
+
+    .about-story-grid {
+        grid-template-columns: 1fr !important;
+        gap: 30px;
+    }
+
+    .story-img-container {
+        padding: 20px !important;
+    }
+
+    .story-text {
+        padding-left: 0 !important;
+        text-align: center;
+    }
+
+    .about-grid-section .card-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .feature-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 30px 20px;
     }
 
     .carousel-slide {

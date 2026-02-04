@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business AI Agents | Henotes Data Dossier</title>
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .service-hero {
+            padding: 140px 0 80px;
+            background: linear-gradient(rgba(1, 15, 64, 0.9), rgba(0, 30, 128, 0.9)), url('images/analysts-banner.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+        }
+
+        .service-content {
+            padding: 80px 0;
+        }
+
+        .ai-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .ai-card {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .ai-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .ai-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+        }
+
+        .ai-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .cta-box {
+            background: var(--bg-light);
+            padding: 60px;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 60px;
+        }
+    </style>
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="../images/Henotes-loge.png" alt="Henotes Logo">
+                </a>
+            </div>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../about.html">About Henotes</a></li>
+                    <li><a href="../services.html" class="active">Our Services</a></li>
+                    <li><a href="../contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="service-hero">
+        <div class="container">
+            <div class="fade-section">
+                <a href="../services.html" class="back-link"><i class="ri-arrow-left-line"></i> Back to Services</a>
+                <h1>Business AI Agents</h1>
+                <p style="color: #cbd5e1; max-width: 700px; margin: 20px auto 0;">Augmenting your workforce capacity
+                    with intelligent agents that automate workflows and enhance business intelligence.</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="service-content">
+        <div class="container">
+            <div class="row fade-section text-center">
+                <div class="col" style="max-width: 800px; margin: 0 auto;">
+                    <h2>Intelligent Automation for Your Team</h2>
+                    <p style="font-size: 1.2rem; line-height: 1.8; color: var(--text-light); margin-top: 20px;">
+                        The future of business efficiency lies in intelligent automation that supports your people. We
+                        don't just provide "tools"; we build custom AI agents that understand your data, follow your
+                        business rules, and execute repetitive tasks with precision. This allows your workforce to focus
+                        on high-value strategy and scaling your business impact, while AI handles the operational heavy
+                        lifting.
+                    </p>
+                </div>
+            </div>
+
+            <div class="ai-grid fade-section">
+                <div class="ai-card">
+                    <h3>Workflow Automation</h3>
+                    <p>Automate multi-step processes, reducing manual errors and freeing up your employees for more
+                        complex, creative work.</p>
+                </div>
+                <div class="ai-card">
+                    <h3>Enriched Intelligence</h3>
+                    <p>AI agents that analyze vast amounts of data to provide your team with strategic alerts and
+                        actionable forecasts.</p>
+                </div>
+                <div class="ai-card">
+                    <h3>Custom LLM Integration</h3>
+                    <p>Deploy private, secure Large Language Models trained on your knowledge, empowering your staff
+                        with instant answers.</p>
+                </div>
+            </div>
+
+            <div class="cta-box fade-section">
+                <h2>Ready to experience the power of AI?</h2>
+                <p style="margin: 15px 0 30px; color: var(--text-light);">Start building your intelligent workforce
+                    today.</p>
+                <a href="../contact.html?service=ai" class="btn btn-primary btn-lg">Get Started Now</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="../images/Henote-Logo-white-blue.png" alt="Henotes Logo" style="width: 150px;">
+                    <p>Building data-capable organisations by focusing on people, process, and practical analytics.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../about.html">About Henotes</a></li>
+                        <li><a href="../services.html">Our Services</a></li>
+                        <li><a href="../contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h4>Connect</h4>
+                    <a href="https://www.linkedin.com/company/henotes-data-dossier/" target="_blank"><i
+                            class="ri-linkedin-box-fill"></i> LinkedIn</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Henotes Data Dossier. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+</body>
+
+</html>
