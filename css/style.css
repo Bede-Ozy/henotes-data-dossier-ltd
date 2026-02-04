@@ -58,6 +58,43 @@ body {
     overflow-x: hidden;
 }
 
+/* =========================================
+   Custom Scrollbar
+   ========================================= */
+
+/* Width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track - Dotted Line Effect */
+::-webkit-scrollbar-track {
+    background: var(--bg-white);
+    background-image: radial-gradient(circle, var(--primary-light) 2px, transparent 2px);
+    background-size: 100% 15px;
+    background-position: center;
+    border-left: 1px solid rgba(0, 199, 235, 0.1);
+}
+
+/* Thumb - Glowing Circular Point */
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 50px;
+    border: 3px solid var(--bg-white);
+    box-shadow: 0 0 15px var(--primary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+    box-shadow: 0 0 20px var(--accent);
+}
+
+/* Firefox Support */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) var(--bg-white);
+}
+
 h1,
 h2,
 h3,
