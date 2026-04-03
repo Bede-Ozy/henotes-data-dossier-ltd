@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JCI Data Analysis Training Guide | Henotes Data Dossier</title>
+    <!-- Website Main Styles -->
+    <link rel="stylesheet" href="../../../css/style.css">
+    <!-- Font Awesome specific to newhenotes styles -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #0a192f;
+            --secondary-color: #3b82f6;
+            --text-color: #4b5563;
+            --bg-color: #f9fbfd;
+            --card-bg: #ffffff;
+            --card-border: #e5e7eb;
+            --accent-light: #eff6ff;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .curriculum-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            background: var(--card-bg);
+            padding: 40px 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-radius: 12px;
+        }
+
+        /* Creative Letterhead */
+        .letterhead {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 4px solid var(--primary-color);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .letterhead-logo img {
+            max-width: 160px;
+            height: auto;
+        }
+
+        .letterhead-text {
+            text-align: right;
+        }
+
+        .letterhead-text h1 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .letterhead-text .tagline {
+            color: var(--secondary-color);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin: 5px 0 0 0;
+            letter-spacing: 0.5px;
+        }
+
+        /* Content Headers */
+        .doc-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .doc-title h2 {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .doc-title p {
+            color: var(--text-color);
+            font-size: 1.1rem;
+        }
+
+        /* Cards Layout */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .session-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .session-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+            border-color: var(--secondary-color);
+        }
+
+        .card-header {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            padding: 16px 20px;
+            border-bottom: 3px solid var(--secondary-color);
+        }
+
+        .card-header h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-header .session-badge {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            width:120px;
+        }
+
+        .card-body {
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        .learning-section {
+            margin-bottom: 15px;
+        }
+
+        .learning-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .section-title i {
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+        }
+
+        .learning-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .learning-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 6px;
+            font-size: 0.95rem;
+            color: var(--text-color);
+        }
+
+        .learning-list li::before {
+            content: "\f0da";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--secondary-color);
+            position: absolute;
+            left: 0;
+            top: 2px;
+            font-size: 0.8rem;
+        }
+        
+        .assignment-box {
+            background-color: var(--accent-light);
+            border-radius: 6px;
+            padding: 12px 15px;
+            margin-top: 15px;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .assignment-title {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .assignment-title i {
+            color: var(--secondary-color);
+        }
+
+        /* Action Buttons */
+        .page-actions {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .btn-print {
+            padding: 12px 28px;
+            font-size: 1.05rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            background-color: var(--primary-color);
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .btn-print:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(10, 25, 47, 0.25);
+            background-color: #0f2545;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            .curriculum-container {
+                padding: 20px;
+                margin: 20px 10px;
+            }
+            .letterhead {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            .letterhead-text {
+                text-align: center;
+            }
+        }
+
+        /* Print Media Quality Optimization */
+        @media print {
+            body {
+                background: white;
+                font-size: 11pt;
+            }
+
+            .curriculum-container {
+                margin: 0;
+                padding: 0;
+                box-shadow: none;
+                max-width: 100%;
+            }
+
+            .page-actions {
+                display: none;
+            }
+
+            .letterhead {
+                border-bottom: 3px solid var(--primary-color);
+                padding-bottom: 10px;
+                margin-bottom: 20px;
+            }
+
+            .doc-title {
+                margin-bottom: 25px;
+            }
+
+            .doc-title h2 {
+                font-size: 1.8rem;
+            }
+
+            .cards-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+
+            .session-card {
+                page-break-inside: avoid;
+                break-inside: avoid;
+                border: 1px solid #cbd5e1;
+                box-shadow: none;
+                margin-bottom: 5px;
+            }
+
+            .card-header {
+                background-color: var(--primary-color) !important;
+                color: #ffffff !important;
+                border-bottom: 2px solid var(--secondary-color) !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                padding: 10px 15px;
+            }
+
+            .card-body {
+                padding: 15px;
+            }
+            
+            .assignment-box {
+                background-color: var(--accent-light) !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                padding: 10px;
+                margin-top: 10px;
+            }
+
+            @page {
+                size: A4 portrait;
+                margin: 1.2cm;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="curriculum-container">
+        <!-- Letterhead Header -->
+        <header class="letterhead">
+            <div class="letterhead-logo">
+                <img src="../../../images/Henotes-loge.png" alt="Henotes Logo" onerror="this.src='../../images/Henotes-loge.png'">
+            </div>
+            <div class="letterhead-text">
+                <h1>Henotes Data Dossier</h1>
+                <p class="tagline">Optimize Your Workforce</p>
+            </div>
+        </header>
+
+        <!-- Document Details -->
+        <div class="doc-title">
+            <h2>Data Analysis Training Guide</h2>
+            <p>JCI Training Program &bull; 1 Month Immersion Curriculum</p>
+            <p style="font-size: 0.95rem; margin-top: 5px; color: var(--secondary-color); font-weight: 500;">
+                <i class="ri-calendar-event-line"></i> A comprehensive journey from Fundamentals to Dashboards
+            </p>
+        </div>
+
+        <!-- Cards Curriculum Layout -->
+        <div class="cards-grid">
+            
+            <!-- Session 1 -->
+            <div class="session-card">
+                <div class="card-header">
+                    <h3><span class="session-badge">Session 1</span> Excel Fundamentals</h3>
+                </div>
+                <div class="card-body">
+                    <div class="learning-section">
+                        <div class="section-title"><i class="ri-focus-2-line"></i> Objectives</div>
+                        <ul class="learning-list">
+                            <li>Understand basic Excel operations and formulas</li>
+                            <li>Calculate SUM, AVERAGE, MIN, MAX</li>
+                            <li>Work with cell referencing</li>
+                            <li>Format data properly</li>
+                        </ul>
+                    </div>
+                    <div class="learning-section" style="margin-top: 15px;">
+                        <div class="section-title"><i class="ri-macbook-line"></i> Classwork</div>
+                        <ul class="learning-list">
+                            <li>Compute TotalPrice</li>
+                            <li>Find highest and lowest sales</li>
+                            <li>Calculate total revenue</li>
+                        </ul>
+                    </div>
+                    <div class="assignment-box">
+                        <div class="assignment-title"><i class="ri-pencil-ruler-2-line"></i> Assignment</div>
+                        <ul class="learning-list" style="font-size: 0.85rem;">
+                            <li>Find average quantity sold</li>
+                            <li>Identify highest transaction</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Session 2 -->
+            <div class="session-card">
+                <div class="card-header">
+                    <h3><span class="session-badge">Session 2</span> Logical Functions</h3>
+                </div>
+                <div class="card-body">
+                    <div class="learning-section">
+                        <div class="section-title"><i class="ri-mind-map"></i> Topics Covered</div>
+                        <ul class="learning-list">
+                            <li>Use IF, AND, OR functions dynamically</li>
+                            <li>Apply SUMIF and COUNTIF for condition-based aggregation</li>
+                            <li>Perform sorting and filtering on datasets</li>
+                        </ul>
+                    </div>
+                    <div class="assignment-box" style="margin-top: auto;">
+                        <div class="assignment-title"><i class="ri-pencil-ruler-2-line"></i> Assignment</div>
+                        <ul class="learning-list" style="font-size: 0.85rem;">
+                            <li>Find most used payment method</li>
+                            <li>Determine top region by sales</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Session 3 -->
+            <div class="session-card">
+                <div class="card-header">
+                    <h3><span class="session-badge">Session 3</span> Data Cleaning</h3>
+                </div>
+                <div class="card-body">
+                    <div class="learning-section">
+                        <div class="section-title"><i class="ri-eraser-line"></i> Topics Covered</div>
+                        <ul class="learning-list">
+                            <li>Use TRIM, PROPER, SUBSTITUTE for text</li>
+                            <li>Remove duplicates to ensure data integrity</li>
+                            <li>Split columns using Text-to-Columns feature</li>
+                            <li>Extract text using LEFT, MID, RIGHT</li>
+                        </ul>
+                    </div>
+                    <div class="assignment-box" style="margin-top: auto;">
+                        <div class="assignment-title"><i class="ri-pencil-ruler-2-line"></i> Assignment</div>
+                        <ul class="learning-list" style="font-size: 0.85rem;">
+                            <li>Clean dataset fully</li>
+                            <li>Extract city, year, and type from codes</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Session 4 -->
+            <div class="session-card">
+                <div class="card-header">
+                    <h3><span class="session-badge">Session 4</span> Power Query</h3>
+                </div>
+                <div class="card-body">
+                    <div class="learning-section">
+                        <div class="section-title"><i class="ri-database-2-line"></i> Topics Covered</div>
+                        <ul class="learning-list">
+                            <li>Import datasets from diverse origins</li>
+                            <li>Transform data robustly using Power Query Editor</li>
+                            <li>Refresh queries efficiently for automated workflows</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Session 5 -->
+            <div class="session-card">
+                <div class="card-header">
+                    <h3><span class="session-badge">Session 5</span> Visualization</h3>
+                </div>
+                <div class="card-body">
+                    <div class="learning-section">
+                        <div class="section-title"><i class="ri-bar-chart-box-line"></i> Topics Covered</div>
+                        <ul class="learning-list">
+                            <li>Create compelling charts and visualizations</li>
+                            <li>Use conditional formatting to highlight variations</li>
+                            <li>Design reports that communicate actionable insights</li>
+                        </ul>
+                    </div>
+                    <div class="assignment-box" style="margin-top: auto;">
+                        <div class="assignment-title"><i class="ri-pencil-ruler-2-line"></i> Assignment</div>
+                        <ul class="learning-list" style="font-size: 0.85rem;">
+                            <li>Build a report with integrated charts</li>
+                            <li>Provide written analytical insights</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Session 6 -->
+            <div class="session-card">
+                <div class="card-header">
+                    <h3><span class="session-badge">Session 6</span> Advanced Formulas</h3>
+                </div>
+                <div class="card-body">
+                    <div class="learning-section">
+                        <div class="section-title"><i class="ri-functions"></i> Topics Covered</div>
+                        <ul class="learning-list">
+                            <li>Master INDEX/MATCH for robust lookups</li>
+                            <li>Utilize SUMIFS, COUNTIFS for multi-criteria analysis</li>
+                            <li>Implement error handling with IFERROR</li>
+                            <li>Optimize analysis workflows with named ranges</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Session 7 -->
+            <div class="session-card">
+                <div class="card-header">
+                    <h3><span class="session-badge">Session 7</span> PivotTables & Dashboards</h3>
+                </div>
+                <div class="card-body">
+                    <div class="learning-section">
+                        <div class="section-title"><i class="ri-layout-masonry-line"></i> Topics Covered</div>
+                        <ul class="learning-list">
+                            <li>Create dynamic PivotTables to model information</li>
+                            <li>Use interactive slicers for rapid data filtering</li>
+                            <li>Design full interactive dashboards</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Session 8 -->
+            <div class="session-card">
+                <div class="card-header">
+                    <h3><span class="session-badge">Session 8</span> Final Project</h3>
+                </div>
+                <div class="card-body">
+                    <div class="learning-section">
+                        <div class="section-title"><i class="ri-flag-2-line"></i> Capstone Workflow</div>
+                        <ul class="learning-list">
+                            <li>Clean the provided raw dataset end-to-end</li>
+                            <li>Analyze data comprehensively using learned methodologies</li>
+                            <li>Build an overarching visual dashboard</li>
+                            <li>Present analytical findings and insights</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div> <!-- End of Cards Grid -->
+
+        <div class="page-actions">
+            <button class="btn-print" onclick="window.print()">
+                <i class="ri-printer-line"></i> Print Curriculum Guide
+            </button>
+        </div>
+
+    </div>
+
+</body>
+</html>

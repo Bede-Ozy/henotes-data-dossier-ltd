@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Data Analysis Tutorial | Henotes Data Dossier</title>
+    
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom Style -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Overlay for mobile sidebar -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="ri-bar-chart-box-line"></i> Data Tutorial</h2>
+                <button class="close-sidebar-btn" id="closeSidebarBtn">
+                    <i class="ri-close-line"></i>
+                </button>
+            </div>
+            <div class="progress-container">
+                <div class="progress-text" id="progressText">Session 1 of 8</div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="progressBar"></div>
+                </div>
+            </div>
+            <nav class="sidebar-nav" id="sidebarNav">
+                <!-- Dynamically populated or statically defined -->
+                <a href="#" class="nav-link active" data-session="1">
+                    <i class="ri-table-2"></i> Session 1: Excel Fundamentals
+                </a>
+                <a href="#" class="nav-link" data-session="2">
+                    <i class="ri-function-line"></i> Session 2: Logical Functions
+                </a>
+                <a href="#" class="nav-link" data-session="3">
+                    <i class="ri-eraser-line"></i> Session 3: Data Cleaning
+                </a>
+                <a href="#" class="nav-link" data-session="4">
+                    <i class="ri-database-2-line"></i> Session 4: Power Query
+                </a>
+                <a href="#" class="nav-link" data-session="5">
+                    <i class="ri-pie-chart-line"></i> Session 5: Visualization
+                </a>
+                <a href="#" class="nav-link" data-session="6">
+                    <i class="ri-formula"></i> Session 6: Advanced Formulas
+                </a>
+                <a href="#" class="nav-link" data-session="7">
+                    <i class="ri-layout-masonry-line"></i> Session 7: PivotTables
+                </a>
+                <a href="#" class="nav-link" data-session="8">
+                    <i class="ri-flag-2-line"></i> Session 8: Final Project
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <p>Henotes Data Dossier</p>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Header for mobile toggle -->
+            <header class="mobile-header">
+                <button class="toggle-sidebar-btn" id="toggleSidebarBtn">
+                    <i class="ri-menu-line"></i>
+                </button>
+                <h3>Interactive Tutorial</h3>
+            </header>
+
+            <div class="content-wrapper">
+                <!-- Data View (Sticky Top or above content) -->
+                <section class="data-preview-section" id="dataPreviewSection">
+                    <div class="section-header">
+                        <h4><i class="ri-database-line"></i> Sample Dataset Overview</h4>
+                        <button id="toggleDataBtn" class="btn-sm btn-outline">Hide Data</button>
+                    </div>
+                    <div class="table-container" id="dataTableContainer">
+                        <!-- Table injected by JS -->
+                    </div>
+                </section>
+
+                <!-- Dynamic Session Content Injected Here -->
+                <section class="session-content" id="sessionContentArea">
+                    <!-- Session HTML mapped by JS goes here -->
+                </section>
+                
+                <!-- Bottom Navigation -->
+                <div class="bottom-nav">
+                    <button id="prevBtn" class="nav-btn" disabled><i class="ri-arrow-left-s-line"></i> Previous</button>
+                    <button id="nextBtn" class="nav-btn">Next <i class="ri-arrow-right-s-line"></i></button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/sessions.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

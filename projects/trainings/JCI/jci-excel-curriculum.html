@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JCI Excel Data Analysis Curriculum | Henotes Data Dossier</title>
+    <!-- Website Main Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Font Awesome specific to newhenotes styles -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Specific Page Enhancements */
+        body {
+            background-color: #f9fbfd;
+        }
+
+        .curriculum-container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: #ffffff;
+            padding: 40px 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-radius: 12px;
+        }
+
+        /* Creative Letterhead */
+        .letterhead {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 4px solid var(--primary-color, #0a192f);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .letterhead-logo img {
+            max-width: 160px;
+            height: auto;
+        }
+
+        .letterhead-text {
+            text-align: right;
+        }
+
+        .letterhead-text h1 {
+            color: var(--primary-color, #0a192f);
+            font-size: 1.8rem;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .letterhead-text .tagline {
+            color: var(--secondary-color, #3b82f6);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin: 5px 0 0 0;
+            letter-spacing: 0.5px;
+        }
+
+        /* Content Headers */
+        .doc-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .doc-title h2 {
+            font-size: 2.2rem;
+            color: var(--primary-color, #0a192f);
+            margin-bottom: 10px;
+        }
+        
+        .doc-title p {
+            color: var(--text-color, #4b5563);
+            font-size: 1.1rem;
+        }
+
+        /* Content Table */
+        .curriculum-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        .curriculum-table th, .curriculum-table td {
+            text-align: left;
+            padding: 14px 18px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .curriculum-table th {
+            background-color: var(--primary-color, #0a192f);
+            color: #ffffff;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        .curriculum-table th:first-child {
+            border-top-left-radius: 8px;
+        }
+        
+        .curriculum-table th:last-child {
+            border-top-right-radius: 8px;
+        }
+
+        .curriculum-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .curriculum-table tbody tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        .curriculum-table td.session-col {
+            font-weight: 600;
+            color: var(--secondary-color, #3b82f6);
+            white-space: nowrap;
+        }
+
+        .curriculum-table td.date-col {
+            font-weight: 500;
+            color: var(--primary-color, #0a192f);
+            white-space: nowrap;
+        }
+
+        .curriculum-table td.time-col {
+            font-weight: 500;
+            color: var(--text-color, #4b5563);
+            white-space: nowrap;
+        }
+
+        /* Action Buttons */
+        .page-actions {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .btn-print {
+            padding: 12px 24px;
+            font-size: 1rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            background-color: var(--primary-color, #0a192f);
+            color: #fff;
+        }
+
+        .btn-print:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(10, 25, 47, 0.2);
+        }
+
+        /* Print Media Defaults */
+        @media print {
+            body {
+                background: white;
+                font-size: 11pt; /* Better for print readability */
+            }
+
+            .curriculum-container {
+                margin: 0;
+                padding: 0;
+                box-shadow: none;
+                max-width: 100%;
+            }
+
+            .page-actions {
+                display: none;
+            }
+
+            .letterhead {
+                border-bottom: 2px solid var(--primary-color, #0a192f);
+                padding-bottom: 10px;
+                margin-bottom: 20px;
+            }
+
+            .doc-title {
+                margin-bottom: 20px;
+            }
+
+            .doc-title h2 {
+                font-size: 1.8rem;
+            }
+
+            .curriculum-table {
+                font-size: 10pt;
+            }
+
+            .curriculum-table th, .curriculum-table td {
+                padding: 10px 12px;
+                border: 1px solid #e5e7eb;
+            }
+            
+            .curriculum-table th {
+                background-color: #f1f5f9 !important;
+                color: black !important; /* Optional if printer lacks color */
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            /* Prevent rows from breaking across pages */
+            .curriculum-table tr {
+                page-break-inside: avoid;
+            }
+            
+            @page {
+                size: A4 portrait;
+                margin: 1.5cm;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="curriculum-container">
+        <!-- Letterhead Header -->
+        <header class="letterhead">
+            <div class="letterhead-logo">
+                <img src="images/Henotes-loge.png" alt="Henotes Logo">
+            </div>
+            <div class="letterhead-text">
+                <h1>Henotes Data Dossier</h1>
+                <p class="tagline">Optimize Your Workforce</p>
+            </div>
+        </header>
+
+        <!-- Document Details -->
+        <div class="doc-title">
+            <h2>Excel Data Analysis Curriculum</h2>
+            <p>JCI Training Program &bull; Quick Reference Guide</p>
+            <p style="font-size: 0.95rem; margin-top: 5px; color: var(--secondary-color, #3b82f6); font-weight: 500;">
+                <i class="ri-time-line"></i> Each session is 1 hour 30 minutes
+            </p>
+        </div>
+
+        <!-- Curriculum Content -->
+        <div class="table-responsive">
+            <table class="curriculum-table">
+                <thead>
+                    <tr>
+                        <th>Session</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Learning Objectives</th>
+                        <th>Topics Covered</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="session-col">Session 1</td>
+                        <td class="date-col">4 April</td>
+                        <td class="time-col">10:00 AM</td>
+                        <td>Excel Fundamentals – navigation, data entry, formatting, basic formulas</td>
+                        <td>Ribbon, tabs, formatting, SUM, AVERAGE, MIN, MAX, referencing</td>
+                    </tr>
+                    <tr>
+                        <td class="session-col">Session 2</td>
+                        <td class="date-col">4 April</td>
+                        <td class="time-col">1:00 PM</td>
+                        <td>Data organisation, logical functions, validation, sorting/filtering</td>
+                        <td>IF, AND, OR, SUMIF, COUNTIF, validation lists, sorting, filtering</td>
+                    </tr>
+                    <tr>
+                        <td class="session-col">Session 3</td>
+                        <td class="date-col">11 April</td>
+                        <td class="time-col">10:00 AM</td>
+                        <td>Data cleaning and preparation techniques</td>
+                        <td>Import CSV, Text-to-Columns, TRIM, PROPER, SUBSTITUTE, remove duplicates</td>
+                    </tr>
+                    <tr>
+                        <td class="session-col">Session 4</td>
+                        <td class="date-col">11 April</td>
+                        <td class="time-col">1:00 PM</td>
+                        <td>Introduction to Power Query for data transformation</td>
+                        <td>Connect data sources, remove errors, merge/append, refresh queries</td>
+                    </tr>
+                    <tr>
+                        <td class="session-col">Session 5</td>
+                        <td class="date-col">18 April</td>
+                        <td class="time-col">10:00 AM</td>
+                        <td>Data visualisation and reporting</td>
+                        <td>Charts, sparklines, conditional formatting, report layout</td>
+                    </tr>
+                    <tr>
+                        <td class="session-col">Session 6</td>
+                        <td class="date-col">18 April</td>
+                        <td class="time-col">1:00 PM</td>
+                        <td>Advanced formulas and multi-condition analysis</td>
+                        <td>INDEX/MATCH, SUMIFS, COUNTIFS, IFERROR, named ranges</td>
+                    </tr>
+                    <tr>
+                        <td class="session-col">Session 7</td>
+                        <td class="date-col">25 April</td>
+                        <td class="time-col">10:00 AM</td>
+                        <td>PivotTables and dashboards</td>
+                        <td>PivotTables, grouping, PivotCharts, slicers, dashboard layout</td>
+                    </tr>
+                    <tr>
+                        <td class="session-col">Session 8</td>
+                        <td class="date-col">2 May</td>
+                        <td class="time-col">10:00 AM</td>
+                        <td>Full data analysis case study</td>
+                        <td>Cleaning → transforming → analysing → reporting workflow</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="page-actions">
+            <button class="btn-print" onclick="window.print()">
+                <i class="ri-printer-line"></i> Print Curriculum
+            </button>
+        </div>
+
+    </div>
+
+</body>
+</html>
