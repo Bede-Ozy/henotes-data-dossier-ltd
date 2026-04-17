@@ -61,11 +61,11 @@ const headerMap = {
  * Renders the HTML table into the designated container
  */
 function renderTable() {
-    const container = document.getElementById('dataTableContainer');
-    if (!container) return;
+    const containers = document.querySelectorAll('.sync-data-table, #dataTableContainer');
+    if (!containers || containers.length === 0) return;
 
     if (currentDataState.length === 0) {
-        container.innerHTML = '<p class="text-muted">No data available.</p>';
+        containers.forEach(c => c.innerHTML = '<p class="text-muted">No data available.</p>');
         return;
     }
 
@@ -94,14 +94,16 @@ function renderTable() {
 
     // Generate Rows
     currentDataState.forEach((row, index) => {
-        tableHTML += `<tr id="row-${index}">
+        tableHTML += `<tr data-row-index="${index}">
             <td style="text-align: center; background: #F8FAFC; color: #475569; font-weight: 600; border-right: 1px solid var(--border-color);">${index + 2}</td>
             ${keys.map(key => `<td data-key="${key}">${row[key]}</td>`).join('')}
         </tr>`;
     });
 
     tableHTML += `</tbody></table>`;
-    container.innerHTML = tableHTML;
+    containers.forEach(container => {
+        container.innerHTML = tableHTML;
+    });
 }
 
 /**
@@ -146,8 +148,9 @@ function highlightRows(indices) {
 
     if (indices && indices.length > 0) {
         indices.forEach(index => {
-            const row = document.getElementById(`row-${index}`);
-            if (row) row.classList.add('highlight-row');
+            document.querySelectorAll(`tr[data-row-index="${index}"]`).forEach(row => {
+                row.classList.add('highlight-row');
+            });
         });
     }
 }

@@ -35,12 +35,17 @@ document.addEventListener('DOMContentLoaded', () => {
     function loadSession(sessionNumber) {
         if (!window.sessionsData[sessionNumber]) return;
 
-        // Reset the data table if it was filtered by a previous session's logic
         if (typeof resetData === 'function') {
             resetData();
         }
 
         const sessionObj = window.sessionsData[sessionNumber];
+
+        // Manage global data preview section visibility (Session 1 hides it)
+        const globalDataPreview = document.getElementById('dataPreviewSection');
+        if (globalDataPreview) {
+            globalDataPreview.style.display = sessionNumber === 1 ? 'none' : 'block';
+        }
 
         // Ensure smooth fade in animation triggers
         sessionContentArea.style.animation = 'none';
