@@ -42,19 +42,29 @@ const sessionsData = {
             </div>
 
             <div class="interactive-zone" style="margin-bottom: 30px;">
-                <h3 class="interactive-header"><i class="ri-links-line"></i> Cell Referencing</h3>
+                <h3 class="interactive-header"><i class="ri-links-line"></i> Cell Referencing Techniques</h3>
                 <div class="explanation" style="margin-bottom: 15px;">
-                    <p>Referencing allows formulas to dynamically use values from other cells. <em>Relative</em> references change when copied, while <em>Absolute</em> references (using the <code>$</code> sign, like <code>$H$2</code>) stay locked to a specific cell no matter where you copy the formula.</p>
+                    <p>Referencing allows formulas to dynamically use values from other cells. The <code>$</code> (dollar sign) acts as a lock. It locks whatever is immediately to its right.</p>
+                    <ul style="margin-left: 20px; font-size: 0.95em; line-height: 1.6;">
+                        <li><strong>Relative Reference (<code>A1</code>):</strong> Unlocked. Dragging down changes the row (A2, A3). Dragging right changes the column (B1, C1).</li>
+                        <li><strong>Absolute Reference (<code>$A$1</code>):</strong> Fully locked. Locks the column (A) and row (1). Does not change no matter where you copy it.</li>
+                        <li><strong>Mixed Reference - Lock Column (<code>$A1</code>):</strong> Locks the column so it never moves from A. The row is free to change.</li>
+                        <li><strong>Mixed Reference - Lock Row (<code>A$1</code>):</strong> Locks the row so it never moves from 1. The column is free to change.</li>
+                    </ul>
+                    <p class="text-muted" style="margin-top: 10px; font-size: 0.9em;"><i class="ri-information-fill"></i> <strong>Pro Tip:</strong> Pressing <code>F4</code> on your keyboard while typing a formula quickly cycles through these reference types (A1 → $A$1 → A$1 → $A1).</p>
                 </div>
                 
                 <div class="sync-data-table table-container" style="max-height: 250px; overflow-y: auto; margin-bottom: 15px; font-size: 0.9em; box-shadow: none; border: 1px solid var(--border-color);"></div>
                 
                 <div class="actions-row">
-                    <button class="btn-action btn-success" id="s1-btn-ref"><i class="ri-focus-3-line"></i> Understand Absolute Referencing</button>
+                    <button class="btn-action btn-outline" id="s1-btn-ref-rel"><i class="ri-arrow-right-down-line"></i> Simulate A1</button>
+                    <button class="btn-action btn-outline" id="s1-btn-ref-abs"><i class="ri-lock-2-line"></i> Simulate $A$1</button>
+                    <button class="btn-action btn-outline" id="s1-btn-ref-mixcol"><i class="ri-pushpin-line"></i> Simulate $A1</button>
+                    <button class="btn-action btn-outline" id="s1-btn-ref-mixrow"><i class="ri-pushpin-line"></i> Simulate A$1</button>
                 </div>
 
                 <div class="result-box empty" id="s1-res-ref">
-                    Click to simulate referencing a cell.
+                    Select a referencing type above to see how it behaves when copied across cells!
                 </div>
             </div>
 
@@ -182,14 +192,57 @@ const sessionsData = {
             });
 
             // REFERENCING
-            document.getElementById('s1-btn-ref').addEventListener('click', () => {
-                document.getElementById('s1-res-ref').innerHTML = `
-                    <strong>Visualizing Absolute Reference:</strong> Locking cell H2.<br>
-                    <div style="margin-top:10px; padding:12px; background:#EFF6FF; border-left:4px solid var(--secondary-color); border-radius:4px; font-size:0.95rem;">
-                        <em>Explanation:</em> If you write <code>=H2 * $I$1</code> and drag it down the rows, it becomes <code>=H3 * $I$1</code>. The H reference moves, but the I1 reference stays locked!
+            const refRes = document.getElementById('s1-res-ref');
+            
+            document.getElementById('s1-btn-ref-rel').addEventListener('click', () => {
+                refRes.className = "result-box"; refRes.style.backgroundColor = "#EFF6FF"; refRes.style.borderColor = "var(--secondary-color)";
+                refRes.innerHTML = `
+                    <strong>Relative Reference (<code>=F2</code>):</strong> <br>
+                    <div style="margin-top:10px; font-size:0.95rem; line-height:1.6;">
+                        Formula starts at <code>=F2</code>. <br>
+                        Dragged 1 cell DOWN: it becomes <code>=F3</code>. <em>(Row increases)</em><br>
+                        Dragged 1 cell RIGHT: it becomes <code>=G2</code>. <em>(Column increases)</em>
                     </div>
                 `;
-                highlightColumn('totalPrice');
+            });
+
+            document.getElementById('s1-btn-ref-abs').addEventListener('click', () => {
+                refRes.className = "result-box"; refRes.style.backgroundColor = "#EFF6FF"; refRes.style.borderColor = "var(--secondary-color)";
+                refRes.innerHTML = `
+                    <strong>Absolute Reference (<code>=$F$2</code>):</strong> <br>
+                    <div style="margin-top:10px; font-size:0.95rem; line-height:1.6;">
+                        Formula starts at <code>=$F$2</code>. <br>
+                        Dragged 1 cell DOWN: it stays <code>=$F$2</code>.<br>
+                        Dragged 1 cell RIGHT: it stays <code>=$F$2</code>.<br>
+                        <strong>Use Case:</strong> Multiplying all Sales by a fixed 5% VAT rate stored in a specific cell.
+                    </div>
+                `;
+            });
+
+            document.getElementById('s1-btn-ref-mixcol').addEventListener('click', () => {
+                refRes.className = "result-box"; refRes.style.backgroundColor = "#EFF6FF"; refRes.style.borderColor = "var(--secondary-color)";
+                refRes.innerHTML = `
+                    <strong>Locking the Column (<code>=$F2</code>):</strong> <br>
+                    <div style="margin-top:10px; font-size:0.95rem; line-height:1.6;">
+                        Formula starts at <code>=$F2</code>. <br>
+                        Dragged 1 cell DOWN: it becomes <code>=$F3</code>. <em>(Row moves freely)</em><br>
+                        Dragged 1 cell RIGHT: it stays <code>=$F2</code>. <strong>(Column F is locked!)</strong><br>
+                        <strong>Use Case:</strong> Referencing a column of ID numbers while dragging formulas across different metric columns.
+                    </div>
+                `;
+            });
+
+            document.getElementById('s1-btn-ref-mixrow').addEventListener('click', () => {
+                refRes.className = "result-box"; refRes.style.backgroundColor = "#EFF6FF"; refRes.style.borderColor = "var(--secondary-color)";
+                refRes.innerHTML = `
+                    <strong>Locking the Row (<code>=F$2</code>):</strong> <br>
+                    <div style="margin-top:10px; font-size:0.95rem; line-height:1.6;">
+                        Formula starts at <code>=F$2</code>. <br>
+                        Dragged 1 cell DOWN: it stays <code>=F$2</code>. <strong>(Row 2 is locked!)</strong><br>
+                        Dragged 1 cell RIGHT: it becomes <code>=G$2</code>. <em>(Column moves freely)</em><br>
+                        <strong>Use Case:</strong> Referencing a row of Monthly headers while dragging formulas down through various categories.
+                    </div>
+                `;
             });
 
             // SUM
