@@ -59,6 +59,13 @@
                     <i class="ri-flag-2-line"></i> Session 8: Final Project
                 </a>
             </nav>
+            
+            <div class="sidebar-resources" style="padding: 20px; border-top: 1px solid var(--border-color);">
+                <h4 style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Resources</h4>
+                <a href="training_dataset.csv" download class="btn-action" style="width: 100%; text-decoration: none; justify-content: center;">
+                    <i class="ri-download-cloud-2-line"></i> Practice File
+                </a>
+            </div>
             <div class="sidebar-footer">
                 <p>Henotes Data Dossier</p>
             </div>
@@ -79,7 +86,10 @@
                 <section class="data-preview-section" id="dataPreviewSection">
                     <div class="section-header">
                         <h4><i class="ri-database-line"></i> Sample Dataset Overview</h4>
-                        <button id="toggleDataBtn" class="btn-sm btn-outline">Hide Data</button>
+                        <div style="display: flex; gap: 10px;">
+                            <a href="training_dataset.csv" download class="btn-outline" style="text-decoration: none; display: flex; align-items: center; gap: 5px;"><i class="ri-download-line"></i> Download Dataset</a>
+                            <button id="toggleDataBtn" class="btn-sm btn-outline">Hide Data</button>
+                        </div>
                     </div>
                     <div class="table-container" id="dataTableContainer">
                         <!-- Table injected by JS -->

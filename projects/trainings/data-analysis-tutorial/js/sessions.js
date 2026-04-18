@@ -168,9 +168,9 @@ const sessionsData = {
                 renderTable();
             }
 
-            // Hide the global datatable for this session only
+            // Ensure the global data table is visible
             const globalData = document.getElementById('dataPreviewSection');
-            if (globalData) globalData.style.display = 'none';
+            if (globalData) globalData.style.display = 'block';
 
             // FORMATTING
             document.getElementById('s1-btn-format').addEventListener('click', () => {

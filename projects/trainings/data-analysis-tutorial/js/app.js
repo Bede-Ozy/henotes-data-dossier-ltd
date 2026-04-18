@@ -41,10 +41,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const sessionObj = window.sessionsData[sessionNumber];
 
-        // Manage global data preview section visibility (Session 1 hides it)
+        // Manage global data preview section visibility (Always show to allow dataset download)
         const globalDataPreview = document.getElementById('dataPreviewSection');
         if (globalDataPreview) {
-            globalDataPreview.style.display = sessionNumber === 1 ? 'none' : 'block';
+            globalDataPreview.style.display = 'block';
         }
 
         // Ensure smooth fade in animation triggers
