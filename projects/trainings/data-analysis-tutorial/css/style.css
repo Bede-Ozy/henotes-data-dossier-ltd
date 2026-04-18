@@ -34,7 +34,6 @@ body {
 .app-container {
     display: flex;
     min-height: 100vh;
-    overflow: hidden;
 }
 
 /* Sidebar Styles */
@@ -203,7 +202,9 @@ body {
 .section-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
 .section-header h4 {
@@ -564,5 +565,34 @@ tbody tr:hover {
     
     .session-content {
         padding: 20px;
+    }
+    
+    .interactive-zone {
+        padding: 15px;
+    }
+    
+    .interactive-zone div[style*="display: flex"] {
+        flex-direction: column !important;
+        width: 100%;
+    }
+    
+    .explanation, .result-box, p, .assignment-box {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        word-break: break-word;
+    }
+    
+    .input-control {
+        max-width: 100%;
+    }
+    
+    .btn-action, .nav-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .bottom-nav {
+        flex-direction: column;
+        gap: 15px;
     }
 }
