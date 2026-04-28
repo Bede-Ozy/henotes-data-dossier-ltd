@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JCI Quiz Admin Dashboard</title>
+    
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <!-- Custom CSS (Reusing some styles) -->
+    <link rel="stylesheet" href="css/quiz.css">
+    
+    <style>
+        body {
+            display: block;
+            padding: 40px;
+            overflow-y: auto;
+        }
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .stat-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 24px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-glow);
+            margin-top: 10px;
+        }
+        .results-table-container {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+        th {
+            background: #1c2128;
+            padding: 16px;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+        td {
+            padding: 16px;
+            border-top: 1px solid var(--border);
+        }
+        tr:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .badge-score {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 700;
+            background: var(--border);
+        }
+        .score-high { color: #3fb950; }
+        .score-mid { color: #d29922; }
+        .score-low { color: #f85149; }
+
+        #loginOverlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-dark);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Login UI Overlay -->
+    <div id="loginOverlay">
+        <div class="quiz-container" style="max-width: 400px;">
+            <div class="quiz-header">
+                <h1>Admin Login</h1>
+                <p>Enter your Firebase admin credentials</p>
+            </div>
+            <div class="form-group">
+                <label>Admin Email</label>
+                <input type="email" id="adminEmail" class="input-field" placeholder="email@example.com">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="adminPass" class="input-field" placeholder="••••••••">
+            </div>
+            <button id="loginBtn" class="btn-primary">Sign In</button>
+        </div>
+    </div>
+
+    <!-- Main Dashboard UI -->
+    <div class="dashboard-content hidden" id="mainContent">
+        <div class="dashboard-header">
+            <div>
+                <h1>JCI Training Dashboard</h1>
+                <p class="text-muted">Real-time performance tracking</p>
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <button id="downloadCsv" class="btn-primary" style="width: auto; padding: 10px 20px; background: var(--border);">
+                    <i class="ri-download-2-line"></i> Export CSV
+                </button>
+                <button id="logoutBtn" class="btn-primary" style="width: auto; padding: 10px 20px; background: var(--error);">
+                    <i class="ri-logout-box-line"></i> Logout
+                </button>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <p class="text-muted">Total Participants</p>
+                <div id="statTotal" class="stat-value">0</div>
+            </div>
+            <div class="stat-card">
+                <p class="text-muted">Average Score</p>
+                <div id="statAvg" class="stat-value">0</div>
+            </div>
+            <div class="stat-card">
+                <p class="text-muted">Highest Score</p>
+                <div id="statMax" class="stat-value">0</div>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 40px;">
+            <h2 style="margin-bottom: 20px;"><i class="ri-trophy-line" style="color: #f6e05e;"></i> Top Performers</h2>
+            <div id="leaderboardGrid" class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+                <!-- Leaderboard cards injected here -->
+            </div>
+        </div>
+
+        <div class="results-table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Participant Name</th>
+                        <th>Location</th>
+                        <th>Score</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody id="resultsTableBody">
+                    <!-- Data injected here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script type="module">
+        import { collection, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { db, auth } from "./js/firebase-config.js";
+
+        const loginBtn = document.getElementById('loginBtn');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const overlay = document.getElementById('loginOverlay');
+        const mainContent = document.getElementById('mainContent');
+
+        // Monitor Auth State
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                overlay.style.display = 'none';
+                mainContent.classList.remove('hidden');
+                loadData();
+            } else {
+                overlay.style.display = 'flex';
+                mainContent.classList.add('hidden');
+            }
+        });
+
+        // Handle Login
+        loginBtn.addEventListener('click', async () => {
+            const email = document.getElementById('adminEmail').value;
+            const pass = document.getElementById('adminPass').value;
+            try {
+                await signInWithEmailAndPassword(auth, email, pass);
+            } catch (error) {
+                alert("Login failed: " + error.message);
+            }
+        });
+
+        // Handle Logout
+        logoutBtn.addEventListener('click', () => signOut(auth));
+
+        // Load Results
+        let allResults = [];
+        function loadData() {
+            const q = query(collection(db, "quiz_results"), orderBy("timestamp", "desc"));
+            onSnapshot(q, (snapshot) => {
+                const tableBody = document.getElementById('resultsTableBody');
+                tableBody.innerHTML = '';
+                allResults = [];
+                let totalScore = 0;
+                let maxScore = 0;
+                
+                snapshot.forEach((doc) => {
+                    const data = doc.data();
+                    allResults.push(data);
+                    const timestamp = data.timestamp?.toDate() || new Date();
+                    totalScore += data.score;
+                    if (data.score > maxScore) maxScore = data.score;
+
+                    const row = document.createElement('tr');
+                    const scoreClass = data.score >= 15 ? 'score-high' : (data.score >= 10 ? 'score-mid' : 'score-low');
+                    row.innerHTML = `
+                        <td style="font-weight:600;">${data.name}</td>
+                        <td class="text-muted">${data.location}</td>
+                        <td><span class="badge-score ${scoreClass}">${data.score} / ${data.total}</span></td>
+                        <td class="text-muted">${timestamp.toLocaleDateString()}</td>
+                        <td class="text-muted">${timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+
+                document.getElementById('statTotal').innerText = snapshot.size;
+                document.getElementById('statAvg').innerText = snapshot.size > 0 ? (totalScore / snapshot.size).toFixed(1) : 0;
+                document.getElementById('statMax').innerText = maxScore;
+
+                // Update Leaderboard (Top 5)
+                const leaderboardGrid = document.getElementById('leaderboardGrid');
+                leaderboardGrid.innerHTML = '';
+                
+                const topPerformers = [...allResults]
+                    .sort((a, b) => {
+                        if (b.score !== a.score) return b.score - a.score;
+                        return a.timestamp?.toMillis() - b.timestamp?.toMillis();
+                    })
+                    .slice(0, 5);
+
+                topPerformers.forEach((p, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'stat-card animate-in';
+                    card.style.animationDelay = `${index * 0.1}s`;
+                    card.style.borderTop = `4px solid ${index === 0 ? '#f6e05e' : (index === 1 ? '#a0aec0' : (index === 2 ? '#ed8936' : 'var(--border)'))}`;
+                    
+                    card.innerHTML = `
+                        <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 5px;">
+                            #${index + 1} Rank
+                        </div>
+                        <div style="font-weight: 800; font-size: 1.1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                            ${p.name}
+                        </div>
+                        <div class="stat-value" style="font-size: 1.8rem; margin-top: 5px;">
+                            ${p.score}<span style="font-size: 0.9rem; color: var(--text-muted);">/20</span>
+                        </div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 5px;">
+                            ${p.location}
+                        </div>
+                    `;
+                    leaderboardGrid.appendChild(card);
+                });
+            });
+        }
+
+        // CSV Export
+        document.getElementById('downloadCsv').addEventListener('click', () => {
+            if (allResults.length === 0) return;
+            const headers = ["Name", "Location", "Score", "Total", "Date"];
+            const csvRows = [headers.join(',')];
+            allResults.forEach(r => {
+                const date = r.timestamp?.toDate().toLocaleDateString() || "";
+                csvRows.push([`"${r.name}"`, `"${r.location}"`, r.score, r.total, date].join(','));
+            });
+            const csvContent = "data:text/csv;charset=utf-8," + csvRows.join("\n");
+            const link = document.createElement("a");
+            link.setAttribute("href", encodeURI(csvContent));
+            link.setAttribute("download", `jci_quiz_results.csv`);
+            link.click();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JCI Data Analysis Quiz | Henotes</title>
+    
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/quiz.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="quiz-container">
+        <!-- 1. Registration Phase -->
+        <div id="registrationForm" class="animate-in">
+            <div class="quiz-header">
+                <h1>JCI Training Quiz</h1>
+                <p>Sessions 1 - 4: Excel & Data Analysis Fundamentals</p>
+            </div>
+            
+            <div class="form-group">
+                <label for="userName">Full Name</label>
+                <input type="text" id="userName" class="input-field" placeholder="Enter your full name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="userLocation">Location</label>
+                <input type="text" id="userLocation" class="input-field" placeholder="e.g. Lagos, Abuja, Kano" required>
+            </div>
+            
+            <button id="startBtn" class="btn-primary">
+                Start Quiz <i class="ri-arrow-right-line"></i>
+            </button>
+            
+            <p style="margin-top: 20px; font-size: 0.85rem; text-align: center; color: var(--text-muted);">
+                <i class="ri-information-line"></i> Your results will be saved to your name upon completion.
+            </p>
+        </div>
+
+        <!-- 2. Quiz Phase -->
+        <div id="quizInterface" class="hidden">
+            <div class="progress-container">
+                <div id="progressBar" class="progress-bar"></div>
+            </div>
+            
+            <div id="questionCounter" style="margin-bottom: 10px; font-size: 0.9rem; color: var(--text-muted); font-weight: 600;"></div>
+            
+            <div id="questionContainer">
+                <!-- Injected via JS -->
+            </div>
+            
+            <div style="margin-top: 30px; display: flex; justify-content: space-between; align-items: center;">
+                <button id="backBtn" class="btn-primary hidden" style="width: auto; padding: 12px 30px; background: var(--border);">
+                    <i class="ri-arrow-left-s-line"></i> Back
+                </button>
+                <button id="nextBtn" class="btn-primary" style="width: auto; padding: 12px 30px;">
+                    Next <i class="ri-arrow-right-s-line"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- 3. Results Phase -->
+        <div id="resultsSection" class="hidden text-center animate-in" style="text-align: center;">
+            <div class="quiz-header">
+                <h1>Quiz Completed!</h1>
+                <p>Excellent effort. Here is your performance summary.</p>
+            </div>
+            
+            <div class="result-circle">
+                <span id="finalScore" class="result-score">0</span>
+                <span class="result-total">/ <span id="totalQuestions">20</span></span>
+            </div>
+            
+            <div style="margin-bottom: 30px;">
+                <h3 id="resultMessage" style="color: var(--secondary-glow); margin-bottom: 10px;">Great Job!</h3>
+                <p class="text-muted">Your score has been securely saved to the database.</p>
+            </div>
+            
+            <button id="viewAnswersBtn" class="btn-primary" style="background: var(--border);">
+                View Detailed Answers <i class="ri-eye-line"></i>
+            </button>
+
+            <!-- Detailed Review -->
+            <div id="reviewContainer" class="review-section hidden">
+                <h2 style="margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--border);">Review Answers</h2>
+                <div id="reviewList">
+                    <!-- Injected via JS -->
+                </div>
+                
+                <button onclick="location.reload()" class="btn-primary" style="margin-top: 30px; background: var(--border);">
+                    Retake Quiz <i class="ri-refresh-line"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quiz Logic (Now as a Module) -->
+    <script type="module" src="js/quiz.js"></script>
+</body>
+</html>
