@@ -126,7 +126,438 @@ const quizQuestions = [
         options: ["Moving data to a database", "Downloading data from the internet", "Cleaning, reformatting, and preparing the data", "Deleting the data"],
         correct: 2,
         explanation: "Transforming is where you fix the 'garbage' in your data before loading it for analysis."
+    },
+
+    {
+        question: "What is the intersection of a row and a column in Excel called?",
+        options: ["Sheet", "Cell", "Range", "Table"],
+        correct: 1,
+        explanation: "A cell is formed where a row and a column meet."
+    },
+    {
+        question: "What is the default file extension for modern Excel workbooks?",
+        options: [".xls", ".xlsx", ".docx", ".csv"],
+        correct: 1,
+        explanation: "Modern Excel files are saved with the .xlsx extension."
+    },
+    {
+        question: "Which symbol is used to begin a formula in Excel?",
+        options: ["#", "@", "=", "&"],
+        correct: 2,
+        explanation: "All Excel formulas must start with an equals (=) sign."
+    },
+    {
+        question: "What is a workbook in Excel?",
+        options: ["A single cell", "A collection of worksheets", "A formula", "A chart"],
+        correct: 1,
+        explanation: "A workbook is the entire Excel file that can contain multiple worksheets."
+    },
+    {
+        question: "What is a worksheet in Excel?",
+        options: ["A page within a workbook", "A formula", "A file", "A chart"],
+        correct: 0,
+        explanation: "A worksheet is a single sheet (page) inside a workbook."
+    },
+    {
+        question: "Which function is used to add numbers in Excel?",
+        options: ["COUNT", "SUM", "AVERAGE", "MAX"],
+        correct: 1,
+        explanation: "The SUM function adds a range of numbers together."
+    },
+    {
+        question: "What does CTRL + C do?",
+        options: ["Paste", "Copy", "Cut", "Save"],
+        correct: 1,
+        explanation: "CTRL + C copies selected content."
+    },
+    {
+        question: "What does CTRL + V do?",
+        options: ["Copy", "Paste", "Cut", "Undo"],
+        correct: 1,
+        explanation: "CTRL + V pastes copied or cut content."
+    },
+    {
+        question: "Which function calculates the average of numbers?",
+        options: ["SUM", "COUNT", "AVERAGE", "MAX"],
+        correct: 2,
+        explanation: "AVERAGE calculates the mean of a set of values."
+    },
+    {
+        question: "What is a range in Excel?",
+        options: ["A single cell", "A group of multiple cells", "A chart", "A worksheet"],
+        correct: 1,
+        explanation: "A range refers to a selection of two or more cells."
+    },
+    {
+        question: "Which tab contains most formatting tools in Excel?",
+        options: ["Data", "Insert", "Home", "Review"],
+        correct: 2,
+        explanation: "The Home tab contains common formatting tools like font, alignment, and styles."
+    },
+    {
+        question: "What does AutoFill do in Excel?",
+        options: ["Deletes data", "Fills cells based on patterns", "Sorts data", "Formats cells"],
+        correct: 1,
+        explanation: "AutoFill automatically fills data based on detected patterns."
+    },
+    {
+        question: "Which function counts numeric values?",
+        options: ["COUNT", "SUM", "LEN", "IF"],
+        correct: 0,
+        explanation: "COUNT counts only cells containing numbers."
+    },
+    {
+        question: "What does CTRL + Z do?",
+        options: ["Redo", "Undo", "Save", "Copy"],
+        correct: 1,
+        explanation: "CTRL + Z undoes the last action."
+    },
+    {
+        question: "What does CTRL + S do?",
+        options: ["Save", "Open", "Close", "Print"],
+        correct: 0,
+        explanation: "CTRL + S saves your current workbook."
+    },
+    {
+        question: "Which function returns the highest value in a range?",
+        options: ["MIN", "MAX", "SUM", "COUNT"],
+        correct: 1,
+        explanation: "MAX returns the largest number in a dataset."
+    },
+    {
+        question: "What is the formula bar used for?",
+        options: ["Viewing and editing formulas", "Creating charts", "Formatting cells", "Sorting data"],
+        correct: 0,
+        explanation: "The formula bar allows you to view and edit cell content and formulas."
+    },
+    {
+        question: "Which function returns the smallest value?",
+        options: ["MAX", "MIN", "SUM", "COUNT"],
+        correct: 1,
+        explanation: "MIN returns the smallest number in a dataset."
+    },
+    {
+        question: "How do columns run in Excel?",
+        options: ["Horizontally", "Vertically", "Diagonally", "Circular"],
+        correct: 1,
+        explanation: "Columns run vertically from top to bottom."
+    },
+    {
+        question: "How do rows run in Excel?",
+        options: ["Vertically", "Horizontally", "Diagonally", "Circular"],
+        correct: 1,
+        explanation: "Rows run horizontally from left to right."
+    },
+    {
+        question: "What is the Name Box used for?",
+        options: ["Naming cells or ranges", "Formatting", "Sorting", "Filtering"],
+        correct: 0,
+        explanation: "The Name Box allows you to name and navigate to cells or ranges."
+    },
+    {
+        question: "Which tab is used to insert charts?",
+        options: ["Data", "Insert", "Home", "Review"],
+        correct: 1,
+        explanation: "Charts are created from the Insert tab."
+    },
+    {
+        question: "What is a cell address?",
+        options: ["Column only", "Row only", "Column and row (e.g., A1)", "Sheet name"],
+        correct: 2,
+        explanation: "A cell address combines the column letter and row number."
+    },
+    {
+        question: "Which key is used to edit a cell?",
+        options: ["F1", "F2", "F3", "F4"],
+        correct: 1,
+        explanation: "F2 allows you to edit the contents of a selected cell."
+    },
+    {
+        question: "What does Freeze Panes do?",
+        options: ["Deletes rows", "Keeps rows or columns visible while scrolling", "Sorts data", "Formats text"],
+        correct: 1,
+        explanation: "Freeze Panes locks selected rows or columns in place while scrolling."
+    },
+
+    // LOGICAL FUNCTIONS
+
+    {
+        question: "What is the IF function used for?",
+        options: ["Formatting", "Logical testing", "Counting", "Sorting"],
+        correct: 1,
+        explanation: "The IF function evaluates a condition and returns different results based on TRUE or FALSE."
+    },
+    {
+        question: "What is the correct syntax of the IF function?",
+        options: ["IF(test,yes,no)", "IF(logical_test,value_if_true,value_if_false)", "IF(condition)", "IF(value)"],
+        correct: 1,
+        explanation: "The correct syntax includes a logical test and two possible outcomes."
+    },
+    {
+        question: "What will =IF(2>1,\"Yes\",\"No\") return?",
+        options: ["Yes", "No", "TRUE", "FALSE"],
+        correct: 0,
+        explanation: "Since 2 is greater than 1, the condition is TRUE, so 'Yes' is returned."
+    },
+    {
+        question: "When does the AND function return TRUE?",
+        options: ["When one condition is true", "When all conditions are true", "When none are true", "Always"],
+        correct: 1,
+        explanation: "AND returns TRUE only if all conditions are TRUE."
+    },
+    {
+        question: "When does the OR function return TRUE?",
+        options: ["When all conditions are true", "When at least one condition is true", "When none are true", "Always false"],
+        correct: 1,
+        explanation: "OR returns TRUE if at least one condition is TRUE."
+    },
+    {
+        question: "What does the NOT function do?",
+        options: ["Adds values", "Reverses a logical result", "Counts values", "Sorts data"],
+        correct: 1,
+        explanation: "NOT changes TRUE to FALSE and FALSE to TRUE."
+    },
+    {
+        question: "What will =AND(1=1,2=3) return?",
+        options: ["TRUE", "FALSE", "1", "Error"],
+        correct: 1,
+        explanation: "One condition is FALSE, so AND returns FALSE."
+    },
+    {
+        question: "What will =OR(1=1,2=3) return?",
+        options: ["TRUE", "FALSE", "Error", "0"],
+        correct: 0,
+        explanation: "At least one condition is TRUE, so OR returns TRUE."
+    },
+    {
+        question: "What is a nested IF statement?",
+        options: ["An IF inside another IF", "IF combined with SUM", "IF combined with COUNT", "IF combined with MAX"],
+        correct: 0,
+        explanation: "Nested IFs allow multiple conditions to be tested."
+    },
+    {
+        question: "What will =NOT(FALSE) return?",
+        options: ["TRUE", "FALSE", "0", "Error"],
+        correct: 0,
+        explanation: "NOT reverses FALSE to TRUE."
+    },
+    {
+        question: "What does a logical test return?",
+        options: ["Text", "TRUE or FALSE", "Numbers only", "Blank"],
+        correct: 1,
+        explanation: "Logical tests always evaluate to TRUE or FALSE."
+    },
+    {
+        question: "What will =IF(5=5,10,0) return?",
+        options: ["10", "0", "TRUE", "FALSE"],
+        correct: 0,
+        explanation: "Since the condition is TRUE, the function returns 10."
+    },
+    {
+        question: "Can IF be combined with AND?",
+        options: ["Yes", "No", "Only in charts", "Only in VBA"],
+        correct: 0,
+        explanation: "IF can be combined with AND to evaluate multiple conditions."
+    },
+    {
+        question: "What will =IF(AND(1<2,3<4),\"OK\",\"NO\") return?",
+        options: ["OK", "NO", "TRUE", "FALSE"],
+        correct: 0,
+        explanation: "Both conditions are TRUE, so AND returns TRUE and IF returns 'OK'."
+    },
+    {
+        question: "What will =IF(OR(1>2,2>1),\"Yes\",\"No\") return?",
+        options: ["Yes", "No", "TRUE", "FALSE"],
+        correct: 0,
+        explanation: "One condition is TRUE, so OR returns TRUE and IF returns 'Yes'."
+    },
+    {
+        question: "In Excel logic, what does FALSE equal?",
+        options: ["1", "0", "TRUE", "Error"],
+        correct: 1,
+        explanation: "FALSE is represented as 0 in Excel."
+    },
+    {
+        question: "In Excel logic, what does TRUE equal?",
+        options: ["1", "0", "Blank", "Error"],
+        correct: 0,
+        explanation: "TRUE is represented as 1 in Excel."
+    },
+    {
+        question: "What does =IF(A1>50,\"Pass\",\"Fail\") check?",
+        options: ["If A1 equals 50", "If A1 is less than 50", "If A1 is blank", "If A1 is greater than 50"],
+        correct: 3,
+        explanation: "The formula checks whether the value in A1 is greater than 50."
+    },
+    {
+        question: "How many levels can IF statements be nested?",
+        options: ["2", "5", "Many levels", "1 only"],
+        correct: 2,
+        explanation: "Excel allows multiple nested IF statements (within limits depending on version)."
+    },
+    {
+        question: "What will =IF(10<5,\"A\",\"B\") return?",
+        options: ["A", "TRUE", "B", "FALSE"],
+        correct: 2,
+        explanation: "Since the condition is FALSE, the function returns 'B'."
+    },
+    {
+        question: "Logical functions in Excel are mainly used for?",
+        options: ["Making decisions", "Drawing charts", "Formatting cells", "Printing sheets"],
+        correct: 0,
+        explanation: "Logical functions help make decisions based on conditions."
+    },
+
+    // DATA CLEANING
+
+    {
+        question: "What does data cleaning primarily improve?",
+        options: ["Data design", "Data colors", "Data headers", "Data accuracy"],
+        correct: 3,
+        explanation: "Data cleaning improves the accuracy and reliability of your data."
+    },
+    {
+        question: "Where is the 'Remove Duplicates' feature located?",
+        options: ["Insert tab", "Home tab", "Data tab", "Review tab"],
+        correct: 2,
+        explanation: "Remove Duplicates is found in the Data tab."
+    },
+    {
+        question: "What does the TRIM() function remove?",
+        options: ["Numbers", "Errors", "Extra spaces", "Rows"],
+        correct: 2,
+        explanation: "TRIM removes extra spaces from text, leaving single spaces between words."
+    },
+    {
+        question: "What does the CLEAN() function remove?",
+        options: ["Spaces", "Non-printable characters", "Rows", "Columns"],
+        correct: 1,
+        explanation: "CLEAN removes non-printable or hidden characters from text."
+    },
+    {
+        question: "What does the LEN() function count?",
+        options: ["Words in a cell", "Characters in a cell", "Cells", "Rows"],
+        correct: 1,
+        explanation: "LEN returns the total number of characters in a cell."
+    },
+    {
+        question: "What does the UPPER() function do?",
+        options: ["Converts to lowercase", "Converts to dates", "Converts to numbers", "Converts text to uppercase"],
+        correct: 3,
+        explanation: "UPPER changes all text to capital letters."
+    },
+    {
+        question: "What does the LOWER() function do?",
+        options: ["Converts to uppercase", "Converts text to lowercase", "Converts to numbers", "Converts to dates"],
+        correct: 1,
+        explanation: "LOWER changes all text to lowercase."
+    },
+    {
+        question: "What does the PROPER() function do?",
+        options: ["Capitalizes the first letter of each word", "Converts all text to uppercase", "Converts text to lowercase", "Deletes text"],
+        correct: 0,
+        explanation: "PROPER capitalizes the first letter of each word."
+    },
+    {
+        question: "What is the shortcut for Find and Replace?",
+        options: ["Ctrl+F", "Ctrl+F+R", "Ctrl+H", "Ctrl+Shift+L"],
+        correct: 2,
+        explanation: "Ctrl + H opens the Find and Replace dialog."
+    },
+    {
+        question: "What does the Filter feature display?",
+        options: ["All data", "Only selected data", "Charts", "Errors"],
+        correct: 1,
+        explanation: "Filtering shows only data that meets specific criteria."
+    },
+    {
+        question: "What is sorting used for?",
+        options: ["Arranging data", "Arranging charts", "Changing colors", "Nothing"],
+        correct: 0,
+        explanation: "Sorting organizes data in a specific order."
+    },
+    {
+        question: "What does data validation ensure?",
+        options: ["Clean data", "Valid inputs", "Charts", "Sorting"],
+        correct: 1,
+        explanation: "Data validation restricts input to acceptable values."
+    },
+    {
+        question: "What does the LEFT() function return?",
+        options: ["Text from the end", "Text from the beginning", "Text from the middle", "Numbers"],
+        correct: 1,
+        explanation: "LEFT extracts text starting from the beginning."
+    },
+    {
+        question: "What does the RIGHT() function return?",
+        options: ["Text from the end", "Text from the beginning", "Text from the middle", "Numbers"],
+        correct: 0,
+        explanation: "RIGHT extracts text starting from the end."
+    },
+    {
+        question: "What does the MID() function return?",
+        options: ["Text from the end", "Text from the beginning", "Text from the middle", "Numbers"],
+        correct: 2,
+        explanation: "MID extracts text from a specified position."
+    },
+    {
+        question: "What does data cleaning remove?",
+        options: ["Errors", "Invalid inputs", "Bad formatting", "All of the above"],
+        correct: 3,
+        explanation: "Data cleaning removes all forms of inconsistencies."
+    },
+    {
+        question: "Clean data helps with?",
+        options: ["Analysis", "Printing", "Formatting", "Drawing"],
+        correct: 0,
+        explanation: "Clean data makes analysis more accurate and efficient."
+    },
+
+    // POWER QUERY
+
+    {
+        question: "What is Power Query primarily used for?",
+        options: ["Charts", "Data transformation", "Formatting", "Printing"],
+        correct: 1,
+        explanation: "Power Query is used to import, clean, and transform data."
+    },
+    {
+        question: "Where can you access Power Query in Excel?",
+        options: ["Home tab", "Data tab", "Insert tab", "Review tab"],
+        correct: 1,
+        explanation: "Power Query tools are located in the Data tab."
+    },
+    {
+        question: "Power Query can import data from which sources?",
+        options: ["Excel", "CSV", "Web", "All of the above"],
+        correct: 3,
+        explanation: "Power Query supports multiple data sources."
+    },
+    {
+        question: "What does 'Close & Load' do in Power Query?",
+        options: ["Exits Power Query", "Loads transformed data into Excel", "Deletes data", "Saves worksheet"],
+        correct: 1,
+        explanation: "It loads the processed data into the workbook."
+    },
+    {
+        question: "What do 'Applied Steps' show in Power Query?",
+        options: ["Charts created", "Sheets", "Files", "Transformation steps"],
+        correct: 3,
+        explanation: "Applied Steps track all transformations made to the data."
+    },
+    {
+        question: "What does 'Refresh' do in Power Query?",
+        options: ["Updates charts", "Updates data", "Updates cells", "Updates rows"],
+        correct: 1,
+        explanation: "Refresh pulls in updated data from the source."
+    },
+    {
+        question: "Power Query improves what?",
+        options: ["Efficiency", "Colors", "Fonts", "Shapes"],
+        correct: 0,
+        explanation: "Power Query automates repetitive tasks, improving efficiency."
     }
+
 ];
 
 
