@@ -53,7 +53,15 @@ document.addEventListener('DOMContentLoaded', () => {
         sessionContentArea.style.animation = null;
 
         // Inject HTML
-        sessionContentArea.innerHTML = sessionObj.html;
+        sessionContentArea.innerHTML = sessionObj.html + `
+            <div class="quiz-invitation">
+                <h4>Ready to test your knowledge?</h4>
+                <p>Take a quick quiz for Session ${sessionNumber} to see how much you've learned.</p>
+                <a href="../JCI/quiz.html?session=${sessionNumber}" class="btn-action btn-success">
+                    <i class="ri-questionnaire-line"></i> Take Session ${sessionNumber} Quiz
+                </a>
+            </div>
+        `;
 
         // Initialize specific interactive logic for that session
         if (typeof sessionObj.initLogic === 'function') {

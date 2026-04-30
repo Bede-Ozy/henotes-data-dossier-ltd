@@ -596,3 +596,40 @@ tbody tr:hover {
         gap: 15px;
     }
 }
+
+/* Quiz Invitation Box */
+.quiz-invitation {
+    margin-top: 40px;
+    padding: 30px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.quiz-invitation:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.quiz-invitation h4 {
+    font-size: 1.25rem;
+    color: var(--primary-color);
+    margin-bottom: 12px;
+    display: block;
+}
+
+.quiz-invitation p {
+    color: var(--text-muted);
+    margin-bottom: 24px;
+}
+
+.quiz-invitation .btn-action {
+    padding: 12px 32px;
+    font-size: 1rem;
+    width: auto;
+    text-decoration: none;
+}
+

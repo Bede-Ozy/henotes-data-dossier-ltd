@@ -5,8 +5,73 @@
 import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 import { db } from "./firebase-config.js";
 
-// Questions Bank
-const quizQuestions = [
+// State
+let quizQuestions = []; // Filtered questions will go here
+let currentQuestionIndex = 0;
+let userAnswers = [];
+let score = 0;
+let userName = "";
+let userLocation = "";
+let isSubmitting = false;
+
+// Session-to-Question-Index Mapping (0-indexed)
+// Note: This matches the grouping in the original quizQuestions bank
+const sessionMap = {
+    1: { name: "Excel Fundamentals", ranges: [[0, 4], [14, 14], [16, 16], [20, 44]] },
+    2: { name: "Logical Functions", ranges: [[5, 7], [17, 17], [45, 65]] },
+    3: { name: "Data Cleaning", ranges: [[8, 11], [15, 15], [18, 18], [66, 82]] },
+    4: { name: "Power Query", ranges: [[12, 13], [19, 19], [83, 102]] },
+    5: { name: "Data Visualization", ranges: [[103, 122]] },
+    6: { name: "Advanced Formulas", ranges: [[123, 142]] },
+    7: { name: "PivotTables & Slicers", ranges: [[143, 162]] },
+    8: { name: "Final Project", ranges: [[0, 162]] }
+};
+
+/**
+ * Utility to shuffle an array
+ */
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+/**
+ * Filter questions based on session parameter
+ */
+function initializeQuizContent() {
+    const params = new URLSearchParams(window.location.search);
+    const sessionNum = parseInt(params.get('session')) || 0;
+    
+    let filtered = [];
+    let sessionName = "General Knowledge";
+
+    if (sessionMap[sessionNum]) {
+        sessionName = sessionMap[sessionNum].name;
+        sessionMap[sessionNum].ranges.forEach(range => {
+            for (let i = range[0]; i <= range[1]; i++) {
+                if (allQuestions[i]) filtered.push(allQuestions[i]);
+            }
+        });
+    } else {
+        filtered = [...allQuestions];
+    }
+
+    // Pick 20 random questions
+    shuffle(filtered);
+    quizQuestions = filtered.slice(0, 20);
+
+    // Update UI Header
+    const headerTitle = document.querySelector('.quiz-header h1');
+    const headerDesc = document.querySelector('.quiz-header p');
+    if (headerTitle) headerTitle.innerText = sessionNum > 0 ? `Session ${sessionNum} Quiz` : "General Data Quiz";
+    if (headerDesc) headerDesc.innerText = sessionName;
+}
+
+// Rename the original bank to allQuestions
+const allQuestions = [
     {
         question: "Which Excel function would you use to add all numbers in a range (e.g., A1 to A10)?",
         options: ["=ADD(A1:A10)", "=SUM(A1:A10)", "=TOTAL(A1:A10)", "=SUMMATION(A1:A10)"],
@@ -556,21 +621,461 @@ const quizQuestions = [
         options: ["Efficiency", "Colors", "Fonts", "Shapes"],
         correct: 0,
         explanation: "Power Query automates repetitive tasks, improving efficiency."
+    },
+
+    // POWER QUERY (Continued)
+    {
+        question: "What does the 'Load' stage of ETL primarily involve?",
+        options: ["Cleaning data", "Extracting from source", "Importing transformed data into the final destination (Excel)", "Deleting the source file"],
+        correct: 2,
+        explanation: "Loading is the final step where the clean data is brought into your workbook."
+    },
+    {
+        question: "Can Power Query merge two different tables from two different Excel files?",
+        options: ["No, only from one file", "Yes, it can combine data from multiple sources", "Only if the files are open", "Only in the Pro version"],
+        correct: 1,
+        explanation: "Power Query is designed to connect to and combine data from many different files and formats."
+    },
+    {
+        question: "What language does Power Query use behind the scenes to record its transformation steps?",
+        options: ["Python", "Java", "M Language", "SQL"],
+        correct: 2,
+        explanation: "The 'M' language is the functional language used by the Power Query engine."
+    },
+    {
+        question: "Does Power Query change or modify your original raw source file?",
+        options: ["Yes, it overwrites it", "No, it only reads the data and transforms it in its own environment", "Only if you click Save", "Only for CSV files"],
+        correct: 1,
+        explanation: "Power Query is non-destructive; it never changes your original source data."
+    },
+    {
+        question: "What is 'Query Folding' in Power Query?",
+        options: ["Hiding the query", "Pushing transformations back to the source database for efficiency", "Grouping steps", "Deleting duplicate steps"],
+        correct: 1,
+        explanation: "Query folding allows Power Query to let the source database do the heavy lifting."
+    },
+    {
+        question: "Can you 'Unpivot' columns in Power Query to turn wide data into long data?",
+        options: ["No", "Yes, it is a key feature for normalizing data", "Only in PivotTables", "Only with a special plugin"],
+        correct: 1,
+        explanation: "Unpivoting is essential for preparing 'human-friendly' tables for 'machine-friendly' analysis."
+    },
+    {
+        question: "What is a 'Parameter' in Power Query used for?",
+        options: ["A mathematical constant", "A dynamic variable that can change data sources or filter values", "A type of chart", "A cleaning tool"],
+        correct: 1,
+        explanation: "Parameters allow you to make your queries flexible and reusable."
+    },
+    {
+        question: "How does Power Query handle errors in specific cells?",
+        options: ["It crashes Excel", "It allows you to 'Remove Errors' or 'Replace Errors' with specific values", "It ignores them", "It highlights them in red in the spreadsheet"],
+        correct: 1,
+        explanation: "Power Query provides specific tools to clean and manage data errors during transformation."
+    },
+    {
+        question: "Can Power Query connect to a folder and combine all files inside it automatically?",
+        options: ["No", "Yes, using the 'From Folder' connector", "Only if the files are named 'Data'", "Only if there are exactly 2 files"],
+        correct: 1,
+        explanation: "The 'From Folder' feature is a powerful way to automate monthly reports."
+    },
+    {
+        question: "Does Power Query work in Excel for Mac?",
+        options: ["No, it is Windows only", "Yes, but with limited features compared to Windows", "Yes, it is exactly the same", "Only in the web version"],
+        correct: 1,
+        explanation: "Power Query is available on Mac but currently has fewer connectors and features than the Windows version."
+    },
+    {
+        question: "What happens when you 'Duplicate' a query in Power Query?",
+        options: ["It creates an exact copy of the query and its steps", "It moves the query to another file", "It deletes the first query", "It merges two queries"],
+        correct: 0,
+        explanation: "Duplicating is useful for creating a new version of a query without starting over."
+    },
+    {
+        question: "What is the 'Advanced Editor' in Power Query used for?",
+        options: ["Writing Excel formulas", "Viewing and editing the raw M code of the query", "Creating charts", "Formatting columns"],
+        correct: 1,
+        explanation: "The Advanced Editor allows experts to write complex custom logic in M."
+    },
+    {
+        question: "What does 'Merge Queries' do in Power Query?",
+        options: ["Appends rows one after another", "Combines columns from two tables based on a matching key (like a VLOOKUP)", "Deletes duplicates", "Sorts data"],
+        correct: 1,
+        explanation: "Merging is the Power Query equivalent of joining tables in a database."
+    },
+
+    // SESSION 5: DATA VISUALIZATION
+    {
+        question: "Which chart type is best for showing trends or changes over a period of time?",
+        options: ["Pie Chart", "Line Chart", "Bar Chart", "Scatter Plot"],
+        correct: 1,
+        explanation: "Line charts are the standard for visualizing time-series data and trends."
+    },
+    {
+        question: "What is a 'Slicer' mainly used for in an Excel Dashboard?",
+        options: ["Cutting images", "Interactive filtering of charts and tables", "Calculating sums", "Formatting headers"],
+        correct: 1,
+        explanation: "Slicers provide a user-friendly, visual way to filter data in real-time."
+    },
+    {
+        question: "Which chart type is best for showing 'parts of a whole' (e.g., percentage of market share)?",
+        options: ["Column Chart", "Pie Chart", "Histogram", "Area Chart"],
+        correct: 1,
+        explanation: "Pie charts effectively show how individual categories contribute to a 100% total."
+    },
+    {
+        question: "In Excel charts, what does the 'Data Source' refer to?",
+        options: ["The person who entered the data", "The range of cells providing the numbers for the chart", "The file name", "The chart title"],
+        correct: 1,
+        explanation: "The data source is the underlying table or range that the chart visualizes."
+    },
+    {
+        question: "What is a 'Trendline' in a Scatter plot used for?",
+        options: ["Connecting the dots", "Showing the general direction or correlation of the data", "Naming the points", "Adding more data"],
+        correct: 1,
+        explanation: "Trendlines help identify patterns and relationships between two variables."
+    },
+    {
+        question: "What is a 'Sparkline' in Excel?",
+        options: ["A very bright chart", "A tiny chart that fits inside a single cell", "A type of animation", "A 3D chart"],
+        correct: 1,
+        explanation: "Sparklines provide a quick, compact visual summary of data trends next to the numbers."
+    },
+    {
+        question: "How do you add a 'Chart Title' if it is missing?",
+        options: ["Type it in a cell", "Use the 'Chart Elements' (+) button", "Use the Home tab", "Right-click the taskbar"],
+        correct: 1,
+        explanation: "The 'Chart Elements' menu allows you to toggle titles, legends, and labels."
+    },
+    {
+        question: "What is a 'Legend' in a chart used for?",
+        options: ["Explaining what the colors or patterns represent", "Giving the chart a name", "Adding a signature", "Sorting data"],
+        correct: 0,
+        explanation: "The legend identifies the data series represented in the chart."
+    },
+    {
+        question: "Which ribbon tab appears only when a chart is selected?",
+        options: ["Data", "Chart Design", "Review", "View"],
+        correct: 1,
+        explanation: "Contextual tabs like Chart Design and Format appear only when you are working on a chart."
+    },
+    {
+        question: "What is a 'Combo Chart' in Excel?",
+        options: ["A chart with many colors", "A chart that combines two different types (e.g., Column and Line)", "A chart that includes images", "A chart with no data"],
+        correct: 1,
+        explanation: "Combo charts are useful for showing two different types of metrics (e.g., Sales and Growth %) together."
+    },
+    {
+        question: "What are 'Data Labels' used for?",
+        options: ["Naming the chart", "Showing the exact value of each data point on the chart", "Creating a legend", "Filtering data"],
+        correct: 1,
+        explanation: "Data labels make a chart more precise by displaying the actual numbers directly."
+    },
+    {
+        question: "Which chart is best for comparing values across different categories?",
+        options: ["Line Chart", "Bar or Column Chart", "Stock Chart", "Surface Chart"],
+        correct: 1,
+        explanation: "Bar and Column charts are the most effective for categorical comparisons."
+    },
+    {
+        question: "What is the 'X-Axis' usually used for in a standard Column chart?",
+        options: ["The numerical values", "The categories or time periods", "The chart title", "The legend"],
+        correct: 1,
+        explanation: "The horizontal X-axis typically represents independent categories or time."
+    },
+    {
+        question: "What is the 'Y-Axis' usually used for in a standard Column chart?",
+        options: ["The categories", "The numerical values or measurements", "The source data", "The date"],
+        correct: 1,
+        explanation: "The vertical Y-axis typically represents the dependent values or metrics."
+    },
+    {
+        question: "Can you create a 'Map Chart' in Excel to visualize data by country or state?",
+        options: ["No", "Yes, if your data contains geographic names", "Only with a plugin", "Only in 3D"],
+        correct: 1,
+        explanation: "Excel can automatically recognize geographic names and plot data on a map."
+    },
+    {
+        question: "What is a 'Waterfall' chart commonly used for in finance?",
+        options: ["Showing stock prices", "Visualizing how a starting value increases or decreases to a final result", "Comparing categories", "Showing cycles"],
+        correct: 1,
+        explanation: "Waterfall charts are excellent for visualizing 'bridges' between two totals (e.g., Revenue to Net Income)."
+    },
+    {
+        question: "What is a 'Sunburst' chart used for?",
+        options: ["Showing weather data", "Visualizing hierarchical data with multiple levels", "Linear trends", "Comparison"],
+        correct: 1,
+        explanation: "Sunburst charts use concentric circles to show multi-level hierarchies."
+    },
+    {
+        question: "How can you move a chart to its own dedicated sheet?",
+        options: ["Copy and Paste", "Right-click > Move Chart > New Sheet", "Drag and drop", "Save as PDF"],
+        correct: 1,
+        explanation: "The Move Chart feature allows you to give a chart its own space for better viewing."
+    },
+    {
+        question: "What is a 'Clustered Column' chart?",
+        options: ["Columns stacked on top of each other", "Columns grouped side-by-side for comparison", "A column with a shadow", "A 3D column"],
+        correct: 1,
+        explanation: "Clustered columns allow for direct comparison between multiple series in each category."
+    },
+    {
+        question: "Why would you use a 'Secondary Axis' in a chart?",
+        options: ["To make it look 3D", "To plot two data series with very different scales (e.g., Millions vs Percentages)", "To add more titles", "To hide data"],
+        correct: 1,
+        explanation: "A secondary axis allows both metrics to be visible and readable on the same chart."
+    },
+
+    // SESSION 6: ADVANCED FORMULAS
+    {
+        question: "What does VLOOKUP stand for?",
+        options: ["Value Lookup", "Variable Lookup", "Vertical Lookup", "Virtual Lookup"],
+        correct: 2,
+        explanation: "VLOOKUP looks for a value vertically down the first column of a table."
+    },
+    {
+        question: "In =VLOOKUP(A2, D2:F10, 3, FALSE), what does the number '3' represent?",
+        options: ["The row number", "The column index number (to return the value from)", "The number of matches", "A random number"],
+        correct: 1,
+        explanation: "The third argument tells Excel which column in the range contains the data you want to retrieve."
+    },
+    {
+        question: "What is the difference between TRUE and FALSE for the 4th argument in VLOOKUP?",
+        options: ["FALSE is for exact matches; TRUE is for approximate matches", "TRUE is for exact matches; FALSE is for approximate matches", "They do the same thing", "One is for numbers, one is for text"],
+        correct: 0,
+        explanation: "Always use FALSE for IDs or names where you need an exact match."
+    },
+    {
+        question: "What does the INDEX function do?",
+        options: ["Finds the position of a value", "Returns a value at a specific row and column intersection", "Sorts the data", "Deletes data"],
+        correct: 1,
+        explanation: "INDEX acts like a map reference, retrieving data from a specific 'coordinate' in a range."
+    },
+    {
+        question: "What does the MATCH function do?",
+        options: ["Returns the value in a cell", "Returns the relative position of a value in a range", "Combines two cells", "Checks for errors"],
+        correct: 1,
+        explanation: "MATCH tells you *where* an item is located (e.g., 'Row 5')."
+    },
+    {
+        question: "Why is INDEX/MATCH often considered superior to VLOOKUP?",
+        options: ["It is easier to type", "It can look to the left and is more flexible for large datasets", "It only works with numbers", "It creates charts automatically"],
+        correct: 1,
+        explanation: "INDEX/MATCH is more powerful because it doesn't require the lookup value to be in the first column."
+    },
+    {
+        question: "What is the main advantage of SUMIFS over SUMIF?",
+        options: ["It is faster", "It allows for multiple criteria instead of just one", "It only sums text", "It works without a range"],
+        correct: 1,
+        explanation: "SUMIFS can sum data based on multiple conditions (e.g., Region = Lagos AND Category = Phone)."
+    },
+    {
+        question: "In SUMIFS, which argument comes first?",
+        options: ["Criteria_range1", "Criteria1", "Sum_range (the numbers to add)", "The sheet name"],
+        correct: 2,
+        explanation: "Unlike SUMIF, SUMIFS starts with the range of numbers you want to sum."
+    },
+    {
+        question: "What is the purpose of the IFERROR function?",
+        options: ["To cause an error", "To hide error codes (like #N/A) and replace them with a clean message", "To fix the math automatically", "To delete the cell if it has an error"],
+        correct: 1,
+        explanation: "IFERROR makes your dashboards look professional by handling calculation errors gracefully."
+    },
+    {
+        question: "What is the modern, more powerful replacement for VLOOKUP in newer Excel versions?",
+        options: ["ZLOOKUP", "XLOOKUP", "MAXLOOKUP", "SUPERLOOKUP"],
+        correct: 1,
+        explanation: "XLOOKUP is the newest lookup function that handles left-lookups, defaults, and more by default."
+    },
+    {
+        question: "How do you correctly handle a #N/A error from a VLOOKUP?",
+        options: ["Delete the formula", "Wrap it in an IFERROR function", "Restart Excel", "Change the font color to white"],
+        correct: 1,
+        explanation: "Wrapping VLOOKUP in IFERROR allows you to show 'Not Found' instead of an error code."
+    },
+    {
+        question: "Can VLOOKUP look for a value that is to the LEFT of the lookup column?",
+        options: ["Yes, always", "No, it only looks to the right", "Only if you use a negative number", "Only in the Data tab"],
+        correct: 1,
+        explanation: "VLOOKUP can only search for values to the right of the first column in your range."
+    },
+    {
+        question: "What is a '2-way lookup'?",
+        options: ["A lookup that works twice", "Combining INDEX and two MATCH functions to find data by both Row and Column", "Using two VLOOKUPs", "Filtering data"],
+        correct: 1,
+        explanation: "A 2-way lookup allows you to find a value at the intersection of a specific row and a specific column dynamically."
+    },
+    {
+        question: "What does the COUNTIFS function do?",
+        options: ["Adds numbers with criteria", "Counts cells that meet multiple criteria", "Counts only text", "Counts blank cells only"],
+        correct: 1,
+        explanation: "COUNTIFS is for multi-condition counting (e.g., Sales > 100 AND Status = 'Paid')."
+    },
+    {
+        question: "Can you use wildcards (like * or ?) in a VLOOKUP search?",
+        options: ["No", "Yes, to find partial text matches", "Only for numbers", "Only in Power Query"],
+        correct: 1,
+        explanation: "Wildcards allow you to search for things like '*Gadget*' to find 'Hi-Gadget Store'."
+    },
+    {
+        question: "What is the HLOOKUP function used for?",
+        options: ["Hidden Lookup", "Horizontal Lookup (searching across the top row)", "High-level Lookup", "Header Lookup"],
+        correct: 1,
+        explanation: "HLOOKUP is like VLOOKUP but works horizontally across rows instead of columns."
+    },
+    {
+        question: "How do you 'lock' a table range in a VLOOKUP formula so it doesn't move when copied?",
+        options: ["Use bold text", "Use absolute references ($A$1:$C$10)", "Hide the columns", "Protect the sheet"],
+        correct: 1,
+        explanation: "Absolute references are critical in lookups to keep the table array fixed."
+    },
+    {
+        question: "What does VLOOKUP return if 'Range_lookup' is set to FALSE and no exact match is found?",
+        options: ["0", "The closest match", "#N/A error", "Blank"],
+        correct: 2,
+        explanation: "FALSE forces an exact match; if none exists, Excel returns the #N/A error."
+    },
+    {
+        question: "Does VLOOKUP return the first match it finds or the last match?",
+        options: ["The first match", "The last match", "All matches", "A random match"],
+        correct: 0,
+        explanation: "VLOOKUP stops at the first instance of a match it encounters in the column."
+    },
+    {
+        question: "Which function would you use to find the average of sales for 'Lagos' only?",
+        options: ["=AVERAGE()", "=AVERAGEIF()", "=MEAN()", "=SUMIF()"],
+        correct: 1,
+        explanation: "AVERAGEIF calculates the mean of cells that meet a specific condition."
+    },
+
+    // SESSION 7: PIVOT TABLES
+    {
+        question: "What is the primary purpose of a PivotTable?",
+        options: ["Drawing shapes", "Summarizing and analyzing large datasets quickly", "Sending emails", "Managing passwords"],
+        correct: 1,
+        explanation: "PivotTables allow you to group, aggregate, and slice data without writing complex formulas."
+    },
+    {
+        question: "Where is the 'PivotTable' button located?",
+        options: ["Home tab", "Insert tab", "Data tab", "Review tab"],
+        correct: 1,
+        explanation: "You can create PivotTables from the Insert tab in the Tables group."
+    },
+    {
+        question: "What are the four 'Areas' in the PivotTable Fields pane?",
+        options: ["Rows, Columns, Values, Filters", "Top, Bottom, Left, Right", "Header, Footer, Body, Side", "SUM, COUNT, MIN, MAX"],
+        correct: 0,
+        explanation: "You drag fields into these four areas to structure your summary."
+    },
+    {
+        question: "Can you group a list of specific dates into Months or Years in a PivotTable?",
+        options: ["No, it's impossible", "Yes, using the 'Group' feature (Right-click a date > Group)", "Only with Power Query", "Only manually"],
+        correct: 1,
+        explanation: "Grouping dates is a powerful way to see monthly or quarterly performance trends."
+    },
+    {
+        question: "Does a PivotTable update automatically when you change the raw source data?",
+        options: ["Yes, instantly", "No, you must right-click and select 'Refresh'", "Only if you save the file", "Only if you restart Excel"],
+        correct: 1,
+        explanation: "PivotTables use a data 'cache' and must be manually refreshed to see new changes."
+    },
+    {
+        question: "What is a 'PivotChart'?",
+        options: ["A regular chart", "A dynamic chart linked directly to a PivotTable", "A chart with no data", "A type of table"],
+        correct: 1,
+        explanation: "PivotCharts update automatically as you change the layout or filters of their parent PivotTable."
+    },
+    {
+        question: "Can you add a 'Slicer' to a PivotTable for interactive filtering?",
+        options: ["No", "Yes, it is a key feature for dashboards", "Only in Power BI", "Only for numbers"],
+        correct: 1,
+        explanation: "Slicers connected to PivotTables make for highly interactive and user-friendly reports."
+    },
+    {
+        question: "What is a 'Calculated Field' in a PivotTable?",
+        options: ["A field that is hidden", "A custom formula created within the PivotTable itself (e.g., Sales * 0.1)", "A manual entry", "A formatting style"],
+        correct: 1,
+        explanation: "Calculated fields allow you to perform math on PivotTable totals without changing raw data."
+    },
+    {
+        question: "How do you change a PivotTable from 'Sum of Sales' to 'Average of Sales'?",
+        options: ["Retype the numbers", "Value Field Settings > Summarize Values By", "Change the raw data", "Use a different tab"],
+        correct: 1,
+        explanation: "Value Field Settings allow you to change the aggregation type (Sum, Count, Average, etc.)."
+    },
+    {
+        question: "What does 'Show Values As' (e.g., % of Grand Total) do in a PivotTable?",
+        options: ["Changes the font color", "Displays values as a calculation relative to other values", "Hides the values", "Creates a chart"],
+        correct: 1,
+        explanation: "This feature allows for powerful relative analysis like market share or growth %."
+    },
+    {
+        question: "What is the 'GETPIVOTDATA' function?",
+        options: ["A function to delete PivotTables", "A formula used to extract specific data from a PivotTable into another cell", "A way to refresh data", "A sorting tool"],
+        correct: 1,
+        explanation: "GETPIVOTDATA ensures you retrieve the correct total even if the PivotTable layout changes."
+    },
+    {
+        question: "Can you 'Drill Down' into a specific value in a PivotTable to see the underlying rows?",
+        options: ["No", "Yes, by double-clicking any value cell in the PivotTable", "Only if you have the source file", "Only with a macro"],
+        correct: 1,
+        explanation: "Double-clicking a PivotTable value creates a new sheet with the specific records that make up that total."
+    },
+    {
+        question: "What is a 'Timeline' slicer?",
+        options: ["A chart", "A visual filter specifically for date fields", "A type of clock", "A sheet name"],
+        correct: 1,
+        explanation: "Timelines provide a specialized, interactive way to filter PivotTables by time periods."
+    },
+    {
+        question: "Where can you change the overall 'Look and Feel' (styles) of a PivotTable?",
+        options: ["Home tab", "PivotTable Design tab", "Review tab", "Formula tab"],
+        correct: 1,
+        explanation: "The Design tab offers various color schemes and layout options (Compact, Outline, Tabular)."
+    },
+    {
+        question: "Can you use the 'Data Model' to create a PivotTable from multiple related tables?",
+        options: ["No", "Yes, this is known as Power Pivot", "Only in the cloud", "Only with SQL"],
+        correct: 1,
+        explanation: "The Data Model allows you to build relationships between different data sources for complex analysis."
+    },
+    {
+        question: "What is a 'Report Filter' (or Page Filter) in a PivotTable?",
+        options: ["A way to print the report", "A field moved to the 'Filters' area to restrict the entire PivotTable summary", "A sorting rule", "A title"],
+        correct: 1,
+        explanation: "Filter fields allow you to quickly toggle the entire PivotTable between categories (e.g., by Year)."
+    },
+    {
+        question: "How can you hide '(blank)' items from showing up in your PivotTable rows?",
+        options: ["Delete the rows in raw data", "Click the Row Labels filter dropdown and uncheck 'blank'", "Hide the columns", "Change the font color"],
+        correct: 1,
+        explanation: "Filtering out blanks within the PivotTable is the easiest way to clean up the visual summary."
+    },
+    {
+        question: "Can you sort a PivotTable by the calculated values (e.g., Highest Sales to Lowest Sales)?",
+        options: ["No", "Yes, right-click a value and select 'Sort'", "Only manually", "Only by names"],
+        correct: 1,
+        explanation: "Sorting by values is essential for creating 'Top 10' or 'Bottom 10' reports."
+    },
+    {
+        question: "What happens to a Slicer if you delete the PivotTable it was connected to?",
+        options: ["It deletes automatically", "It stays but becomes non-functional until reconnected or deleted", "It moves to a new sheet", "It crashes Excel"],
+        correct: 1,
+        explanation: "The slicer remains but will no longer control any data until you connect it to another source."
+    },
+    {
+        question: "Which feature allows you to see 'Top 10' items in a PivotTable automatically?",
+        options: ["Conditional Formatting", "Value Filters > Top 10", "Manual sorting", "Filters area"],
+        correct: 1,
+        explanation: "Value Filters provide dynamic ways to show only the most important data points."
     }
 
 ];
 
-
-// State
-let currentQuestionIndex = 0;
-let userAnswers = [];
-let score = 0;
-let userName = "";
-let userLocation = "";
-let isSubmitting = false; // Anti-spam flag
-
 // Initialize UI Elements
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize Quiz Content (Filtering & Randomization)
+    initializeQuizContent();
+
     const registrationForm = document.getElementById('registrationForm');
     const quizInterface = document.getElementById('quizInterface');
     const resultsSection = document.getElementById('resultsSection');
