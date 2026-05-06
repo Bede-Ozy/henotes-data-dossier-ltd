@@ -159,6 +159,7 @@
                         <th>Score</th>
                         <th>Date</th>
                         <th>Time</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody id="resultsTableBody">
@@ -170,7 +171,7 @@
 
     <!-- Firebase SDKs -->
     <script type="module">
-        import { collection, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { collection, query, orderBy, onSnapshot, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
         import { signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
         import { db, auth } from "./js/firebase-config.js";
 
@@ -190,6 +191,17 @@
                 mainContent.classList.add('hidden');
             }
         });
+
+        // Global Delete Function
+        window.deleteEntry = async (collectionName, id) => {
+            if (confirm("Are you sure you want to delete this entry? This action cannot be undone.")) {
+                try {
+                    await deleteDoc(doc(db, collectionName, id));
+                } catch (error) {
+                    alert("Error deleting: " + error.message);
+                }
+            }
+        };
 
         // Handle Login
         loginBtn.addEventListener('click', async () => {
@@ -216,8 +228,8 @@
                 let totalScore = 0;
                 let maxScore = 0;
                 
-                snapshot.forEach((doc) => {
-                    const data = doc.data();
+                snapshot.forEach((docSnap) => {
+                    const data = docSnap.data();
                     allResults.push(data);
                     const timestamp = data.timestamp?.toDate() || new Date();
                     totalScore += data.score;
@@ -231,6 +243,11 @@
                         <td><span class="badge-score ${scoreClass}">${data.score} / ${data.total}</span></td>
                         <td class="text-muted">${timestamp.toLocaleDateString()}</td>
                         <td class="text-muted">${timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
+                        <td>
+                            <button onclick="deleteEntry('quiz_results', '${docSnap.id}')" style="background:none; border:none; color:var(--error); cursor:pointer; font-size:1.1rem;" title="Delete Result">
+                                <i class="ri-delete-bin-line"></i>
+                            </button>
+                        </td>
                     `;
                     tableBody.appendChild(row);
                 });

@@ -182,7 +182,7 @@ const sessionsData = {
                     totalPrice: '₦' + Number(r.totalPrice).toLocaleString() + '.00'
                 }));
                 updateDataset(data);
-                
+
                 document.getElementById('s1-res-format').innerHTML = `
                     <strong>Currency Format Applied!</strong><br>
                     <div style="margin-top:10px; padding:12px; background:#EFF6FF; border-left:4px solid var(--secondary-color); border-radius:4px; font-size:0.95rem;">
@@ -193,7 +193,7 @@ const sessionsData = {
 
             // REFERENCING
             const refRes = document.getElementById('s1-res-ref');
-            
+
             document.getElementById('s1-btn-ref-rel').addEventListener('click', () => {
                 refRes.className = "result-box"; refRes.style.backgroundColor = "#EFF6FF"; refRes.style.borderColor = "var(--secondary-color)";
                 refRes.innerHTML = `
@@ -248,7 +248,7 @@ const sessionsData = {
             // SUM
             document.getElementById('s1-btn-sum').addEventListener('click', () => {
                 const data = currentDataState;
-                const total = data.reduce((sum, row) => sum + (typeof row.totalPrice === 'number' ? row.totalPrice : parseFloat(row.totalPrice.replace(/[^0-9.-]+/g,""))), 0);
+                const total = data.reduce((sum, row) => sum + (typeof row.totalPrice === 'number' ? row.totalPrice : parseFloat(row.totalPrice.replace(/[^0-9.-]+/g, ""))), 0);
                 document.getElementById('s1-res-sum').innerHTML = `
                     <strong>Total Revenue:</strong> ₦${total.toLocaleString()}<br>
                     <div style="margin-top:10px; padding:12px; background:#EFF6FF; border-left:4px solid var(--secondary-color); border-radius:4px; font-size:0.95rem;">
@@ -276,7 +276,7 @@ const sessionsData = {
             // MAX
             document.getElementById('s1-btn-max').addEventListener('click', () => {
                 const data = currentDataState;
-                const prices = data.map(o => (typeof o.totalPrice === 'number' ? o.totalPrice : parseFloat(o.totalPrice.replace(/[^0-9.-]+/g,""))));
+                const prices = data.map(o => (typeof o.totalPrice === 'number' ? o.totalPrice : parseFloat(o.totalPrice.replace(/[^0-9.-]+/g, ""))));
                 let max = Math.max(...prices);
                 let rowIndex = prices.findIndex(p => p === max);
                 document.getElementById('s1-res-max').innerHTML = `
@@ -291,7 +291,7 @@ const sessionsData = {
             // MIN
             document.getElementById('s1-btn-min').addEventListener('click', () => {
                 const data = currentDataState;
-                const prices = data.map(o => (typeof o.totalPrice === 'number' ? o.totalPrice : parseFloat(o.totalPrice.replace(/[^0-9.-]+/g,""))));
+                const prices = data.map(o => (typeof o.totalPrice === 'number' ? o.totalPrice : parseFloat(o.totalPrice.replace(/[^0-9.-]+/g, ""))));
                 let min = Math.min(...prices);
                 let rowIndex = prices.findIndex(p => p === min);
                 document.getElementById('s1-res-min').innerHTML = `
@@ -515,7 +515,7 @@ const sessionsData = {
                 const data = currentDataState;
                 const wholesaleCount = data.filter(r => r.quantity >= 10).length;
                 const isFirstRowWholesale = data[0].quantity >= 10;
-                
+
                 resBox.className = "result-box";
                 resBox.style.backgroundColor = "#EFF6FF";
                 resBox.style.borderColor = "var(--secondary-color)";
@@ -527,7 +527,7 @@ const sessionsData = {
                         Therefore, it returns <strong>"${isFirstRowWholesale ? 'Wholesale' : 'Retail'}"</strong>. The visual highlights below show all ${wholesaleCount} items that would qualify as "Wholesale".
                     </div>
                 `;
-                
+
                 const indices = data.map((r, i) => r.quantity >= 10 ? i : -1).filter(i => i !== -1);
                 highlightRows(indices);
             });
@@ -536,19 +536,19 @@ const sessionsData = {
             document.getElementById('s2-btn-submit-if').addEventListener('click', () => {
                 const inputVal = document.getElementById('s2-input-if').value.trim();
                 const resBox = document.getElementById('s2-res-if');
-                
-                if(!inputVal) {
+
+                if (!inputVal) {
                     resBox.className = "result-box empty";
                     resBox.innerHTML = "Please enter a formula.";
                     return;
                 }
 
                 let normalized = inputVal.toUpperCase().replace(/\s+/g, '');
-                
+
                 // Allow valid logical permutations
-                const isValid = normalized === '=IF(H2>30000,"LARGEBUYER","RETAILBUYER")' || 
-                                normalized === 'IF(H2>30000,"LARGEBUYER","RETAILBUYER")' || 
-                                normalized === '=IF($H$2>30000,"LARGEBUYER","RETAILBUYER")';
+                const isValid = normalized === '=IF(H2>30000,"LARGEBUYER","RETAILBUYER")' ||
+                    normalized === 'IF(H2>30000,"LARGEBUYER","RETAILBUYER")' ||
+                    normalized === '=IF($H$2>30000,"LARGEBUYER","RETAILBUYER")';
 
                 if (isValid) {
                     resBox.className = "result-box";
@@ -588,7 +588,7 @@ const sessionsData = {
                         <em>How it works:</em> Excel looks at cells I2 through I6. Every time it finds the word "POS", it adds 1 to the count. It found ${posCount} POS transactions.
                     </div>
                 `;
-                
+
                 const indices = data.map((r, i) => r.paymentMethod.toUpperCase() === 'POS' ? i : -1).filter(i => i !== -1);
                 highlightRows(indices);
             });
@@ -597,17 +597,17 @@ const sessionsData = {
             document.getElementById('s2-btn-submit-countif').addEventListener('click', () => {
                 const inputVal = document.getElementById('s2-input-countif').value.trim();
                 const resBox = document.getElementById('s2-res-countif');
-                
-                if(!inputVal) {
+
+                if (!inputVal) {
                     resBox.className = "result-box empty";
                     resBox.innerHTML = "Please enter a formula.";
                     return;
                 }
 
                 let normalized = inputVal.toUpperCase().replace(/\s+/g, '');
-                const isValid = normalized === '=COUNTIF(B2:B6,"LAGOS")' || 
-                                normalized === 'COUNTIF(B2:B6,"LAGOS")' ||
-                                normalized === '=COUNTIF($B$2:$B$6,"LAGOS")';
+                const isValid = normalized === '=COUNTIF(B2:B6,"LAGOS")' ||
+                    normalized === 'COUNTIF(B2:B6,"LAGOS")' ||
+                    normalized === '=COUNTIF($B$2:$B$6,"LAGOS")';
 
                 if (isValid) {
                     resBox.className = "result-box";
@@ -640,8 +640,8 @@ const sessionsData = {
             document.getElementById('s2-btn-lagos-learn').addEventListener('click', () => {
                 const data = currentDataState;
                 const lagosSales = data.filter(r => r.region.toLowerCase() === 'lagos')
-                                      .reduce((sum, r) => sum + r.totalPrice, 0);
-                
+                    .reduce((sum, r) => sum + r.totalPrice, 0);
+
                 document.getElementById('s2-res-lagos-learn').innerHTML = `
                     <strong>Explanation:</strong><br>
                     <div style="margin-top:10px; font-size:0.95rem;">
@@ -649,7 +649,7 @@ const sessionsData = {
                         <em>How it works:</em> Excel checks column B for "Lagos". Whenever it finds it, it looks across to the same row in column H and adds that number to the running total. Result: ₦${lagosSales.toLocaleString()}
                     </div>
                 `;
-                
+
                 const indices = data.map((r, i) => r.region.toLowerCase() === 'lagos' ? i : -1).filter(i => i !== -1);
                 highlightRows(indices);
             });
@@ -658,17 +658,17 @@ const sessionsData = {
             document.getElementById('s2-btn-submit-sumif').addEventListener('click', () => {
                 const inputVal = document.getElementById('s2-input-sumif').value.trim();
                 const resBox = document.getElementById('s2-res-sumif');
-                
-                if(!inputVal) {
+
+                if (!inputVal) {
                     resBox.className = "result-box empty";
                     resBox.innerHTML = "Please enter a formula.";
                     return;
                 }
 
                 let normalized = inputVal.toUpperCase().replace(/\s+/g, '');
-                const isValid = normalized === '=SUMIF(I2:I6,"POS",H2:H6)' || 
-                                normalized === 'SUMIF(I2:I6,"POS",H2:H6)' ||
-                                normalized === '=SUMIF($I$2:$I$6,"POS",$H$2:$H$6)';
+                const isValid = normalized === '=SUMIF(I2:I6,"POS",H2:H6)' ||
+                    normalized === 'SUMIF(I2:I6,"POS",H2:H6)' ||
+                    normalized === '=SUMIF($I$2:$I$6,"POS",$H$2:$H$6)';
 
                 if (isValid) {
                     resBox.className = "result-box";
@@ -701,7 +701,7 @@ const sessionsData = {
                 const region = e.target.value.toLowerCase();
                 const resBox = document.getElementById('s2-res-filter');
                 const allData = getDataset();
-                
+
                 if (region === 'all') {
                     resetData();
                     resBox.innerHTML = `Filter cleared. Showing all data.`;
@@ -949,7 +949,7 @@ const sessionsData = {
                     region: toProper(row.region)
                 }));
                 updateDataset(data);
-                
+
                 const resBox = document.getElementById('s3-res-proper-learn');
                 resBox.className = "result-box";
                 resBox.style.backgroundColor = "#EFF6FF";
@@ -968,12 +968,12 @@ const sessionsData = {
             document.getElementById('s3-btn-submit-proper').addEventListener('click', () => {
                 const inputVal = document.getElementById('s3-input-proper').value.trim();
                 const resBox = document.getElementById('s3-res-proper');
-                if(!inputVal) { resBox.className = "result-box empty"; resBox.innerHTML = "Enter a formula."; return; }
+                if (!inputVal) { resBox.className = "result-box empty"; resBox.innerHTML = "Enter a formula."; return; }
 
                 let normalized = inputVal.toUpperCase().replace(/\s+/g, '');
                 if (normalized === '=PROPER(C2)') {
                     resBox.className = "result-box"; resBox.style.backgroundColor = "#F0FDF4"; resBox.style.borderColor = "#86EFAC"; resBox.style.color = "#166534";
-                    let d = [...baseData].map(r => ({...r, product: toProper(r.product)}));
+                    let d = [...baseData].map(r => ({ ...r, product: toProper(r.product) }));
                     updateDataset(d); highlightColumn('product');
                     resBox.innerHTML = `<strong><i class="ri-checkbox-circle-fill"></i> Pass!</strong><br><div style="margin-top:10px;">Correct. Apply =PROPER(C2) downwards and the product "smartPhone" turns into "Smartphone".</div>`;
                 } else {
@@ -986,9 +986,9 @@ const sessionsData = {
             document.getElementById('s3-btn-trim-learn').addEventListener('click', () => {
                 let data = [...baseData];
                 // Simulate trim visually by appending some spaces
-                data = data.map((row, i) => i === 0 ? {...row, category: " " + row.category + "   [TRIMMED]"} : {...row, category: row.category + " [TRIMMED]"});
+                data = data.map((row, i) => i === 0 ? { ...row, category: " " + row.category + "   [TRIMMED]" } : { ...row, category: row.category + " [TRIMMED]" });
                 updateDataset(data);
-                
+
                 const resBox = document.getElementById('s3-res-trim-learn');
                 resBox.className = "result-box"; resBox.style.backgroundColor = "#EFF6FF"; resBox.style.borderColor = "var(--secondary-color)";
                 resBox.innerHTML = `<strong>Explanation:</strong><br><div style="margin-top:10px;"><strong>Formula:</strong> <code>=TRIM(D2)</code><br><br>Any phantom white spaces before or after the text are deleted.</div>`;
@@ -999,7 +999,7 @@ const sessionsData = {
             document.getElementById('s3-btn-submit-trim').addEventListener('click', () => {
                 const inputVal = document.getElementById('s3-input-trim').value.trim();
                 const resBox = document.getElementById('s3-res-trim');
-                if(!inputVal) { resBox.className = "result-box empty"; resBox.innerHTML = "Enter a formula."; return; }
+                if (!inputVal) { resBox.className = "result-box empty"; resBox.innerHTML = "Enter a formula."; return; }
 
                 let normalized = inputVal.toUpperCase().replace(/\s+/g, '');
                 if (normalized === '=TRIM(I2)') {
@@ -1015,9 +1015,9 @@ const sessionsData = {
             // LEFT Learn
             document.getElementById('s3-btn-left-learn').addEventListener('click', () => {
                 let data = [...baseData];
-                data = data.map(row => ({...row, transactionCode: row.transactionCode.substring(0, 3)}));
+                data = data.map(row => ({ ...row, transactionCode: row.transactionCode.substring(0, 3) }));
                 updateDataset(data);
-                
+
                 const resBox = document.getElementById('s3-res-left-learn');
                 resBox.className = "result-box"; resBox.style.backgroundColor = "#EFF6FF"; resBox.style.borderColor = "var(--secondary-color)";
                 resBox.innerHTML = `<strong>Explanation:</strong><br><div style="margin-top:10px;"><strong>Formula:</strong> <code>=LEFT(A2, 3)</code><br><br>Excel extracted exactly 3 characters from the left edge of the code.</div>`;
@@ -1028,12 +1028,12 @@ const sessionsData = {
             document.getElementById('s3-btn-submit-left').addEventListener('click', () => {
                 const inputVal = document.getElementById('s3-input-left').value.trim();
                 const resBox = document.getElementById('s3-res-left');
-                if(!inputVal) { resBox.className = "result-box empty"; resBox.innerHTML = "Enter a formula."; return; }
+                if (!inputVal) { resBox.className = "result-box empty"; resBox.innerHTML = "Enter a formula."; return; }
 
                 let n = inputVal.toUpperCase().replace(/\s+/g, '');
                 if (n === '=LEFT(A2,4)') {
                     resBox.className = "result-box"; resBox.style.backgroundColor = "#F0FDF4"; resBox.style.borderColor = "#86EFAC"; resBox.style.color = "#166534";
-                    let d = [...baseData].map(r => ({...r, transactionCode: r.transactionCode.substring(0, 4)}));
+                    let d = [...baseData].map(r => ({ ...r, transactionCode: r.transactionCode.substring(0, 4) }));
                     updateDataset(d); highlightColumn('transactionCode');
                     resBox.innerHTML = `<strong><i class="ri-checkbox-circle-fill"></i> Pass!</strong><br><div style="margin-top:10px;">Correct. Extracting 4 characters gave us: ${d[0].transactionCode}.</div>`;
                 } else {
@@ -1045,9 +1045,9 @@ const sessionsData = {
             // MID Learn
             document.getElementById('s3-btn-mid-learn').addEventListener('click', () => {
                 let data = [...baseData];
-                data = data.map(row => ({...row, transactionCode: row.transactionCode.substring(4, 8)}));
+                data = data.map(row => ({ ...row, transactionCode: row.transactionCode.substring(4, 8) }));
                 updateDataset(data);
-                
+
                 const resBox = document.getElementById('s3-res-mid-learn');
                 resBox.className = "result-box"; resBox.style.backgroundColor = "#EFF6FF"; resBox.style.borderColor = "var(--secondary-color)";
                 resBox.innerHTML = `<strong>Explanation:</strong><br><div style="margin-top:10px;"><strong>Formula:</strong> <code>=MID(A2, 5, 4)</code><br><br>Excel counts 5 spaces in (past the dash) and then cuts out exactly 4 characters to isolate the year.</div>`;
@@ -1058,12 +1058,12 @@ const sessionsData = {
             document.getElementById('s3-btn-submit-mid').addEventListener('click', () => {
                 const inputVal = document.getElementById('s3-input-mid').value.trim();
                 const resBox = document.getElementById('s3-res-mid');
-                if(!inputVal) { resBox.className = "result-box empty"; resBox.innerHTML = "Enter a formula."; return; }
+                if (!inputVal) { resBox.className = "result-box empty"; resBox.innerHTML = "Enter a formula."; return; }
 
                 let n = inputVal.toUpperCase().replace(/\s+/g, '');
                 if (n === '=MID(A2,5,2)') {
                     resBox.className = "result-box"; resBox.style.backgroundColor = "#F0FDF4"; resBox.style.borderColor = "#86EFAC"; resBox.style.color = "#166534";
-                    let d = [...baseData].map(r => ({...r, transactionCode: r.transactionCode.substring(4, 6)}));
+                    let d = [...baseData].map(r => ({ ...r, transactionCode: r.transactionCode.substring(4, 6) }));
                     updateDataset(d); highlightColumn('transactionCode');
                     resBox.innerHTML = `<strong><i class="ri-checkbox-circle-fill"></i> Pass!</strong><br><div style="margin-top:10px;">Correct. Extracting 2 chars at pos 5 yields: ${d[0].transactionCode}.</div>`;
                 } else {
@@ -1075,9 +1075,9 @@ const sessionsData = {
             // RIGHT Learn
             document.getElementById('s3-btn-right-learn').addEventListener('click', () => {
                 let data = [...baseData];
-                data = data.map(row => ({...row, transactionCode: row.transactionCode.substring(row.transactionCode.length - 3)}));
+                data = data.map(row => ({ ...row, transactionCode: row.transactionCode.substring(row.transactionCode.length - 3) }));
                 updateDataset(data);
-                
+
                 const resBox = document.getElementById('s3-res-right-learn');
                 resBox.className = "result-box"; resBox.style.backgroundColor = "#EFF6FF"; resBox.style.borderColor = "var(--secondary-color)";
                 resBox.innerHTML = `<strong>Explanation:</strong><br><div style="margin-top:10px;"><strong>Formula:</strong> <code>=RIGHT(A2, 3)</code><br><br>Excel pulled the 3 characters from the far right edge.</div>`;
@@ -1088,12 +1088,12 @@ const sessionsData = {
             document.getElementById('s3-btn-submit-right').addEventListener('click', () => {
                 const inputVal = document.getElementById('s3-input-right').value.trim();
                 const resBox = document.getElementById('s3-res-right');
-                if(!inputVal) { resBox.className = "result-box empty"; resBox.innerHTML = "Enter a formula."; return; }
+                if (!inputVal) { resBox.className = "result-box empty"; resBox.innerHTML = "Enter a formula."; return; }
 
                 let n = inputVal.toUpperCase().replace(/\s+/g, '');
                 if (n === '=RIGHT(A2,2)') {
                     resBox.className = "result-box"; resBox.style.backgroundColor = "#F0FDF4"; resBox.style.borderColor = "#86EFAC"; resBox.style.color = "#166534";
-                    let d = [...baseData].map(r => ({...r, transactionCode: r.transactionCode.substring(r.transactionCode.length - 2)}));
+                    let d = [...baseData].map(r => ({ ...r, transactionCode: r.transactionCode.substring(r.transactionCode.length - 2) }));
                     updateDataset(d); highlightColumn('transactionCode');
                     resBox.innerHTML = `<strong><i class="ri-checkbox-circle-fill"></i> Pass!</strong><br><div style="margin-top:10px;">Correct. Extracting two rightmost characters yielded: ${d[0].transactionCode}.</div>`;
                 } else {
@@ -1171,18 +1171,18 @@ const sessionsData = {
                 const c2 = document.getElementById('pq-desc-2');
                 const s3 = document.getElementById('pq-step-3');
                 const c3 = document.getElementById('pq-desc-3');
-                
+
                 // Simulate step by step
                 setTimeout(() => { s1.classList.add('active'); c1.classList.add('active'); resetData(); }, 300);
                 setTimeout(() => { s2.classList.add('active'); c2.classList.add('active'); }, 1000);
-                setTimeout(() => { 
-                    s3.classList.add('active'); c3.classList.add('active'); 
+                setTimeout(() => {
+                    s3.classList.add('active'); c3.classList.add('active');
                     // clean data
-                    let d = baseData.map(r => ({...r, region: r.region.toUpperCase(), product: r.product.toUpperCase()})); 
+                    let d = baseData.map(r => ({ ...r, region: r.region.toUpperCase(), product: r.product.toUpperCase() }));
                     updateDataset(d);
                 }, 1800);
             });
-            
+
             document.getElementById('s4-btn-reset').addEventListener('click', () => {
                 document.querySelectorAll('.step-circle, .step-content').forEach(e => e.classList.remove('active'));
                 resetData();
@@ -1460,8 +1460,8 @@ const sessionsData = {
             document.getElementById('s6-btn-vlookup-learn').addEventListener('click', () => {
                 const val = document.getElementById('s6-vlookup-learn-input').value.trim();
                 const resBox = document.getElementById('s6-res-vlookup-learn');
-                if(!val) return;
-                
+                if (!val) return;
+
                 const matchIndex = baseData.findIndex(r => r.orderId.toUpperCase() === val.toUpperCase());
                 resBox.className = "result-box"; resBox.style.backgroundColor = "#EFF6FF"; resBox.style.borderColor = "var(--secondary-color)";
                 if (matchIndex === -1) {
@@ -1474,9 +1474,9 @@ const sessionsData = {
 
             // VLOOKUP Exercise
             document.getElementById('s6-btn-submit-vlookup').addEventListener('click', () => {
-                const inputVal = document.getElementById('s6-input-vlookup').value.trim().toUpperCase().replace(/\s+/g,'');
+                const inputVal = document.getElementById('s6-input-vlookup').value.trim().toUpperCase().replace(/\s+/g, '');
                 const resBox = document.getElementById('s6-res-vlookup');
-                
+
                 if (inputVal === '=VLOOKUP("ORD0313",A2:H6,8,0)' || inputVal === '=VLOOKUP("ORD0313",A2:H6,8,FALSE)' || inputVal === 'VLOOKUP("ORD0313",A2:H6,8,FALSE)') {
                     resBox.className = "result-box"; resBox.style.backgroundColor = "#F0FDF4"; resBox.style.borderColor = "#86EFAC"; resBox.style.color = "#166534";
                     resBox.innerHTML = `<strong><i class="ri-checkbox-circle-fill"></i> Pass!</strong><br><div style="margin-top:10px;">Correct. Column 8 corresponds to TotalPrice.</div>`;
@@ -1490,21 +1490,21 @@ const sessionsData = {
             document.getElementById('s6-btn-im-learn').addEventListener('click', () => {
                 const val = document.getElementById('s6-im-learn-input').value.trim();
                 const resBox = document.getElementById('s6-res-im-learn');
-                if(!val) return;
-                
+                if (!val) return;
+
                 const matchIndex = baseData.findIndex(r => r.orderId.toUpperCase() === val.toUpperCase());
                 resBox.className = "result-box"; resBox.style.backgroundColor = "#EFF6FF"; resBox.style.borderColor = "var(--secondary-color)";
                 if (matchIndex === -1) {
                     resBox.innerHTML = `<strong>Error:</strong> ID not found.`;
                 } else {
-                    resBox.innerHTML = `<strong>Explanation:</strong><br><div style="margin-top:10px;"><strong>Formula:</strong> <code>=INDEX(B2:B6, MATCH("${val}", A2:A6, 0))</code><br><br><code>MATCH</code> computed row ${matchIndex+1}. <code>INDEX</code> grabbed the value in row ${matchIndex+1} of column B: <strong>${baseData[matchIndex].region}</strong>.</div>`;
+                    resBox.innerHTML = `<strong>Explanation:</strong><br><div style="margin-top:10px;"><strong>Formula:</strong> <code>=INDEX(B2:B6, MATCH("${val}", A2:A6, 0))</code><br><br><code>MATCH</code> computed row ${matchIndex + 1}. <code>INDEX</code> grabbed the value in row ${matchIndex + 1} of column B: <strong>${baseData[matchIndex].region}</strong>.</div>`;
                     highlightRows([matchIndex]);
                 }
             });
 
             // INDEX MATCH Exercise
             document.getElementById('s6-btn-submit-im').addEventListener('click', () => {
-                const inputVal = document.getElementById('s6-input-im').value.trim().toUpperCase().replace(/\s+/g,'');
+                const inputVal = document.getElementById('s6-input-im').value.trim().toUpperCase().replace(/\s+/g, '');
                 const resBox = document.getElementById('s6-res-im');
                 if (inputVal === '=INDEX(A2:A6,MATCH("POS",I2:I6,0))' || inputVal === 'INDEX(A2:A6,MATCH("POS",I2:I6,0))' || inputVal === '=INDEX(A2:A6,MATCH("POS",I2:I6,FALSE))') {
                     resBox.className = "result-box"; resBox.style.backgroundColor = "#F0FDF4"; resBox.style.borderColor = "#86EFAC"; resBox.style.color = "#166534";
@@ -1524,7 +1524,7 @@ const sessionsData = {
 
             // COUNTIFS Exercise
             document.getElementById('s6-btn-submit-countifs').addEventListener('click', () => {
-                const inputVal = document.getElementById('s6-input-countifs').value.trim().toUpperCase().replace(/\s+/g,'');
+                const inputVal = document.getElementById('s6-input-countifs').value.trim().toUpperCase().replace(/\s+/g, '');
                 const resBox = document.getElementById('s6-res-countifs');
                 if (inputVal.includes('COUNTIFS(') && inputVal.includes('C2:C6,"LAPTOP"') && inputVal.includes('I2:I6,"TRANSFER"')) {
                     resBox.className = "result-box"; resBox.style.backgroundColor = "#F0FDF4"; resBox.style.borderColor = "#86EFAC"; resBox.style.color = "#166534";
@@ -1544,7 +1544,7 @@ const sessionsData = {
 
             // SUMIFS Exercise
             document.getElementById('s6-btn-submit-sumifs').addEventListener('click', () => {
-                const inputVal = document.getElementById('s6-input-sumifs').value.trim().toUpperCase().replace(/\s+/g,'');
+                const inputVal = document.getElementById('s6-input-sumifs').value.trim().toUpperCase().replace(/\s+/g, '');
                 const resBox = document.getElementById('s6-res-sumifs');
                 if (inputVal.includes('SUMIFS(H2:H6') && inputVal.includes('C2:C6,"DESKTOP"') && inputVal.includes('B2:B6,"KANO"')) {
                     resBox.className = "result-box"; resBox.style.backgroundColor = "#F0FDF4"; resBox.style.borderColor = "#86EFAC"; resBox.style.color = "#166534";
@@ -1564,7 +1564,7 @@ const sessionsData = {
 
             // IFERROR Exercise
             document.getElementById('s6-btn-submit-iferror').addEventListener('click', () => {
-                const inputVal = document.getElementById('s6-input-iferror').value.trim().toUpperCase().replace(/\s+/g,'');
+                const inputVal = document.getElementById('s6-input-iferror').value.trim().toUpperCase().replace(/\s+/g, '');
                 const resBox = document.getElementById('s6-res-iferror');
                 if (inputVal === '=IFERROR(100/0,"MATHERROR")' || inputVal === 'IFERROR(100/0,"MATHERROR")') {
                     resBox.className = "result-box"; resBox.style.backgroundColor = "#F0FDF4"; resBox.style.borderColor = "#86EFAC"; resBox.style.color = "#166534";
@@ -1640,16 +1640,16 @@ const sessionsData = {
             document.querySelectorAll('.slicer-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     const sliceValue = e.target.getAttribute('data-slice') || e.target.closest('button').getAttribute('data-slice');
-                    
+
                     document.querySelectorAll('.slicer-btn').forEach(b => {
-                        b.style.background = ''; 
+                        b.style.background = '';
                         b.style.color = '';
                         b.classList.add('btn-outline');
                     });
-                    
+
                     e.target.closest('button').style.background = 'var(--secondary-color)';
                     e.target.closest('button').style.color = 'white';
-                    
+
                     if (sliceValue === 'all') {
                         resetData();
                         const sum = baseData.reduce((acc, r) => acc + r.totalPrice, 0);
@@ -1662,7 +1662,7 @@ const sessionsData = {
                         // case insensitive filter
                         const filtered = baseData.filter(r => r.paymentMethod.toLowerCase() === sliceValue);
                         updateDataset(filtered);
-                        
+
                         const sum = filtered.reduce((acc, r) => acc + r.totalPrice, 0);
                         document.getElementById('s7-result').innerHTML = `
                             <strong>Pivot Summary (Filtered: ${sliceValue.toUpperCase()}):</strong><br>
@@ -1689,29 +1689,23 @@ const sessionsData = {
                     <li>3. Build an interactive Pivot Dashboard resolving 3 management queries.</li>
                     <li>4. Present actionable insights.</li>
                 </ul>
+                <a href="capstone_dataset.xlsx" download class="btn-action btn-success" style="margin-top: 10px; text-decoration: none; width: 100%; justify-content: center;">
+                    <i class="ri-download-cloud-2-line"></i> Download Capstone Dataset (.xlsx)
+                </a>
             </div>
             
             <div class="explanation">
                 <p>It’s time to put everything together. The goal of Data Analysis isn't just to make tables look pretty; it's to derive business truths from raw numbers. Download the final raw dataset provided by the instructor and complete the tasks outlined above.</p>
             </div>
 
-            <div class="interactive-zone" style="background:#F0FDF4; border-color:#86EFAC;">
-                <h3 class="interactive-header"><i class="ri-upload-cloud-2-line"></i> Project Submission</h3>
-                <p class="text-muted" style="margin-bottom:15px;">Submit your completed Excel Workbook and a brief analytical insight summary.</p>
-                
-                <div style="margin-bottom: 15px;">
-                    <label style="font-weight: 500; font-size: 0.9rem; display:block; margin-bottom:5px;">Write your top business insight here:</label>
-                    <textarea class="input-control" rows="4" style="width: 100%; resize: vertical;" placeholder="E.g., Based on the dashboard, the highest grossing region was..."></textarea>
-                </div>
-
-                <div class="actions-row">
-                    <button class="btn-action btn-outline" style="background:white"><i class="ri-attachment-line"></i> Attach Excel File (.xlsx)</button>
-                    <button class="btn-action btn-success"><i class="ri-send-plane-line"></i> Submit Final Project</button>
-                </div>
+            <div class="assignment-box" style="background:#F0FDF4; border-color:#86EFAC;">
+                <h4 style="color: #166534;"><i class="ri-mail-send-line"></i> Project Submission</h4>
+                <p>Once you have completed your analysis and built your dashboard, please submit your Excel workbook (.xlsx) directly to your instructor via the provided training email address.</p>
+                <p class="text-muted" style="margin-top: 10px; font-size: 0.85rem;"><i class="ri-information-line"></i> Ensure your file is named following the format: <code>YourName_Capstone_Project.xlsx</code></p>
             </div>
         `,
         initLogic: () => {
-            // Static UI logic
+            // No specific logic needed for static download
         }
     }
 };
