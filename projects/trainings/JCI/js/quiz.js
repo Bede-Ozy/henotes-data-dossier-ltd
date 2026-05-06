@@ -711,10 +711,10 @@ const allQuestions = [
         explanation: "Line charts are the standard for visualizing time-series data and trends."
     },
     {
-        question: "What is a 'Slicer' mainly used for in an Excel Dashboard?",
-        options: ["Cutting images", "Interactive filtering of charts and tables", "Calculating sums", "Formatting headers"],
-        correct: 1,
-        explanation: "Slicers provide a user-friendly, visual way to filter data in real-time."
+        question: "Which of the following is a type of chart?",
+        options: ["Pie Chart", "Bearish Chart", "", "Bullish Chart", "All of the above"],
+        correct: 0,
+        explanation: "Pie chart is a type of chart that represents data in circular using segments."
     },
     {
         question: "Which chart type is best for showing 'parts of a whole' (e.g., percentage of market share)?",
@@ -729,16 +729,16 @@ const allQuestions = [
         explanation: "The data source is the underlying table or range that the chart visualizes."
     },
     {
-        question: "What is a 'Trendline' in a Scatter plot used for?",
-        options: ["Connecting the dots", "Showing the general direction or correlation of the data", "Naming the points", "Adding more data"],
+        question: "What chart is best used for showing and comparing quantities of items?",
+        options: ["Line chart", "Bar Chart", "Scatter Plot", "Pie Chart"],
         correct: 1,
-        explanation: "Trendlines help identify patterns and relationships between two variables."
+        explanation: "Bar charts are the standard for comparing quantities of items."
     },
     {
-        question: "What is a 'Sparkline' in Excel?",
-        options: ["A very bright chart", "A tiny chart that fits inside a single cell", "A type of animation", "A 3D chart"],
+        question: "What happens when you present data without visualization?",
+        options: ["It becomes easier to understand", "It may be harder to spot insights", "It becomes more colorful", "Nothing changes"],
         correct: 1,
-        explanation: "Sparklines provide a quick, compact visual summary of data trends next to the numbers."
+        explanation: "Without visualization, it can be difficult to quickly identify insights and patterns."
     },
     {
         question: "How do you add a 'Chart Title' if it is missing?",
@@ -753,10 +753,10 @@ const allQuestions = [
         explanation: "The legend identifies the data series represented in the chart."
     },
     {
-        question: "Which ribbon tab appears only when a chart is selected?",
-        options: ["Data", "Chart Design", "Review", "View"],
-        correct: 1,
-        explanation: "Contextual tabs like Chart Design and Format appear only when you are working on a chart."
+        question: "Why is visualization useful for presentations?",
+        options: ["It adds animations only", "It makes slides longer", "It communicates insights clearly to others", "It replaces speaking"],
+        correct: 2,
+        explanation: "Visuals help communicate insights clearly and effectively to an audience."
     },
     {
         question: "What is a 'Combo Chart' in Excel?",
@@ -766,7 +766,7 @@ const allQuestions = [
     },
     {
         question: "What are 'Data Labels' used for?",
-        options: ["Naming the chart", "Showing the exact value of each data point on the chart", "Creating a legend", "Filtering data"],
+        options: ["Naming the chart", "Showing the value of each data point on the chart", "Creating a legend", "Filtering data"],
         correct: 1,
         explanation: "Data labels make a chart more precise by displaying the actual numbers directly."
     },
@@ -777,16 +777,16 @@ const allQuestions = [
         explanation: "Bar and Column charts are the most effective for categorical comparisons."
     },
     {
-        question: "What is the 'X-Axis' usually used for in a standard Column chart?",
-        options: ["The numerical values", "The categories or time periods", "The chart title", "The legend"],
-        correct: 1,
-        explanation: "The horizontal X-axis typically represents independent categories or time."
+        question: "How does visualization help in decision-making?",
+        options: ["It delays decisions", "It hides important data", "It makes trends and patterns clearer", "It removes errors automatically"],
+        correct: 2,
+        explanation: "Clear visuals help decision-makers quickly identify trends and act on them."
     },
     {
-        question: "What is the 'Y-Axis' usually used for in a standard Column chart?",
-        options: ["The categories", "The numerical values or measurements", "The source data", "The date"],
+        question: "Why is data visualization important?",
+        options: ["It makes data look colorful", "It helps people understand data quickly", "It increases file size", "It replaces formulas"],
         correct: 1,
-        explanation: "The vertical Y-axis typically represents the dependent values or metrics."
+        explanation: "Visualization helps people quickly understand patterns and insights in data."
     },
     {
         question: "Can you create a 'Map Chart' in Excel to visualize data by country or state?",
@@ -795,16 +795,16 @@ const allQuestions = [
         explanation: "Excel can automatically recognize geographic names and plot data on a map."
     },
     {
-        question: "What is a 'Waterfall' chart commonly used for in finance?",
-        options: ["Showing stock prices", "Visualizing how a starting value increases or decreases to a final result", "Comparing categories", "Showing cycles"],
+        question: "If your chart looks wrong, what is the most likely issue?",
+        options: ["Wrong font", "Wrong data selected", "Too many colors", "Excel is broken"],
         correct: 1,
-        explanation: "Waterfall charts are excellent for visualizing 'bridges' between two totals (e.g., Revenue to Net Income)."
+        explanation: "Most chart issues come from selecting incorrect data."
     },
     {
-        question: "What is a 'Sunburst' chart used for?",
-        options: ["Showing weather data", "Visualizing hierarchical data with multiple levels", "Linear trends", "Comparison"],
+        question: "What is the purpose of a chart title?",
+        options: ["To decorate the chart", "To explain what the chart is about", "To change colors", "To sort data"],
         correct: 1,
-        explanation: "Sunburst charts use concentric circles to show multi-level hierarchies."
+        explanation: "A chart title helps the viewer understand what the chart represents."
     },
     {
         question: "How can you move a chart to its own dedicated sheet?",
@@ -819,10 +819,10 @@ const allQuestions = [
         explanation: "Clustered columns allow for direct comparison between multiple series in each category."
     },
     {
-        question: "Why would you use a 'Secondary Axis' in a chart?",
-        options: ["To make it look 3D", "To plot two data series with very different scales (e.g., Millions vs Percentages)", "To add more titles", "To hide data"],
+        question: "What is the first step to create a chart in Excel?",
+        options: ["Insert a chart first", "Select your data", "Format the chart", "Add colors"],
         correct: 1,
-        explanation: "A secondary axis allows both metrics to be visible and readable on the same chart."
+        explanation: "You must select your data before inserting a chart."
     },
 
     // SESSION 6: ADVANCED FORMULAS
@@ -869,58 +869,58 @@ const allQuestions = [
         explanation: "SUMIFS can sum data based on multiple conditions (e.g., Region = Lagos AND Category = Phone)."
     },
     {
-        question: "In SUMIFS, which argument comes first?",
+        question: "In SUMIF, which argument comes first?",
         options: ["Criteria_range1", "Criteria1", "Sum_range (the numbers to add)", "The sheet name"],
         correct: 2,
         explanation: "Unlike SUMIF, SUMIFS starts with the range of numbers you want to sum."
     },
     {
-        question: "What is the purpose of the IFERROR function?",
-        options: ["To cause an error", "To hide error codes (like #N/A) and replace them with a clean message", "To fix the math automatically", "To delete the cell if it has an error"],
-        correct: 1,
-        explanation: "IFERROR makes your dashboards look professional by handling calculation errors gracefully."
+        question: "What is the purpose of the COUNTIF function?",
+        options: ["To count the number of cells that meet a specific criterion", "To fix the math automatically", "To count the number of cells that meet a specific criterion", "To delete the cell if it has an error"],
+        correct: 2,
+        explanation: "COUNTIF is used to count cells that meet a specific criterion."
     },
     {
-        question: "What is the modern, more powerful replacement for VLOOKUP in newer Excel versions?",
-        options: ["ZLOOKUP", "XLOOKUP", "MAXLOOKUP", "SUPERLOOKUP"],
+        question: "What is the advantage of INDEX/MATCH over VLOOKUP?",
+        options: ["It can look to the left", "It is more flexible for large datasets", "It only works with numbers", "It creates charts automatically"],
         correct: 1,
-        explanation: "XLOOKUP is the newest lookup function that handles left-lookups, defaults, and more by default."
+        explanation: "INDEX/MATCH is more powerful because it doesn't require the lookup value to be in the first column."
     },
     {
-        question: "How do you correctly handle a #N/A error from a VLOOKUP?",
-        options: ["Delete the formula", "Wrap it in an IFERROR function", "Restart Excel", "Change the font color to white"],
+        question: "How many criteria do you need for SUMIF/COUNTIF?",
+        options: ["3", "1", "4", "5"],
         correct: 1,
-        explanation: "Wrapping VLOOKUP in IFERROR allows you to show 'Not Found' instead of an error code."
+        explanation: "SUMIF/COUNTIF requires only one criterion."
     },
     {
-        question: "Can VLOOKUP look for a value that is to the LEFT of the lookup column?",
-        options: ["Yes, always", "No, it only looks to the right", "Only if you use a negative number", "Only in the Data tab"],
-        correct: 1,
-        explanation: "VLOOKUP can only search for values to the right of the first column in your range."
+        question: "How do you write the index/match functions in order?",
+        options: ["=index(match)", "=match(index)", "=match(match)", "=index(index)"],
+        correct: 0,
+        explanation: "The match function is nested inside the index function."
     },
     {
-        question: "What is a '2-way lookup'?",
-        options: ["A lookup that works twice", "Combining INDEX and two MATCH functions to find data by both Row and Column", "Using two VLOOKUPs", "Filtering data"],
+        question: "How can you count how many times 'Shawarma' appears in A2:A20?",
+        options: ["=COUNTIF(A2:A20, Shawarma)", "=COUNTIF(A2:A20, \"Shawarma\")", "=COUNT(A2:A20, \"Shawarma\")", "=COUNTIF(\"Shawarma\", A2:A20)"],
         correct: 1,
-        explanation: "A 2-way lookup allows you to find a value at the intersection of a specific row and a specific column dynamically."
+        explanation: "COUNTIF needs a range and a criteria. Text criteria must be in quotes."
+    },
+     {
+        question: "How do you count values greater than 50 in the column B2:B30?",
+        options: ["=COUNTIF(B2:B30, >50)", "=COUNTIF(B2:B30, \"50>\")", "=COUNTIF(B2:B30, \">50\")", "=COUNT(B2:B30, \">50\")"],
+        correct: 2,
+        explanation: "Criteria with operators like > must be inside quotes."
     },
     {
-        question: "What does the COUNTIFS function do?",
-        options: ["Adds numbers with criteria", "Counts cells that meet multiple criteria", "Counts only text", "Counts blank cells only"],
-        correct: 1,
-        explanation: "COUNTIFS is for multi-condition counting (e.g., Sales > 100 AND Status = 'Paid')."
+        question: "How do you calculate total sales for 'Rice' in A2:A20 (product_name) and B2:B20 (sales)?",
+        options: ["=SUMIF(A2:A20, \"Rice\", B2:B20)", "=SUMIF(B2:B20, \"Rice\", A2:A20)", "=SUM(A2:A20, \"Rice\")", "=SUMIF(A2:A20, Rice, B2:B20)"],
+        correct: 0,
+        explanation: "SUMIF uses the range (product_name column) as well as the criteria (\"Rice\"), and the sum_range (the sales column). So anywhere there's a \"rice\" in column A2:A20 it gets the sum of the corresponding sales in column B."
     },
-    {
-        question: "Can you use wildcards (like * or ?) in a VLOOKUP search?",
-        options: ["No", "Yes, to find partial text matches", "Only for numbers", "Only in Power Query"],
-        correct: 1,
-        explanation: "Wildcards allow you to search for things like '*Gadget*' to find 'Hi-Gadget Store'."
-    },
-    {
-        question: "What is the HLOOKUP function used for?",
-        options: ["Hidden Lookup", "Horizontal Lookup (searching across the top row)", "High-level Lookup", "Header Lookup"],
-        correct: 1,
-        explanation: "HLOOKUP is like VLOOKUP but works horizontally across rows instead of columns."
+   {
+        question: "With Salary in column C,How do you find the salary of Employee_ID 102 in a table A2:C10?",
+        options: ["=VLOOKUP(102, A2:C10, 3, FALSE)", "=VLOOKUP(102, A2:C10, 2, FALSE)", "=VLOOKUP(A2:C10, 102, 3, FALSE)", "=LOOKUP(102, A2:C10, 3)"],
+        correct: 0,
+        explanation: "Column 3 contains salary, and FALSE ensures exact match."
     },
     {
         question: "How do you 'lock' a table range in a VLOOKUP formula so it doesn't move when copied?",
@@ -929,10 +929,10 @@ const allQuestions = [
         explanation: "Absolute references are critical in lookups to keep the table array fixed."
     },
     {
-        question: "What does VLOOKUP return if 'Range_lookup' is set to FALSE and no exact match is found?",
-        options: ["0", "The closest match", "#N/A error", "Blank"],
+        question: "Which formula correctly looks up a value in column A and returns a value from column H?",
+        options: ["=VLOOKUP(value, A:C, 10, FALSE)", "=VLOOKUP(value, C:A, 3, FALSE)", "=VLOOKUP(value, A:H, 8, FALSE)", "=LOOKUP(value, A:C, 3)"],
         correct: 2,
-        explanation: "FALSE forces an exact match; if none exists, Excel returns the #N/A error."
+        explanation: "Column H is the 8th column in the selected range."
     },
     {
         question: "Does VLOOKUP return the first match it finds or the last match?",
