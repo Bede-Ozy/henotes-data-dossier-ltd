@@ -24,7 +24,7 @@ const sessionMap = {
     5: { name: "Data Visualization", ranges: [[103, 122]] },
     6: { name: "Advanced Formulas", ranges: [[123, 142]] },
     7: { name: "PivotTables & Slicers", ranges: [[143, 162]] },
-    8: { name: "Final Project", ranges: [[0, 162]] }
+    8: { name: "Final Project", ranges: [] }
 };
 
 /**
@@ -991,10 +991,10 @@ const allQuestions = [
         explanation: "Slicers connected to PivotTables make for highly interactive and user-friendly reports."
     },
     {
-        question: "What is a 'Calculated Field' in a PivotTable?",
-        options: ["A field that is hidden", "A custom formula created within the PivotTable itself (e.g., Sales * 0.1)", "A manual entry", "A formatting style"],
+        question: "How do you add a field to a PivotTable?",
+        options: ["Type it in manually", "Drag and drop the field from the Fields pane into an area", "Use the Home tab", "Right-click the taskbar"],
         correct: 1,
-        explanation: "Calculated fields allow you to perform math on PivotTable totals without changing raw data."
+        explanation: "You build PivotTables by dragging fields into the Rows, Columns, or Values areas."
     },
     {
         question: "How do you change a PivotTable from 'Sum of Sales' to 'Average of Sales'?",
@@ -1009,10 +1009,10 @@ const allQuestions = [
         explanation: "This feature allows for powerful relative analysis like market share or growth %."
     },
     {
-        question: "What is the 'GETPIVOTDATA' function?",
-        options: ["A function to delete PivotTables", "A formula used to extract specific data from a PivotTable into another cell", "A way to refresh data", "A sorting tool"],
+        question: "What happens when you double-click a value cell in a PivotTable?",
+        options: ["It deletes the data", "It opens a new sheet with the underlying records (Drill Down)", "It changes the font color", "It closes Excel"],
         correct: 1,
-        explanation: "GETPIVOTDATA ensures you retrieve the correct total even if the PivotTable layout changes."
+        explanation: "Double-clicking is a quick way to 'drill down' and see the raw data that makes up a specific total."
     },
     {
         question: "Can you 'Drill Down' into a specific value in a PivotTable to see the underlying rows?",
@@ -1033,10 +1033,10 @@ const allQuestions = [
         explanation: "The Design tab offers various color schemes and layout options (Compact, Outline, Tabular)."
     },
     {
-        question: "Can you use the 'Data Model' to create a PivotTable from multiple related tables?",
-        options: ["No", "Yes, this is known as Power Pivot", "Only in the cloud", "Only with SQL"],
+        question: "Where can you change the color and style of a PivotTable?",
+        options: ["Data tab", "PivotTable Design tab", "Formula tab", "Insert tab"],
         correct: 1,
-        explanation: "The Data Model allows you to build relationships between different data sources for complex analysis."
+        explanation: "The Design tab provides various color schemes and layout options to make your report look professional."
     },
     {
         question: "What is a 'Report Filter' (or Page Filter) in a PivotTable?",
@@ -1091,6 +1091,10 @@ document.addEventListener('DOMContentLoaded', () => {
         userLocation = document.getElementById('userLocation').value.trim();
         
         if (userName && userLocation) {
+            if (quizQuestions.length === 0) {
+                alert("There is no quiz for this session. Please proceed to the Capstone project.");
+                return;
+            }
             registrationForm.classList.add('hidden');
             quizInterface.classList.remove('hidden');
             showQuestion();
