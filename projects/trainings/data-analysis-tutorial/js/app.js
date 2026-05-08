@@ -45,6 +45,24 @@ document.addEventListener('DOMContentLoaded', () => {
         const globalDataPreview = document.getElementById('dataPreviewSection');
         if (globalDataPreview) {
             globalDataPreview.style.display = 'block';
+            
+            // Update Title and Download Link for Capstone
+            const sectionTitle = globalDataPreview.querySelector('h4');
+            const downloadBtn = globalDataPreview.querySelector('.btn-outline');
+            
+            if (sessionNumber === 8) {
+                if (sectionTitle) sectionTitle.innerHTML = `<i class="ri-database-line"></i> Capstone Dataset Overview`;
+                if (downloadBtn) {
+                    downloadBtn.href = "Excel_Capstone_Data.xlsx";
+                    downloadBtn.innerHTML = `<i class="ri-download-line"></i> Download Capstone Dataset`;
+                }
+            } else {
+                if (sectionTitle) sectionTitle.innerHTML = `<i class="ri-database-line"></i> Sample Dataset Overview`;
+                if (downloadBtn) {
+                    downloadBtn.href = "training_dataset.csv";
+                    downloadBtn.innerHTML = `<i class="ri-download-line"></i> Download Dataset`;
+                }
+            }
         }
 
         // Ensure smooth fade in animation triggers

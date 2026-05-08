@@ -1682,30 +1682,69 @@ const sessionsData = {
             <h2 class="session-title">Capstone Project</h2>
             
             <div class="objective-list">
-                <h4><i class="ri-book-open-line"></i> Capstone Instructions</h4>
-                <ul>
-                    <li>1. Load and thoroughly clean a raw 1,000+ row dataset.</li>
-                    <li>2. Apply advanced formulas to generate new metric columns.</li>
-                    <li>3. Build an interactive Pivot Dashboard resolving 3 management queries.</li>
-                    <li>4. Present actionable insights.</li>
-                </ul>
-                <a href="capstone_dataset.xlsx" download class="btn-action btn-success" style="margin-top: 10px; text-decoration: none; width: 100%; justify-content: center;">
+                <h4><i class="ri-book-open-line"></i> Project Brief</h4>
+                <p>Welcome to the final capstone project. In this session, you will apply all the skills you've learned throughout this tutorial to a real-world dataset. Your task is to clean the data, perform a thorough analysis, and create meaningful visualizations.</p>
+                
+                <a href="Excel_Capstone_Data.xlsx" download class="btn-action btn-success" style="margin-top: 15px; text-decoration: none; width: 100%; justify-content: center;">
                     <i class="ri-download-cloud-2-line"></i> Download Capstone Dataset (.xlsx)
                 </a>
             </div>
             
-            <div class="explanation">
-                <p>It’s time to put everything together. The goal of Data Analysis isn't just to make tables look pretty; it's to derive business truths from raw numbers. Download the final raw dataset provided by the instructor and complete the tasks outlined above.</p>
+            <div class="interactive-zone" style="margin-bottom: 30px;">
+                <h3 class="interactive-header"><i class="ri-tools-line"></i> Project Tasks</h3>
+                
+                <div class="task-section" style="margin-bottom: 25px;">
+                    <h4 style="color: var(--secondary-color); margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                        <span style="background: var(--secondary-color); color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem;">A</span>
+                        Data Cleaning
+                    </h4>
+                    <div class="explanation" style="margin-left: 32px;">
+                        <p>Begin by cleaning the raw dataset. Ensure consistent formatting, handle missing values, and remove any duplicates or errors that might affect your analysis.</p>
+                    </div>
+                </div>
+
+                <div class="task-section" style="margin-bottom: 25px;">
+                    <h4 style="color: var(--secondary-color); margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                        <span style="background: var(--secondary-color); color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem;">B</span>
+                        Data Analysis
+                    </h4>
+                    <div class="explanation" style="margin-left: 32px;">
+                        <p>Answer the following management questions using Excel formulas or PivotTables:</p>
+                        <ul style="margin-top: 10px; line-height: 1.8; list-style-type: none; padding-left: 0;">
+                            <li style="margin-bottom: 8px; display: flex; gap: 10px; align-items: flex-start;"><strong style="color: var(--text-muted); flex-shrink: 0;">i.</strong> <span>How many fashion transactions were recorded?</span></li>
+                            <li style="margin-bottom: 8px; display: flex; gap: 10px; align-items: flex-start;"><strong style="color: var(--text-muted); flex-shrink: 0;">ii.</strong> <span>How much sales was recorded in the Groceries category?</span></li>
+                            <li style="margin-bottom: 8px; display: flex; gap: 10px; align-items: flex-start;"><strong style="color: var(--text-muted); flex-shrink: 0;">iii.</strong> <span>How much in total did Sarah James sell as a sales rep?</span></li>
+                            <li style="margin-bottom: 8px; display: flex; gap: 10px; align-items: flex-start;"><strong style="color: var(--text-muted); flex-shrink: 0;">iv.</strong> <span>How much discount was given to the customer with order id <strong>ORD1008</strong> and what product did that customer buy?</span></li>
+                            <li style="margin-bottom: 8px; display: flex; gap: 10px; align-items: flex-start;"><strong style="color: var(--text-muted); flex-shrink: 0;">v.</strong> <span>What date was the order <strong>ORD1450</strong> made?</span></li>
+                            <li style="margin-bottom: 8px; display: flex; gap: 10px; align-items: flex-start;"><strong style="color: var(--text-muted); flex-shrink: 0;">vi.</strong> <span>Shawn Martin claimed to have made an order of <em>Laptop Stand</em> and instead he got a <em>Face cream</em>. He lost his receipt but claims his order ID is <strong>ORD1443</strong>. As a data analyst, check this orderID and confirm the product he ordered.</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task-section" style="margin-bottom: 10px;">
+                    <h4 style="color: var(--secondary-color); margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                        <span style="background: var(--secondary-color); color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem;">C</span>
+                        Data Visualisation
+                    </h4>
+                    <div class="explanation" style="margin-left: 32px;">
+                        <p>Create visual reports to present your findings:</p>
+                        <ul style="margin-top: 10px; line-height: 1.8; list-style-type: none; padding-left: 0;">
+                            <li style="margin-bottom: 8px; display: flex; gap: 10px; align-items: flex-start;"><strong style="color: var(--text-muted); flex-shrink: 0;">i.</strong> <span>Visualise the sale of categories using a <strong>Bar Chart</strong>.</span></li>
+                            <li style="margin-bottom: 8px; display: flex; gap: 10px; align-items: flex-start;"><strong style="color: var(--text-muted); flex-shrink: 0;">ii.</strong> <span>Visualise the <strong>Sales Trend</strong> for this supermarket.</span></li>
+                            <li style="margin-bottom: 8px; display: flex; gap: 10px; align-items: flex-start;"><strong style="color: var(--text-muted); flex-shrink: 0;">iii.</strong> <span>Using a <strong>Pie Chart</strong>, present the number of Delivered, Pending and Returned products.</span></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
 
             <div class="assignment-box" style="background:#F0FDF4; border-color:#86EFAC;">
                 <h4 style="color: #166534;"><i class="ri-mail-send-line"></i> Project Submission</h4>
-                <p>Once you have completed your analysis and built your dashboard, please submit your Excel workbook (.xlsx) directly to your instructor via the provided training email address.</p>
+                <p>Once you have completed your analysis and built your dashboard, please submit your Excel workbook (.xlsx) directly to your instructor for review.</p>
                 <p class="text-muted" style="margin-top: 10px; font-size: 0.85rem;"><i class="ri-information-line"></i> Ensure your file is named following the format: <code>YourName_Capstone_Project.xlsx</code></p>
             </div>
         `,
         initLogic: () => {
-            // No specific logic needed for static download
+            // No specific logic needed for static project brief
         }
     }
 };
