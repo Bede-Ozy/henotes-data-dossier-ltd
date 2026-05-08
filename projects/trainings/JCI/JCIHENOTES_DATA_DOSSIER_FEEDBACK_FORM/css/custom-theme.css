@@ -1,0 +1,110 @@
+/* =========================================
+   Henotes Modern Theme for Zoho Forms (Iframe Embed)
+   ========================================= */
+
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+:root {
+    --primary: #00c7eb;
+    --primary-dark: #00a0bc;
+    --secondary: #010f40;
+    --text-dark: #0f172a;
+    --text-light: #64748b;
+    --bg-white: #ffffff;
+    --bg-light: #f1f5f9;
+    --font-main: 'Satoshi', sans-serif;
+    --font-secondary: 'Inter', sans-serif;
+    --shadow-md: 0 10px 35px -5px rgba(0, 0, 0, 0.12);
+    --shadow-lg: 0 20px 50px -5px rgba(0, 199, 235, 0.2);
+}
+
+/* Global Styles */
+body.zf-backgroundBg {
+    background-color: var(--bg-light) !important;
+    background-image: radial-gradient(circle at 2px 2px, rgba(0, 199, 235, 0.05) 1px, transparent 0);
+    background-size: 40px 40px;
+    font-family: var(--font-secondary) !important;
+    color: var(--text-dark) !important;
+    padding: 40px 20px !important;
+    margin: 0;
+    min-height: 100vh;
+}
+
+.zf-templateWidth {
+    max-width: 900px !important;
+    margin: 0 auto !important;
+    width: 100% !important;
+}
+
+.zf-templateWrapper {
+    background: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+    box-shadow: var(--shadow-md) !important;
+    border-radius: 24px !important;
+    overflow: hidden;
+    padding: 0 !important;
+}
+
+/* Header Section */
+.zf-tempHeadContBdr {
+    background: transparent !important;
+    border-bottom: 1px solid rgba(0, 199, 235, 0.1) !important;
+    padding: 40px !important;
+    text-align: center;
+}
+
+.zf-frmTitle {
+    font-family: var(--font-main) !important;
+    font-weight: 700 !important;
+    color: var(--secondary) !important;
+    font-size: 28px !important;
+    letter-spacing: -0.5px;
+    margin-bottom: 10px;
+}
+
+.zf-frmTitle em {
+    font-style: normal;
+}
+
+.zf-frmDesc {
+    color: var(--text-light);
+    font-size: 16px;
+    font-family: var(--font-secondary);
+}
+
+.form-logo {
+    display: block;
+    margin: 0 auto 20px;
+    max-width: 180px;
+    height: auto;
+}
+
+/* Iframe Container */
+.zf-subContWrap {
+    padding: 0 !important;
+    background: white;
+    min-height: 600px;
+}
+
+#zf_div_xjfpvQKqkgdLudoQtz342gDqNWTnFewvaMkwCethnjA iframe {
+    width: 100% !important;
+    margin: 0 auto !important;
+    display: block;
+}
+
+/* Layout Stability */
+.zf-clearBoth {
+    clear: both;
+}
+
+@media (max-width: 768px) {
+    .zf-tempHeadContBdr {
+        padding: 30px 20px !important;
+    }
+    .zf-frmTitle {
+        font-size: 22px !important;
+    }
+}
