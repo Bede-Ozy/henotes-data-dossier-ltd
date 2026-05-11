@@ -1,0 +1,19 @@
+# Temporary files
+~$*
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# Node dependencies (if any)
+node_modules/
+package-lock.json
+
+# Local env files
+.env
+.env.local

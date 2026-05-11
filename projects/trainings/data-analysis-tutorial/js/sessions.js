@@ -1732,6 +1732,23 @@ const sessionsData = {
                             <li style="margin-bottom: 8px; display: flex; gap: 10px; align-items: flex-start;"><strong style="color: var(--text-muted); flex-shrink: 0;">i.</strong> <span>Visualise the sale of categories using a <strong>Bar Chart</strong>.</span></li>
                             <li style="margin-bottom: 8px; display: flex; gap: 10px; align-items: flex-start;"><strong style="color: var(--text-muted); flex-shrink: 0;">ii.</strong> <span>Visualise the <strong>Sales Trend</strong> for this supermarket.</span></li>
                             <li style="margin-bottom: 8px; display: flex; gap: 10px; align-items: flex-start;"><strong style="color: var(--text-muted); flex-shrink: 0;">iii.</strong> <span>Using a <strong>Pie Chart</strong>, present the number of Delivered, Pending and Returned products.</span></li>
+                            
+                            <li style="margin-top: 25px; margin-bottom: 10px; font-weight: 700; color: var(--primary-color); border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">Student-Asked Analysis Questions:</li>
+                            
+                            <!-- Betty -->
+                            <li style="margin-top: 15px; margin-bottom: 5px; font-weight: 700; color: var(--secondary-color);">Betty's Questions</li>
+                            <li style="margin-bottom: 6px; display: flex; gap: 10px; align-items: flex-start; margin-left: 15px;"><i class="ri-corner-down-right-line" style="color: var(--secondary-color); margin-top: 4px;"></i> <span>What products were purchased using POS?</span></li>
+                            <li style="margin-bottom: 6px; display: flex; gap: 10px; align-items: flex-start; margin-left: 15px;"><i class="ri-corner-down-right-line" style="color: var(--secondary-color); margin-top: 4px;"></i> <span>What is the sum of people purchasing food in Lagos?</span></li>
+
+                            <!-- Ms Joy -->
+                            <li style="margin-top: 15px; margin-bottom: 5px; font-weight: 700; color: var(--secondary-color);">Ms Joy's Questions</li>
+                            <li style="margin-bottom: 6px; display: flex; gap: 10px; align-items: flex-start; margin-left: 15px;"><i class="ri-corner-down-right-line" style="color: var(--secondary-color); margin-top: 4px;"></i> <span>What category has the least amount of sales?</span></li>
+                            <li style="margin-bottom: 6px; display: flex; gap: 10px; align-items: flex-start; margin-left: 15px;"><i class="ri-corner-down-right-line" style="color: var(--secondary-color); margin-top: 4px;"></i> <span>What category sold the least number of products?</span></li>
+
+                            <!-- Ms Halima -->
+                            <li style="margin-top: 15px; margin-bottom: 5px; font-weight: 700; color: var(--secondary-color);">Ms Halima's Questions</li>
+                            <li style="margin-bottom: 6px; display: flex; gap: 10px; align-items: flex-start; margin-left: 15px;"><i class="ri-corner-down-right-line" style="color: var(--secondary-color); margin-top: 4px;"></i> <span>What is the least preferred payment method?</span></li>
+                            <li style="margin-bottom: 6px; display: flex; gap: 10px; align-items: flex-start; margin-left: 15px;"><i class="ri-corner-down-right-line" style="color: var(--secondary-color); margin-top: 4px;"></i> <span>What is the average price of the most purchased products?</span></li>
                         </ul>
                     </div>
                 </div>

@@ -44,7 +44,7 @@ function shuffle(array) {
 function initializeQuizContent() {
     const params = new URLSearchParams(window.location.search);
     const sessionNum = parseInt(params.get('session')) || 0;
-    
+
     let filtered = [];
     let sessionName = "General Knowledge";
 
@@ -904,7 +904,7 @@ const allQuestions = [
         correct: 1,
         explanation: "COUNTIF needs a range and a criteria. Text criteria must be in quotes."
     },
-     {
+    {
         question: "How do you count values greater than 50 in the column B2:B30?",
         options: ["=COUNTIF(B2:B30, >50)", "=COUNTIF(B2:B30, \"50>\")", "=COUNTIF(B2:B30, \">50\")", "=COUNT(B2:B30, \">50\")"],
         correct: 2,
@@ -916,7 +916,7 @@ const allQuestions = [
         correct: 0,
         explanation: "SUMIF uses the range (product_name column) as well as the criteria (\"Rice\"), and the sum_range (the sales column). So anywhere there's a \"rice\" in column A2:A20 it gets the sum of the corresponding sales in column B."
     },
-   {
+    {
         question: "With Salary in column C,How do you find the salary of Employee_ID 102 in a table A2:C10?",
         options: ["=VLOOKUP(102, A2:C10, 3, FALSE)", "=VLOOKUP(102, A2:C10, 2, FALSE)", "=VLOOKUP(A2:C10, 102, 3, FALSE)", "=LOOKUP(102, A2:C10, 3)"],
         correct: 0,
@@ -964,12 +964,12 @@ const allQuestions = [
         question: "What are the four 'Areas' in the PivotTable Fields pane?",
         options: ["Rows, Columns, Values, Filters", "Top, Bottom, Left, Right", "Header, Footer, Body, Side", "SUM, COUNT, MIN, MAX"],
         correct: 0,
-        explanation: "You drag fields into these four areas to structure your summary."
+        explanation: "You drag fields into these four areas to structure your summary or chart."
     },
     {
-        question: "Can you group a list of specific dates into Months or Years in a PivotTable?",
-        options: ["No, it's impossible", "Yes, using the 'Group' feature (Right-click a date > Group)", "Only with Power Query", "Only manually"],
-        correct: 1,
+        question: "How do you delete an axis in a chart in excel?",
+        options: ["click on the axis and click on backspace", "click on the axis and move it away from the chart", "right click on the axis and click add", "right click on the axis and click delete"],
+        correct: 3,
         explanation: "Grouping dates is a powerful way to see monthly or quarterly performance trends."
     },
     {
@@ -998,21 +998,21 @@ const allQuestions = [
     },
     {
         question: "How do you change a PivotTable from 'Sum of Sales' to 'Average of Sales'?",
-        options: ["Retype the numbers", "Value Field Settings > Summarize Values By", "Change the raw data", "Use a different tab"],
+        options: ["Retype the numbers", "Value Field Settings > Summarize Values By", "Change the title", "Use a different tab"],
         correct: 1,
         explanation: "Value Field Settings allow you to change the aggregation type (Sum, Count, Average, etc.)."
     },
     {
         question: "What does 'Show Values As' (e.g., % of Grand Total) do in a PivotTable?",
-        options: ["Changes the font color", "Displays values as a calculation relative to other values", "Hides the values", "Creates a chart"],
+        options: ["Changes the font color", "Displays values as a calculation (sum, average, etc.)", "Hides the values", "Creates a chart"],
         correct: 1,
         explanation: "This feature allows for powerful relative analysis like market share or growth %."
     },
     {
-        question: "What happens when you double-click a value cell in a PivotTable?",
-        options: ["It deletes the data", "It opens a new sheet with the underlying records (Drill Down)", "It changes the font color", "It closes Excel"],
-        correct: 1,
-        explanation: "Double-clicking is a quick way to 'drill down' and see the raw data that makes up a specific total."
+        question: "How do you sort your chart in ascending order?",
+        options: ["right click on the values columns in the pivot table and click filter", "use the sort and filter option in the home ribbon", "right click on the values column, click sort, click on smallest to largest", "use ctrl + shift + L"],
+        correct: 2,
+        explanation: "Using the sort and filter option in the home ribbon only works for single columns, not for charts. Right clicking on the values column in the pivot table and clicking filter only allows you to filter by value, not sort by value. Ctrl + shift + L is a shortcut to filter by value, not sort by value. Right clicking on the values column, click sort, click on smallest to largest is the correct way to sort your chart in ascending order is the right option to order your chart in ascending order."
     },
     {
         question: "Can you 'Drill Down' into a specific value in a PivotTable to see the underlying rows?",
@@ -1021,16 +1021,16 @@ const allQuestions = [
         explanation: "Double-clicking a PivotTable value creates a new sheet with the specific records that make up that total."
     },
     {
-        question: "What is a 'Timeline' slicer?",
-        options: ["A chart", "A visual filter specifically for date fields", "A type of clock", "A sheet name"],
-        correct: 1,
-        explanation: "Timelines provide a specialized, interactive way to filter PivotTables by time periods."
+        question: "To pick a chart for your pivot table, which option do you click on?",
+        options: ["Bar Chart", "Pie Chart", "Pivot Charts", "Scatter Chart"],
+        correct: 2,
+        explanation: "PivotChart option is used to create a chart for your pivot table. It allows you to create a chart that is linked to your pivot table and will update automatically when you change the data in your pivot table."
     },
     {
-        question: "Where can you change the overall 'Look and Feel' (styles) of a PivotTable?",
-        options: ["Home tab", "PivotTable Design tab", "Review tab", "Formula tab"],
+        question: "What happens to your data before you activate the pivot table?",
+        options: ["A new row is created", "Converts the selected data into a table", "Clears the data from the original table", "The data is sorted in ascending order"],
         correct: 1,
-        explanation: "The Design tab offers various color schemes and layout options (Compact, Outline, Tabular)."
+        explanation: "Before you activate the pivot table, the data is summarized and aggregated. This means that the data is grouped together and the values are added up. This is done so that the pivot table can display the data in a way that is easy to understand."
     },
     {
         question: "Where can you change the color and style of a PivotTable?",
@@ -1039,16 +1039,16 @@ const allQuestions = [
         explanation: "The Design tab provides various color schemes and layout options to make your report look professional."
     },
     {
-        question: "What is a 'Report Filter' (or Page Filter) in a PivotTable?",
-        options: ["A way to print the report", "A field moved to the 'Filters' area to restrict the entire PivotTable summary", "A sorting rule", "A title"],
+        question: "How do you adjust the transparency of gridlines in a chart?",
+        options: ["Use the format chart area options", "Use the format gridlines options", "Right click on the gridlines and click on fill options", "Use the fill color options"],
         correct: 1,
-        explanation: "Filter fields allow you to quickly toggle the entire PivotTable between categories (e.g., by Year)."
+        explanation: "Use the format gridlines options to adjust the transparency of gridlines in a chart."
     },
     {
-        question: "How can you hide '(blank)' items from showing up in your PivotTable rows?",
-        options: ["Delete the rows in raw data", "Click the Row Labels filter dropdown and uncheck 'blank'", "Hide the columns", "Change the font color"],
-        correct: 1,
-        explanation: "Filtering out blanks within the PivotTable is the easiest way to clean up the visual summary."
+        question: "Which of the following can be done in the format chart area options?",
+        options: ["fill color", "Border formatting", "Effects formatting", "All of the above"],
+        correct: 3,
+        explanation: "You can use the format chart area options to do all. fill color allows you to adjust colors, border formatting to adjust borders, and effects formatting to adjust effects."
     },
     {
         question: "Can you sort a PivotTable by the calculated values (e.g., Highest Sales to Lowest Sales)?",
@@ -1057,16 +1057,16 @@ const allQuestions = [
         explanation: "Sorting by values is essential for creating 'Top 10' or 'Bottom 10' reports."
     },
     {
-        question: "What happens to a Slicer if you delete the PivotTable it was connected to?",
-        options: ["It deletes automatically", "It stays but becomes non-functional until reconnected or deleted", "It moves to a new sheet", "It crashes Excel"],
+        question: "How do you choose the colors of the chart?",
+        options: ["Use the format chart area options", "right click on the bar and click the format data series", "Use the fill color option", "Use the border formatting option"],
         correct: 1,
-        explanation: "The slicer remains but will no longer control any data until you connect it to another source."
+        explanation: "Right click on the bar and click the format data series to choose the colors of the chart. Use the format chart area options to do all. fill color allows you to adjust colors, border formatting to adjust borders, and effects formatting to adjust effects."
     },
     {
-        question: "Which feature allows you to see 'Top 10' items in a PivotTable automatically?",
-        options: ["Conditional Formatting", "Value Filters > Top 10", "Manual sorting", "Filters area"],
-        correct: 1,
-        explanation: "Value Filters provide dynamic ways to show only the most important data points."
+        question: "How do you add data labels to a chart?",
+        options: ["right click on the chart area and click on add data labels", "right click on the table range and click insert", "click on the chart and start typing", "go to the insert tab and click on data labels"],
+        correct: 0,
+        explanation: "Right click on the chart area and click on add data labels to add data labels to a chart."
     }
 
 ];
@@ -1079,17 +1079,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const registrationForm = document.getElementById('registrationForm');
     const quizInterface = document.getElementById('quizInterface');
     const resultsSection = document.getElementById('resultsSection');
-    
+
     const startBtn = document.getElementById('startBtn');
     const nextBtn = document.getElementById('nextBtn');
     const backBtn = document.getElementById('backBtn');
     const viewAnswersBtn = document.getElementById('viewAnswersBtn');
-    
+
     // Start Quiz
     startBtn.addEventListener('click', () => {
         userName = document.getElementById('userName').value.trim();
         userLocation = document.getElementById('userLocation').value.trim();
-        
+
         if (userName && userLocation) {
             if (quizQuestions.length === 0) {
                 alert("There is no quiz for this session. Please proceed to the Capstone project.");
@@ -1120,7 +1120,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const answerIndex = parseInt(selectedOption.dataset.index);
-        
+
         // Update or add answer
         userAnswers[currentQuestionIndex] = answerIndex;
 
@@ -1163,7 +1163,7 @@ function showQuestion() {
 
     // Update Content
     const savedAnswer = userAnswers[currentQuestionIndex];
-    
+
     container.innerHTML = `
         <div class="question-card animate-in">
             <h2>${q.question}</h2>
@@ -1201,7 +1201,7 @@ async function finishQuiz() {
 
     document.getElementById('quizInterface').classList.add('hidden');
     document.getElementById('resultsSection').classList.remove('hidden');
-    
+
     const displayScore = document.getElementById('finalScore');
     displayScore.innerText = score;
     document.getElementById('totalQuestions').innerText = quizQuestions.length;
@@ -1209,7 +1209,7 @@ async function finishQuiz() {
     // Save to Firebase
     try {
         console.log("Attempting to save to Firebase...", { db, userName, score });
-        
+
         const docRef = await addDoc(collection(db, "quiz_results"), {
             name: userName,
             location: userLocation,
@@ -1223,7 +1223,7 @@ async function finishQuiz() {
             })),
             timestamp: serverTimestamp()
         });
-        
+
         console.log("Result saved successfully! Doc ID:", docRef.id);
     } catch (e) {
         console.error("FULL FIREBASE ERROR:", e);
@@ -1234,7 +1234,7 @@ async function finishQuiz() {
 function showReview() {
     const reviewContainer = document.getElementById('reviewContainer');
     const reviewList = document.getElementById('reviewList');
-    
+
     reviewContainer.classList.remove('hidden');
     document.getElementById('viewAnswersBtn').classList.add('hidden');
 
