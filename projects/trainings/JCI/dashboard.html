@@ -312,18 +312,37 @@
                 document.getElementById('statAvg').innerText = allResults.length > 0 ? (totalScore / allResults.length).toFixed(1) : 0;
                 document.getElementById('statMax').innerText = maxScore;
 
-                // Update Leaderboard (Top 5)
+                // Update Leaderboard (Top 5 by Average Score)
                 const leaderboardGrid = document.getElementById('leaderboardGrid');
                 leaderboardGrid.innerHTML = '';
 
-                const topPerformers = [...allResults]
-                    .sort((a, b) => {
-                        if (b.score !== a.score) return b.score - a.score;
-                        return (a.timestamp?.toMillis() || 0) - (b.timestamp?.toMillis() || 0);
-                    })
+                // Group by participant and calculate average
+                const participantGroups = {};
+                allResults.forEach(r => {
+                    if (!participantGroups[r.name]) {
+                        participantGroups[r.name] = { 
+                            name: r.name, 
+                            totalScore: 0, 
+                            count: 0, 
+                            location: r.location,
+                            totalPossible: 0
+                        };
+                    }
+                    participantGroups[r.name].totalScore += r.score;
+                    participantGroups[r.name].totalPossible += r.total;
+                    participantGroups[r.name].count += 1;
+                });
+
+                const topAverages = Object.values(participantGroups)
+                    .map(p => ({
+                        ...p,
+                        avgScore: p.totalScore / p.count,
+                        avgTotal: p.totalPossible / p.count
+                    }))
+                    .sort((a, b) => b.avgScore - a.avgScore)
                     .slice(0, 5);
 
-                topPerformers.forEach((p, index) => {
+                topAverages.forEach((p, index) => {
                     const card = document.createElement('div');
                     card.className = 'stat-card animate-in';
                     card.style.animationDelay = `${index * 0.1}s`;
@@ -331,16 +350,16 @@
 
                     card.innerHTML = `
                         <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 5px;">
-                            #${index + 1} Rank
+                            #${index + 1} Avg Rank
                         </div>
-                        <div style="font-weight: 800; font-size: 1.1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        <div style="font-weight: 800; font-size: 1.1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${p.name}">
                             ${p.name}
                         </div>
                         <div class="stat-value" style="font-size: 1.8rem; margin-top: 5px;">
-                            ${p.score}<span style="font-size: 0.9rem; color: var(--text-muted);">/20</span>
+                            ${p.avgScore.toFixed(1)}<span style="font-size: 0.9rem; color: var(--text-muted);">/${p.avgTotal.toFixed(0)}</span>
                         </div>
                         <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 5px;">
-                            ${p.location}
+                            ${p.location} • ${p.count} attempts
                         </div>
                     `;
                     leaderboardGrid.appendChild(card);
