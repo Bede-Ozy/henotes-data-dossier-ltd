@@ -39,6 +39,14 @@ function shuffle(array) {
 }
 
 /**
+ * Utility for Proper Casing
+ */
+function toProperCase(str) {
+    if (!str) return "";
+    return str.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+}
+
+/**
  * Filter questions based on session parameter
  */
 function initializeQuizContent() {
@@ -1211,8 +1219,8 @@ async function finishQuiz() {
         console.log("Attempting to save to Firebase...", { db, userName, score });
 
         const docRef = await addDoc(collection(db, "quiz_results"), {
-            name: userName,
-            location: userLocation,
+            name: toProperCase(userName),
+            location: toProperCase(userLocation),
             score: score,
             total: quizQuestions.length,
             results: userAnswers.map((ans, i) => ({
