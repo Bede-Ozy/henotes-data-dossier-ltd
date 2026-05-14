@@ -202,5 +202,12 @@ document.addEventListener('DOMContentLoaded', () => {
     window.highlightColumn = typeof highlightColumn === 'function' ? highlightColumn : () => {};
 
     // Initial Load
-    loadSession(1);
+    const urlParams = new URLSearchParams(window.location.search);
+    const sessionParam = parseInt(urlParams.get('session'));
+    
+    if (sessionParam && sessionParam >= 1 && sessionParam <= totalSessions) {
+        loadSession(sessionParam);
+    } else {
+        loadSession(1);
+    }
 });
