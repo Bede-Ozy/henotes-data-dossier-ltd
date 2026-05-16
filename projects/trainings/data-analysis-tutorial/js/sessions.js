@@ -1716,7 +1716,7 @@ const sessionsData = {
                             <li style="margin-bottom: 8px; display: flex; gap: 10px; align-items: flex-start;"><strong style="color: var(--text-muted); flex-shrink: 0;">iii.</strong> <span>How much in total did Sarah James sell as a sales rep?</span></li>
                             <li style="margin-bottom: 8px; display: flex; gap: 10px; align-items: flex-start;"><strong style="color: var(--text-muted); flex-shrink: 0;">iv.</strong> <span>How much discount was given to the customer with order id <strong>ORD1008</strong> and what product did that customer buy?</span></li>
                             <li style="margin-bottom: 8px; display: flex; gap: 10px; align-items: flex-start;"><strong style="color: var(--text-muted); flex-shrink: 0;">v.</strong> <span>What date was the order <strong>ORD1450</strong> made?</span></li>
-                            <li style="margin-bottom: 8px; display: flex; gap: 10px; align-items: flex-start;"><strong style="color: var(--text-muted); flex-shrink: 0;">vi.</strong> <span>Shawn Martin claimed to have made an order of <em>Laptop Stand</em> and instead he got a <em>Face cream</em>. He lost his receipt but claims his order ID is <strong>ORD1443</strong>. As a data analyst, check this orderID and confirm the product he ordered.</span></li>
+                            <li style="margin-bottom: 8px; display: flex; gap: 10px; align-items: flex-start;"><strong style="color: var(--text-muted); flex-shrink: 0;">vi.</strong> <span>Robert Reid claimed to have made an order of <em>Laptop Stand</em> and instead he got a <em>Face cream</em>. He lost his receipt but claims his order ID is <strong>ORD1443</strong>. As a data analyst, check this orderID and confirm the product he ordered.</span></li>
                         </ul>
                     </div>
                 </div>
@@ -1738,7 +1738,6 @@ const sessionsData = {
                             <!-- Betty -->
                             <li style="margin-top: 15px; margin-bottom: 5px; font-weight: 700; color: var(--secondary-color);">Betty's Questions</li>
                             <li style="margin-bottom: 6px; display: flex; gap: 10px; align-items: flex-start; margin-left: 15px;"><i class="ri-corner-down-right-line" style="color: var(--secondary-color); margin-top: 4px;"></i> <span>What products were purchased using POS?</span></li>
-                            <li style="margin-bottom: 6px; display: flex; gap: 10px; align-items: flex-start; margin-left: 15px;"><i class="ri-corner-down-right-line" style="color: var(--secondary-color); margin-top: 4px;"></i> <span>What is the sum of people purchasing food in Lagos?</span></li>
 
                             <!-- Ms Joy -->
                             <li style="margin-top: 15px; margin-bottom: 5px; font-weight: 700; color: var(--secondary-color);">Ms Joy's Questions</li>
