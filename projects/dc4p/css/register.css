@@ -1,0 +1,285 @@
+/* =========================================
+   DC4P Aviation Edition Specific Styles
+   ========================================= */
+
+/* Aviation Theme Colors & Hero Overrides */
+.aviation-hero {
+    padding: 140px 0 160px;
+    background-color: var(--secondary);
+    /* Grid texture with aviation-inspired gradient glow */
+    background-image: 
+        radial-gradient(circle at 15% 25%, rgba(0, 199, 235, 0.25) 0%, transparent 45%),
+        radial-gradient(circle at 85% 75%, rgba(34, 111, 248, 0.3) 0%, transparent 50%),
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+    position: relative;
+    color: white;
+    overflow: hidden;
+    text-align: center;
+}
+
+/* Abstract coordinate / flight-path decorations */
+.aviation-hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1.5px, transparent 1.5px);
+    background-size: 15px 15px;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.8;
+}
+
+.edition-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--primary);
+    background: rgba(0, 199, 235, 0.12);
+    color: var(--primary);
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-glow);
+    animation: badgeFloat 3.5s ease-in-out infinite;
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes badgeFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+.aviation-hero h1 {
+    color: white;
+    font-size: clamp(2.5rem, 5.5vw, 4.2rem);
+    line-height: 1.15;
+    margin-bottom: 16px;
+    font-family: var(--font-main);
+    position: relative;
+    z-index: 2;
+}
+
+.aviation-hero h1 span {
+    color: var(--primary);
+    display: block;
+    font-size: 0.65em;
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.aviation-hero p.hero-desc {
+    font-size: clamp(1.05rem, 2vw, 1.25rem);
+    color: #cbd5e1;
+    max-width: 750px;
+    margin: 0 auto;
+    line-height: 1.6;
+    position: relative;
+    z-index: 2;
+}
+
+/* Container & Grid layout */
+.register-section {
+    padding: 0 0 100px;
+    background-color: var(--bg-light);
+    position: relative;
+}
+
+.form-card {
+    background: var(--bg-white);
+    border-radius: 24px;
+    box-shadow: var(--shadow-lg);
+    padding: 50px 40px;
+    margin-top: -80px;
+    position: relative;
+    z-index: 10;
+    max-width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid rgba(0, 199, 235, 0.1);
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 40px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding-bottom: 30px;
+}
+
+.form-header i {
+    font-size: 3rem;
+    color: var(--primary);
+    margin-bottom: 12px;
+    display: inline-block;
+}
+
+.form-header h2 {
+    font-size: 1.8rem;
+    color: var(--secondary);
+    margin-bottom: 10px;
+}
+
+.form-header p {
+    color: var(--text-light);
+    font-size: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Loading Skeleton Spinner */
+.form-loader-wrapper {
+    position: relative;
+    min-height: 400px;
+}
+
+.form-loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-white);
+    z-index: 5;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.form-loader.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.spinner {
+    width: 60px;
+    height: 60px;
+    border: 5px solid var(--primary-light);
+    border-top: 5px solid var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 24px;
+    box-shadow: 0 0 15px rgba(0, 199, 235, 0.1);
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.form-loader p {
+    font-family: var(--font-main);
+    color: var(--secondary);
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Introductory Info Cards below Form Card */
+.info-intro {
+    padding: 80px 0 20px;
+    text-align: center;
+}
+
+.info-intro h2 {
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+    color: var(--secondary);
+}
+
+.info-intro p.subtitle {
+    color: var(--text-light);
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0 auto 50px;
+}
+
+.highlights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.highlight-card {
+    background: var(--bg-white);
+    padding: 35px 25px;
+    border-radius: 20px;
+    box-shadow: var(--shadow-sm);
+    border-top: 4px solid var(--primary);
+    transition: all 0.3s ease;
+    text-align: left;
+}
+
+.highlight-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+    border-top-color: var(--accent);
+}
+
+.highlight-card .icon-box {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.highlight-card h3 {
+    font-size: 1.15rem;
+    margin-bottom: 12px;
+    color: var(--secondary);
+}
+
+.highlight-card p {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* Dynamic Embed styling */
+#zf_div_dR95-WA_Hr0wQY1SC17SoLmEUuIFzpibANf-Wvd83ws {
+    width: 100%;
+    margin: 0 auto;
+}
+
+#zf_div_dR95-WA_Hr0wQY1SC17SoLmEUuIFzpibANf-Wvd83ws iframe {
+    width: 100% !important;
+    margin: 0 auto !important;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .aviation-hero {
+        padding: 120px 0 120px;
+    }
+    .form-card {
+        padding: 30px 20px;
+        margin-top: -60px;
+        border-radius: 16px;
+    }
+    .form-header {
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+    }
+    .form-header h2 {
+        font-size: 1.4rem;
+    }
+}
