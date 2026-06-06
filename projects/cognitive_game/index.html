@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data vs Information Challenge</title>
+  <meta name="description" content="An interactive cognitive load experiment demonstrating the difference between raw data processing and instant information recognition.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="app-container" id="app">
+    
+    <!-- Dynamic Header: Visible only during gameplay -->
+    <div class="app-header hidden" id="game-header">
+      <div class="header-meta">
+        <span class="round-indicator" id="current-round-label">Round 1</span>
+        <span class="question-counter" id="question-count-label">Question 1/15</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-bar" id="game-progress-bar"></div>
+      </div>
+    </div>
+
+    <!-- 1. Welcome Screen -->
+    <div class="screen" id="welcome-screen">
+      <div class="welcome-icon">⚡</div>
+      <h1 id="welcome-title">Data vs Information Challenge</h1>
+      <p class="subtitle" id="welcome-subtitle">How quickly can your brain understand what it sees?</p>
+      
+      <p class="description" id="welcome-desc">
+        You will be shown a series of items. Some require processing before you can answer. Others can be recognized immediately. Respond as quickly and accurately as possible.
+      </p>
+
+      <div class="config-panel">
+        <label class="config-label" for="industry-select">Select Your Industry Context</label>
+        <div class="select-wrapper">
+          <select id="industry-select">
+            <option value="aviation" selected>Aviation (Flight Operations)</option>
+            <option value="finance">Finance & Investment</option>
+            <option value="healthcare">Healthcare & Clinical Ops</option>
+            <option value="retail">Retail & E-commerce</option>
+            <option value="manufacturing">Manufacturing & Plant Ops</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn" id="start-btn">Start Challenge</button>
+    </div>
+
+    <!-- 2. Round 1 Intro Screen -->
+    <div class="screen hidden" id="r1-intro-screen">
+      <div class="round-badge">1</div>
+      <h2>ROUND 1: Processing Required</h2>
+      <p class="subtitle">High Cognitive Load</p>
+      <p class="description">
+        In this round, you will be shown <strong>raw data inputs</strong>. You must perform mental operations, read lists, do calculations, or identify trends before you can determine the correct answer.<br><br>
+        Analyze carefully and respond as fast as you can.
+      </p>
+      <button class="btn" id="r1-start-btn">Start Round 1</button>
+    </div>
+
+    <!-- 3. Gameplay Screen -->
+    <div class="screen hidden" id="gameplay-screen">
+      <div class="game-content">
+        <div class="card">
+          <div class="card-content" id="card-prompt">Loading Question...</div>
+        </div>
+        
+        <div class="options-container" id="options-box">
+          <!-- Dynamically populated MCQ buttons -->
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Round 2 Intro Screen -->
+    <div class="screen hidden" id="r2-intro-screen">
+      <div class="round-badge">2</div>
+      <h2>ROUND 2: Instant Recognition</h2>
+      <p class="subtitle">Low Cognitive Load</p>
+      <p class="description">
+        In this round, you will be shown <strong>clear insights and direct visualization statements</strong>. Your brain should recognize and understand the message almost immediately without computational effort.<br><br>
+        Trust your first instinct and respond as fast as possible.
+      </p>
+      <button class="btn" id="r2-start-btn">Start Round 2</button>
+    </div>
+
+    <!-- 5. Results Screen -->
+    <div class="screen hidden" id="results-screen">
+      <div class="results-header">
+        <h2>Your Results</h2>
+        <p class="subtitle" id="results-industry-subtitle">Aviation Executive Challenge</p>
+      </div>
+
+      <div class="results-grid">
+        <div class="result-card processing">
+          <h3>Processing Tasks (Round 1)</h3>
+          <div class="stat-item">
+            <div class="stat-val" id="r1-time">0.0s</div>
+            <div class="stat-label">Avg. Response Time</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-val" id="r1-acc">0%</div>
+            <div class="stat-label">Accuracy</div>
+          </div>
+        </div>
+
+        <div class="result-card recognition">
+          <h3>Recognition Tasks (Round 2)</h3>
+          <div class="stat-item">
+            <div class="stat-val" id="r2-time">0.0s</div>
+            <div class="stat-label">Avg. Response Time</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-val" id="r2-acc">0%</div>
+            <div class="stat-label">Accuracy</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Custom Animated Bar Chart -->
+      <div class="chart-container">
+        <div class="chart-title">Response Time Comparison (Lower is Better)</div>
+        <div class="chart-layout">
+          <div class="chart-metric">
+            <div class="bar-row processing">
+              <span class="bar-label">Processing (R1)</span>
+              <div class="bar-track">
+                <div class="bar-fill" id="chart-bar-r1-time">0s</div>
+              </div>
+            </div>
+            <div class="bar-row recognition">
+              <span class="bar-label">Recognition (R2)</span>
+              <div class="bar-track">
+                <div class="bar-fill" id="chart-bar-r2-time">0s</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-title">🔑 Core Training Insight</div>
+        <div class="insight-text">
+          <p>
+            When information is presented as raw data, your brain must process and interpret it before understanding it.
+          </p>
+          <p>
+            When information is presented as clear insight or visualization, understanding is nearly immediate.
+          </p>
+          <p>
+            <strong>This is why data culture matters.</strong> Data alone is not enough. Value comes from transforming data into information, insight, and action.
+          </p>
+        </div>
+      </div>
+
+      <div class="results-actions">
+        <button class="btn btn-secondary" id="results-restart-btn">Restart</button>
+        <button class="btn" id="concept-demo-btn">View Concept Demo &rarr;</button>
+      </div>
+    </div>
+
+    <!-- 6. Side-by-Side Concept Demonstration Screen -->
+    <div class="screen hidden" id="demo-screen">
+      <div class="results-header">
+        <h2>Cognitive Transformation</h2>
+        <p class="subtitle">Visualizing cognitive effort side-by-side</p>
+      </div>
+
+      <div class="demo-layout">
+        <!-- Raw Data Panel -->
+        <div class="demo-panel" id="raw-panel">
+          <div class="panel-header">Raw Data</div>
+          <div class="panel-body">
+            <div class="raw-data-list" id="demo-raw-list">
+              <!-- Dynamically Populated List of Raw Data -->
+            </div>
+            
+            <!-- Mental Processing Simulator -->
+            <div class="brain-loader" id="demo-brain-loader">
+              <div class="loader-text">Analyzing & processing trends...</div>
+              <div class="loader-track">
+                <div class="loader-bar-track">
+                  <div class="loader-bar-fill" id="demo-loader-fill"></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Insight Panel -->
+        <div class="demo-panel" id="insight-panel">
+          <div class="panel-header">Insight / Visualization</div>
+          <div class="panel-body">
+            <div class="insight-output">
+              <div class="insight-card" id="demo-insight-card">
+                <!-- Dynamically Populated Trend Statement -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="results-actions">
+        <button class="btn btn-secondary" id="demo-back-btn">Back to Results</button>
+        <button class="btn" id="demo-animate-btn">Animate Transition</button>
+        <button class="btn btn-primary" id="demo-restart-btn">Restart Game</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script type="module" src="questions.js"></script>
+  <script type="module" src="game.js"></script>
+</body>
+</html>
