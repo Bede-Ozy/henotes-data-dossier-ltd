@@ -872,3 +872,20 @@ h2 {
   font-weight: 700;
   color: var(--text-dark);
 }
+
+/* Mixed Processing Color Indicators */
+.color-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  vertical-align: middle;
+}
+
+.color-indicator {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.15);
+  display: inline-block;
+}

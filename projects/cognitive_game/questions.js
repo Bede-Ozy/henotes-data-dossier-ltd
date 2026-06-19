@@ -10,35 +10,35 @@ const createQuestions = (prefix) => {
     {
       id: `${prefix}_proc_1`,
       instruction: "Answer the following color combinations as quickly as possible.",
-      prompt: "Red + Yellow = ?",
+      prompt: `<span class="color-inline"><span class="color-indicator" style="background-color: #ff3b30;"></span>Red</span> + <span class="color-inline"><span class="color-indicator" style="background-color: #ffcc00;"></span>Yellow</span> = ?`,
       options: ["Green", "Orange", "Purple", "Brown"],
       answer: "Orange"
     },
     {
       id: `${prefix}_proc_2`,
       instruction: "Answer the following color combinations as quickly as possible.",
-      prompt: "Blue + Yellow = ?",
+      prompt: `<span class="color-inline"><span class="color-indicator" style="background-color: #007aff;"></span>Blue</span> + <span class="color-inline"><span class="color-indicator" style="background-color: #ffcc00;"></span>Yellow</span> = ?`,
       options: ["Purple", "Green", "Orange", "Black"],
       answer: "Green"
     },
     {
       id: `${prefix}_proc_3`,
       instruction: "Answer the following color combinations as quickly as possible.",
-      prompt: "Red + Blue = ?",
+      prompt: `<span class="color-inline"><span class="color-indicator" style="background-color: #ff3b30;"></span>Red</span> + <span class="color-inline"><span class="color-indicator" style="background-color: #007aff;"></span>Blue</span> = ?`,
       options: ["Green", "Orange", "Purple", "Pink"],
       answer: "Purple"
     },
     {
       id: `${prefix}_proc_4`,
       instruction: "Answer the following color combinations as quickly as possible.",
-      prompt: "Black + White = ?",
+      prompt: `<span class="color-inline"><span class="color-indicator" style="background-color: #000000;"></span>Black</span> + <span class="color-inline"><span class="color-indicator" style="background-color: #ffffff; border: 2px solid #d1d5db;"></span>White</span> = ?`,
       options: ["Brown", "Gray", "Blue", "Silver"],
       answer: "Gray"
     },
     {
       id: `${prefix}_proc_5`,
       instruction: "Answer the following color combinations as quickly as possible.",
-      prompt: "Red + White = ?",
+      prompt: `<span class="color-inline"><span class="color-indicator" style="background-color: #ff3b30;"></span>Red</span> + <span class="color-inline"><span class="color-indicator" style="background-color: #ffffff; border: 2px solid #d1d5db;"></span>White</span> = ?`,
       options: ["Pink", "Orange", "Yellow", "Light Blue"],
       answer: "Pink"
     },
