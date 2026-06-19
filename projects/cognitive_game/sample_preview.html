@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cognitive Load Game - Question Outline</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+      line-height: 1.5;
+      padding: 40px 20px;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+    }
+
+    header {
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 20px;
+      margin-bottom: 30px;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin: 0 0 8px 0;
+      color: #1e293b;
+    }
+
+    .subtitle {
+      color: #64748b;
+      font-size: 1rem;
+      margin: 0;
+    }
+
+    .split-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+
+    .round-column {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .column-header {
+      background-color: #f1f5f9;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      border-left: 4px solid #3b82f6;
+    }
+
+    .round-1-header { border-left-color: #ef4444; } /* High Load */
+    .round-2-header { border-left-color: #10b981; } /* Low Load */
+
+    .question-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 16px;
+      background-color: #ffffff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+
+    .q-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .q-number {
+      color: #475569;
+    }
+
+    .q-type {
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .type-color { background-color: #fee2e2; color: #ef4444; }
+    .type-industry { background-color: #e0f2fe; color: #0284c7; }
+    .type-math { background-color: #fef3c7; color: #d97706; }
+
+    .q-prompt {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #0f172a;
+      margin-bottom: 12px;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .option-item {
+      border: 1px solid #cbd5e1;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      color: #475569;
+      background-color: #f8fafc;
+    }
+
+    .option-item.correct {
+      border-color: #86efac;
+      background-color: #f0fdf4;
+      color: #166534;
+      font-weight: 600;
+    }
+
+    /* Color indicators */
+    .color-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      vertical-align: middle;
+    }
+
+    .color-indicator {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      display: inline-block;
+    }
+
+    .color-circle {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-bottom: 8px;
+      border: 2px solid #e2e8f0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    /* Visual trend SVGs */
+    .trend-chart-box {
+      width: 140px;
+      height: 70px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 8px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .trend-svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .trend-line {
+      fill: none;
+      stroke-width: 3.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .trend-line.rising { stroke: #10b981; }
+    .trend-line.falling { stroke: #ef4444; }
+    .trend-line.stable { stroke: #3b82f6; }
+
+    .trend-grid {
+      stroke: #cbd5e1;
+      stroke-width: 0.5;
+      stroke-dasharray: 3 3;
+    }
+
+    /* Bold KPI numbers */
+    .bold-number {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    @media (max-width: 768px) {
+      .split-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Cognitive Game: Question Outline (Aviation)</h1>
+      <p class="subtitle">Comparing raw data processing speed (Round 1) vs. instant visual recognition (Round 2)</p>
+    </header>
+
+    <div class="split-layout">
+      <!-- ROUND 1 COLUMN -->
+      <div class="round-column">
+        <div class="column-header round-1-header">
+          Round 1: Processing Required (Raw Data)
+        </div>
+
+        <!-- Q1 -->
+        <div class="question-card">
+          <div class="q-meta">
+            <span class="q-number">Question 1</span>
+            <span class="q-type type-color">Color</span>
+          </div>
+          <div class="q-prompt">
+            <span class="color-inline"><span class="color-indicator" style="background-color: #ff3b30;"></span>Red</span> + <span class="color-inline"><span class="color-indicator" style="background-color: #ffcc00;"></span>Yellow</span> = ?
+          </div>
+          <div class="options-grid">
+            <div class="option-item">Green</div>
+            <div class="option-item correct">Orange</div>
+            <div class="option-item">Purple</div>
+            <div class="option-item">Brown</div>
+          </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="question-card">
+          <div class="q-meta">
+            <span class="q-number">Question 2</span>
+            <span class="q-type type-color">Color</span>
+          </div>
+          <div class="q-prompt">
+            <span class="color-inline"><span class="color-indicator" style="background-color: #007aff;"></span>Blue</span> + <span class="color-inline"><span class="color-indicator" style="background-color: #ffcc00;"></span>Yellow</span> = ?
+          </div>
+          <div class="options-grid">
+            <div class="option-item">Purple</div>
+            <div class="option-item correct">Green</div>
+            <div class="option-item">Orange</div>
+            <div class="option-item">Black</div>
+          </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="question-card">
+          <div class="q-meta">
+            <span class="q-number">Question 3</span>
+            <span class="q-type type-color">Color</span>
+          </div>
+          <div class="q-prompt">
+            <span class="color-inline"><span class="color-indicator" style="background-color: #ff3b30;"></span>Red</span> + <span class="color-inline"><span class="color-indicator" style="background-color: #007aff;"></span>Blue</span> = ?
+          </div>
+          <div class="options-grid">
+            <div class="option-item">Green</div>
+            <div class="option-item">Orange</div>
+            <div class="option-item correct">Purple</div>
+            <div class="option-item">Pink</div>
+          </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="question-card">
+          <div class="q-meta">
+            <span class="q-number">Question 4</span>
+            <span class="q-type type-industry">Industry</span>
+          </div>
+          <div class="q-prompt">
+            Delay record: Gate A: 10m ➔ Gate B: 20m ➔ Gate C: 30m.<br>What delay trend is occurring?
+          </div>
+          <div class="options-grid">
+            <div class="option-item correct">Increasing</div>
+            <div class="option-item">Decreasing</div>
+            <div class="option-item">Stable</div>
+            <div class="option-item">Fluctuating</div>
+          </div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="question-card">
+          <div class="q-meta">
+            <span class="q-number">Question 5</span>
+            <span class="q-type type-industry">Industry</span>
+          </div>
+          <div class="q-prompt">
+            Fuel Indicator: 120L ➔ 90L ➔ 60L.<br>What is the status?
+          </div>
+          <div class="options-grid">
+            <div class="option-item">Increasing</div>
+            <div class="option-item correct">Decreasing</div>
+            <div class="option-item">Stable</div>
+            <div class="option-item">Fluctuating</div>
+          </div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="question-card">
+          <div class="q-meta">
+            <span class="q-number">Question 6</span>
+            <span class="q-type type-industry">Industry</span>
+          </div>
+          <div class="q-prompt">
+            Engine Temp: 85°C ➔ 90°C ➔ 95°C.<br>What is the status?
+          </div>
+          <div class="options-grid">
+            <div class="option-item correct">Rising</div>
+            <div class="option-item">Falling</div>
+            <div class="option-item">Stable</div>
+            <div class="option-item">Fluctuating</div>
+          </div>
+        </div>
+
+        <!-- Q7 -->
+        <div class="question-card">
+          <div class="q-meta">
+            <span class="q-number">Question 7</span>
+            <span class="q-type type-industry">Industry</span>
+          </div>
+          <div class="q-prompt">
+            Wind Speed: 15 kts ➔ 15 kts ➔ 15 kts.<br>What is the trend?
+          </div>
+          <div class="options-grid">
+            <div class="option-item">Increasing</div>
+            <div class="option-item">Decreasing</div>
+            <div class="option-item correct">Stable</div>
+            <div class="option-item">Fluctuating</div>
+          </div>
+        </div>
+
+        <!-- Q8 -->
+        <div class="question-card">
+          <div class="q-meta">
+            <span class="q-number">Question 8</span>
+            <span class="q-type type-math">Math</span>
+          </div>
+          <div class="q-prompt">
+            Altitude: 7,000 ft. Target: 10,000 ft.<br>What is the difference?
+          </div>
+          <div class="options-grid">
+            <div class="option-item">2,000 ft</div>
+            <div class="option-item correct">3,000 ft</div>
+            <div class="option-item">4,000 ft</div>
+            <div class="option-item">5,000 ft</div>
+          </div>
+        </div>
+
+        <!-- Q9 -->
+        <div class="question-card">
+          <div class="q-meta">
+            <span class="q-number">Question 9</span>
+            <span class="q-type type-math">Math</span>
+          </div>
+          <div class="q-prompt">
+            Boarded: 45 passengers. Capacity: 50.<br>How many empty seats remain?
+          </div>
+          <div class="options-grid">
+            <div class="option-item">3 seats</div>
+            <div class="option-item correct">5 seats</div>
+            <div class="option-item">8 seats</div>
+            <div class="option-item">10 seats</div>
+          </div>
+        </div>
+
+        <!-- Q10 -->
+        <div class="question-card">
+          <div class="q-meta">
+            <span class="q-number">Question 10</span>
+            <span class="q-type type-math">Math</span>
+          </div>
+          <div class="q-prompt">
+            Wind speed is 15 knots. If it doubles, what is the speed?
+          </div>
+          <div class="options-grid">
+            <div class="option-item">20 knots</div>
+            <div class="option-item">25 knots</div>
+            <div class="option-item correct">30 knots</div>
+            <div class="option-item">35 knots</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ROUND 2 COLUMN -->
+      <div class="round-column">
+        <div class="column-header round-2-header">
+          Round 2: Instant Recognition (Visualizations)
+        </div>
+
+        <!-- Q1 -->
+        <div class="question-card">
+          <div class="q-meta">
+            <span class="q-number">Question 1</span>
+            <span class="q-type type-color">Color</span>
+          </div>
+          <div class="q-prompt">
+            <div class="color-circle" style="background-color: #ff9500;"></div>
+            What color is this?
+          </div>
+          <div class="options-grid">
+            <div class="option-item">Green</div>
+            <div class="option-item correct">Orange</div>
+            <div class="option-item">Purple</div>
+            <div class="option-item">Brown</div>
+          </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="question-card">
+          <div class="q-meta">
+            <span class="q-number">Question 2</span>
+            <span class="q-type type-color">Color</span>
+          </div>
+          <div class="q-prompt">
+            <div class="color-circle" style="background-color: #34c759;"></div>
+            What color is this?
+          </div>
+          <div class="options-grid">
+            <div class="option-item">Purple</div>
+            <div class="option-item correct">Green</div>
+            <div class="option-item">Orange</div>
+            <div class="option-item">Black</div>
+          </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="question-card">
+          <div class="q-meta">
+            <span class="q-number">Question 3</span>
+            <span class="q-type type-color">Color</span>
+          </div>
+          <div class="q-prompt">
+            <div class="color-circle" style="background-color: #af52de;"></div>
+            What color is this?
+          </div>
+          <div class="options-grid">
+            <div class="option-item">Green</div>
+            <div class="option-item">Orange</div>
+            <div class="option-item correct">Purple</div>
+            <div class="option-item">Pink</div>
+          </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="question-card">
+          <div class="q-meta">
+            <span class="q-number">Question 4</span>
+            <span class="q-type type-industry">Industry</span>
+          </div>
+          <div class="q-prompt">
+            <div class="trend-chart-box">
+              <svg class="trend-svg" viewBox="0 0 100 40">
+                <line x1="0" y1="35" x2="100" y2="35" class="trend-grid" />
+                <line x1="0" y1="20" x2="100" y2="20" class="trend-grid" />
+                <line x1="0" y1="5" x2="100" y2="5" class="trend-grid" />
+                <path d="M10,32 L35,26 L60,14 L90,6" class="trend-line rising" fill="none"/>
+                <circle cx="90" cy="6" r="3.5" fill="#10b981"/>
+              </svg>
+            </div>
+            Delay Status
+          </div>
+          <div class="options-grid">
+            <div class="option-item correct">Rising</div>
+            <div class="option-item">Falling</div>
+            <div class="option-item">Stable</div>
+            <div class="option-item">Fluctuating</div>
+          </div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="question-card">
+          <div class="q-meta">
+            <span class="q-number">Question 5</span>
+            <span class="q-type type-industry">Industry</span>
+          </div>
+          <div class="q-prompt">
+            <div class="trend-chart-box">
+              <svg class="trend-svg" viewBox="0 0 100 40">
+                <line x1="0" y1="35" x2="100" y2="35" class="trend-grid" />
+                <line x1="0" y1="20" x2="100" y2="20" class="trend-grid" />
+                <line x1="0" y1="5" x2="100" y2="5" class="trend-grid" />
+                <path d="M10,6 L35,14 L60,26 L90,32" class="trend-line falling" fill="none"/>
+                <circle cx="90" cy="32" r="3.5" fill="#ef4444"/>
+              </svg>
+            </div>
+            Fuel Level Status
+          </div>
+          <div class="options-grid">
+            <div class="option-item">Rising</div>
+            <div class="option-item correct">Falling</div>
+            <div class="option-item">Stable</div>
+            <div class="option-item">Fluctuating</div>
+          </div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="question-card">
+          <div class="q-meta">
+            <span class="q-number">Question 6</span>
+            <span class="q-type type-industry">Industry</span>
+          </div>
+          <div class="q-prompt">
+            <div class="trend-chart-box">
+              <svg class="trend-svg" viewBox="0 0 100 40">
+                <line x1="0" y1="35" x2="100" y2="35" class="trend-grid" />
+                <line x1="0" y1="20" x2="100" y2="20" class="trend-grid" />
+                <line x1="0" y1="5" x2="100" y2="5" class="trend-grid" />
+                <path d="M10,32 L35,26 L60,14 L90,6" class="trend-line rising" fill="none"/>
+                <circle cx="90" cy="6" r="3.5" fill="#10b981"/>
+              </svg>
+            </div>
+            Engine Temp Status
+          </div>
+          <div class="options-grid">
+            <div class="option-item correct">Rising</div>
+            <div class="option-item">Falling</div>
+            <div class="option-item">Stable</div>
+            <div class="option-item">Fluctuating</div>
+          </div>
+        </div>
+
+        <!-- Q7 -->
+        <div class="question-card">
+          <div class="q-meta">
+            <span class="q-number">Question 7</span>
+            <span class="q-type type-industry">Industry</span>
+          </div>
+          <div class="q-prompt">
+            <div class="trend-chart-box">
+              <svg class="trend-svg" viewBox="0 0 100 40">
+                <line x1="0" y1="35" x2="100" y2="35" class="trend-grid" />
+                <line x1="0" y1="20" x2="100" y2="20" class="trend-grid" />
+                <line x1="0" y1="5" x2="100" y2="5" class="trend-grid" />
+                <path d="M10,20 L35,20 L60,20 L90,20" class="trend-line stable" fill="none"/>
+                <circle cx="90" cy="20" r="3.5" fill="#3b82f6"/>
+              </svg>
+            </div>
+            Wind Speed Status
+          </div>
+          <div class="options-grid">
+            <div class="option-item">Rising</div>
+            <div class="option-item">Falling</div>
+            <div class="option-item correct">Stable</div>
+            <div class="option-item">Fluctuating</div>
+          </div>
+        </div>
+
+        <!-- Q8 -->
+        <div class="question-card">
+          <div class="q-meta">
+            <span class="q-number">Question 8</span>
+            <span class="q-type type-math">Math</span>
+          </div>
+          <div class="q-prompt">
+            <div class="bold-number">3,000</div>
+            Difference Value
+          </div>
+          <div class="options-grid">
+            <div class="option-item">2,000</div>
+            <div class="option-item correct">3,000</div>
+            <div class="option-item">4,000</div>
+            <div class="option-item">5,000</div>
+          </div>
+        </div>
+
+        <!-- Q9 -->
+        <div class="question-card">
+          <div class="q-meta">
+            <span class="q-number">Question 9</span>
+            <span class="q-type type-math">Math</span>
+          </div>
+          <div class="q-prompt">
+            <div class="bold-number">5</div>
+            Empty Seats Value
+          </div>
+          <div class="options-grid">
+            <div class="option-item">3</div>
+            <div class="option-item correct">5</div>
+            <div class="option-item">8</div>
+            <div class="option-item">10</div>
+          </div>
+        </div>
+
+        <!-- Q10 -->
+        <div class="question-card">
+          <div class="q-meta">
+            <span class="q-number">Question 10</span>
+            <span class="q-type type-math">Math</span>
+          </div>
+          <div class="q-prompt">
+            <div class="bold-number">30</div>
+            Doubled Speed Value
+          </div>
+          <div class="options-grid">
+            <div class="option-item">20</div>
+            <div class="option-item">25</div>
+            <div class="option-item correct">30</div>
+            <div class="option-item">35</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
