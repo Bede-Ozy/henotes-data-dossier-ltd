@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const countLabel = document.getElementById('question-count-label');
   const progressBar = document.getElementById('game-progress-bar');
   const cardPrompt = document.getElementById('card-prompt');
+  const cardInstruction = document.getElementById('card-instruction');
   const optionsBox = document.getElementById('options-box');
 
   const industrySelect = document.getElementById('industry-select');
@@ -138,6 +139,14 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const progressPct = ((questionIndex) / activeQuestions.length) * 100;
     progressBar.style.width = `${progressPct}%`;
+
+    // Render Question instruction if available, otherwise hide
+    if (question.instruction) {
+      cardInstruction.textContent = question.instruction;
+      cardInstruction.classList.remove('hidden');
+    } else {
+      cardInstruction.classList.add('hidden');
+    }
 
     // Render Question text (handling linebreaks)
     cardPrompt.innerHTML = question.prompt.replace(/\n/g, '<br>');
