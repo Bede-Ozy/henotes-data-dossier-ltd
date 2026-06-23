@@ -148,8 +148,11 @@ document.addEventListener('DOMContentLoaded', () => {
       cardInstruction.classList.add('hidden');
     }
 
-    // Render Question text (handling linebreaks)
-    cardPrompt.innerHTML = question.prompt.replace(/\n/g, '<br>');
+    if (question.prompt.includes('<')) {
+      cardPrompt.innerHTML = question.prompt;
+    } else {
+      cardPrompt.innerHTML = question.prompt.replace(/\n/g, '<br>');
+    }
     
     // Clear and Render Options
     optionsBox.innerHTML = '';
