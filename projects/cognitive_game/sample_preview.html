@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -63,15 +64,23 @@
       border-left: 4px solid #3b82f6;
     }
 
-    .round-1-header { border-left-color: #ef4444; } /* High Load */
-    .round-2-header { border-left-color: #10b981; } /* Low Load */
+    .round-1-header {
+      border-left-color: #ef4444;
+    }
+
+    /* High Load */
+    .round-2-header {
+      border-left-color: #10b981;
+    }
+
+    /* Low Load */
 
     .question-card {
       border: 1px solid #e2e8f0;
       border-radius: 8px;
       padding: 16px;
       background-color: #ffffff;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
     }
 
     .q-meta {
@@ -94,9 +103,20 @@
       border-radius: 4px;
     }
 
-    .type-color { background-color: #fee2e2; color: #ef4444; }
-    .type-industry { background-color: #e0f2fe; color: #0284c7; }
-    .type-math { background-color: #fef3c7; color: #d97706; }
+    .type-color {
+      background-color: #fee2e2;
+      color: #ef4444;
+    }
+
+    .type-industry {
+      background-color: #e0f2fe;
+      color: #0284c7;
+    }
+
+    .type-math {
+      background-color: #fef3c7;
+      color: #d97706;
+    }
 
     .q-prompt {
       font-size: 1.05rem;
@@ -149,7 +169,7 @@
       border-radius: 50%;
       margin-bottom: 8px;
       border: 2px solid #e2e8f0;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     }
 
     /* Visual trend SVGs */
@@ -173,14 +193,22 @@
 
     .trend-line {
       fill: none;
-      stroke-width: 3.5;
+      stroke-width: 2.0;
       stroke-linecap: round;
       stroke-linejoin: round;
     }
 
-    .trend-line.rising { stroke: #10b981; }
-    .trend-line.falling { stroke: #ef4444; }
-    .trend-line.stable { stroke: #3b82f6; }
+    .trend-line.rising {
+      stroke: #10b981;
+    }
+
+    .trend-line.falling {
+      stroke: #ef4444;
+    }
+
+    .trend-line.stable {
+      stroke: #3b82f6;
+    }
 
     .trend-grid {
       stroke: #cbd5e1;
@@ -197,6 +225,70 @@
       margin-bottom: 4px;
     }
 
+    /* Scatter dots visual */
+    .scatter-dots-container {
+      position: relative;
+      width: 140px;
+      height: 80px;
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.02);
+      display: inline-block;
+    }
+
+    .scatter-dot {
+      position: absolute;
+      display: block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Dashboard KPI Card Widget */
+    .dashboard-kpi-card {
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 12px 16px;
+      width: 180px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      margin: 8px auto 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      border-top: 3px solid #3b82f6;
+      display: inline-flex;
+    }
+
+    .kpi-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      line-height: 1.2;
+    }
+
+    .kpi-value {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.1;
+    }
+
+    .kpi-question {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 4px;
+    }
+
+
     @media (max-width: 768px) {
       .split-layout {
         grid-template-columns: 1fr;
@@ -204,6 +296,7 @@
     }
   </style>
 </head>
+
 <body>
 
   <div class="container">
@@ -226,7 +319,9 @@
             <span class="q-type type-color">Color</span>
           </div>
           <div class="q-prompt">
-            <span class="color-inline"><span class="color-indicator" style="background-color: #ff3b30;"></span>Red</span> + <span class="color-inline"><span class="color-indicator" style="background-color: #ffcc00;"></span>Yellow</span> = ?
+            <span class="color-inline"><span class="color-indicator"
+                style="background-color: #ff3b30;"></span>Red</span> + <span class="color-inline"><span
+                class="color-indicator" style="background-color: #ffcc00;"></span>Yellow</span> = ?
           </div>
           <div class="options-grid">
             <div class="option-item">Green</div>
@@ -243,7 +338,9 @@
             <span class="q-type type-color">Color</span>
           </div>
           <div class="q-prompt">
-            <span class="color-inline"><span class="color-indicator" style="background-color: #007aff;"></span>Blue</span> + <span class="color-inline"><span class="color-indicator" style="background-color: #ffcc00;"></span>Yellow</span> = ?
+            <span class="color-inline"><span class="color-indicator"
+                style="background-color: #007aff;"></span>Blue</span> + <span class="color-inline"><span
+                class="color-indicator" style="background-color: #ffcc00;"></span>Yellow</span> = ?
           </div>
           <div class="options-grid">
             <div class="option-item">Purple</div>
@@ -260,7 +357,9 @@
             <span class="q-type type-color">Color</span>
           </div>
           <div class="q-prompt">
-            <span class="color-inline"><span class="color-indicator" style="background-color: #ff3b30;"></span>Red</span> + <span class="color-inline"><span class="color-indicator" style="background-color: #007aff;"></span>Blue</span> = ?
+            <span class="color-inline"><span class="color-indicator"
+                style="background-color: #ff3b30;"></span>Red</span> + <span class="color-inline"><span
+                class="color-indicator" style="background-color: #007aff;"></span>Blue</span> = ?
           </div>
           <div class="options-grid">
             <div class="option-item">Green</div>
@@ -311,7 +410,8 @@
             <span class="q-type type-industry">Industry</span>
           </div>
           <div class="q-prompt">
-            Fuel Price log:<br>Mon: $3.10 | Tue: $3.40 | Wed: $3.25 | Thu: $3.50 | Fri: $3.35<br><br>What is the peak fuel price?
+            Fuel Price log:<br>Mon: $3.10 | Tue: $3.40 | Wed: $3.25 | Thu: $3.50 | Fri: $3.35<br><br>What is the peak
+            fuel price?
           </div>
           <div class="options-grid">
             <div class="option-item">$3.40</div>
@@ -345,13 +445,13 @@
             <span class="q-type type-math">Math</span>
           </div>
           <div class="q-prompt">
-            Altitude: 7,000 ft. Target: 10,000 ft.<br>What is the difference?
+            If last month's active users was 2,400 and we grew by 600 users, what is the current MAU?
           </div>
           <div class="options-grid">
-            <div class="option-item">2,000 ft</div>
-            <div class="option-item correct">3,000 ft</div>
-            <div class="option-item">4,000 ft</div>
-            <div class="option-item">5,000 ft</div>
+            <div class="option-item">2,000</div>
+            <div class="option-item correct">3,000</div>
+            <div class="option-item">4,000</div>
+            <div class="option-item">5,000</div>
           </div>
         </div>
 
@@ -362,13 +462,13 @@
             <span class="q-type type-math">Math</span>
           </div>
           <div class="q-prompt">
-            Boarded: 45 passengers. Capacity: 50.<br>How many empty seats remain?
+            We had 300 customers, and 9 of them cancelled. What is the churn rate?
           </div>
           <div class="options-grid">
-            <div class="option-item">3 seats</div>
-            <div class="option-item correct">5 seats</div>
-            <div class="option-item">8 seats</div>
-            <div class="option-item">10 seats</div>
+            <div class="option-item">1%</div>
+            <div class="option-item">2%</div>
+            <div class="option-item correct">3%</div>
+            <div class="option-item">5%</div>
           </div>
         </div>
 
@@ -379,13 +479,13 @@
             <span class="q-type type-math">Math</span>
           </div>
           <div class="q-prompt">
-            Wind speed is 15 knots. If it doubles, what is the speed?
+            Marketing spend was $900 for 30 acquired customers. What is the CAC?
           </div>
           <div class="options-grid">
-            <div class="option-item">20 knots</div>
-            <div class="option-item">25 knots</div>
-            <div class="option-item correct">30 knots</div>
-            <div class="option-item">35 knots</div>
+            <div class="option-item">$15</div>
+            <div class="option-item">$20</div>
+            <div class="option-item correct">$30</div>
+            <div class="option-item">$45</div>
           </div>
         </div>
       </div>
@@ -421,8 +521,26 @@
             <span class="q-type type-color">Color</span>
           </div>
           <div class="q-prompt">
-            <div class="color-circle" style="background-color: #34c759;"></div>
-            What color is this?
+            <div class="scatter-dots-container">
+              <span class="scatter-dot" style="left: 12%; top: 22%; background-color: #af52de;"></span>
+              <span class="scatter-dot" style="left: 28%; top: 55%; background-color: #af52de;"></span>
+              <span class="scatter-dot" style="left: 42%; top: 38%; background-color: #af52de;"></span>
+              <span class="scatter-dot" style="left: 58%; top: 72%; background-color: #af52de;"></span>
+              <span class="scatter-dot" style="left: 74%; top: 28%; background-color: #af52de;"></span>
+              <span class="scatter-dot" style="left: 18%; top: 68%; background-color: #af52de;"></span>
+              <span class="scatter-dot" style="left: 82%; top: 50%; background-color: #af52de;"></span>
+              <span class="scatter-dot" style="left: 38%; top: 18%; background-color: #af52de;"></span>
+              <span class="scatter-dot"
+                style="left: 52%; top: 60%; background-color: #34c759; box-shadow: 0 0 6px rgba(52, 199, 89, 0.6); border: 1.5px solid rgba(255,255,255,0.8);"></span>
+              <span class="scatter-dot" style="left: 64%; top: 12%; background-color: #af52de;"></span>
+              <span class="scatter-dot" style="left: 8%; top: 45%; background-color: #af52de;"></span>
+              <span class="scatter-dot" style="left: 78%; top: 76%; background-color: #af52de;"></span>
+              <span class="scatter-dot" style="left: 32%; top: 32%; background-color: #af52de;"></span>
+              <span class="scatter-dot" style="left: 68%; top: 46%; background-color: #af52de;"></span>
+              <span class="scatter-dot" style="left: 22%; top: 14%; background-color: #af52de;"></span>
+              <span class="scatter-dot" style="left: 50%; top: 30%; background-color: #af52de;"></span>
+            </div>
+            <div style="margin-top: 4px;">What is the odd color?</div>
           </div>
           <div class="options-grid">
             <div class="option-item">Purple</div>
@@ -456,14 +574,21 @@
             <span class="q-number">Question 4</span>
             <span class="q-type type-industry">Industry</span>
           </div>
-          <div class="q-prompt">
+          <div class="q-prompt" style="display: flex; flex-direction: column; align-items: center;">
             <div class="trend-chart-box">
-              <svg class="trend-svg" viewBox="0 0 100 40">
+              <svg class="trend-svg" viewBox="0 0 100 40" style="overflow: visible;">
                 <line x1="0" y1="35" x2="100" y2="35" class="trend-grid" />
                 <line x1="0" y1="20" x2="100" y2="20" class="trend-grid" />
                 <line x1="0" y1="5" x2="100" y2="5" class="trend-grid" />
-                <path d="M10,32 L35,26 L60,14 L90,6" class="trend-line rising" fill="none"/>
-                <circle cx="90" cy="6" r="3.5" fill="#10b981"/>
+                <path d="M10,32 L35,26 L60,14 L90,6" class="trend-line rising" fill="none" />
+                <circle cx="10" cy="32" r="2" fill="#10b981" />
+                <circle cx="35" cy="26" r="2" fill="#10b981" />
+                <circle cx="60" cy="14" r="2" fill="#10b981" />
+                <circle cx="90" cy="6" r="3.5" fill="#10b981" />
+                <text x="10" y="24" font-size="5.5" fill="#0f172a" text-anchor="middle" font-weight="bold">10m</text>
+                <text x="35" y="18" font-size="5.5" fill="#0f172a" text-anchor="middle" font-weight="bold">20m</text>
+                <text x="60" y="6" font-size="5.5" fill="#0f172a" text-anchor="middle" font-weight="bold">30m</text>
+                <text x="90" y="14" font-size="5.5" fill="#10b981" text-anchor="middle" font-weight="bold">40m</text>
               </svg>
             </div>
             Delay Status
@@ -482,14 +607,21 @@
             <span class="q-number">Question 5</span>
             <span class="q-type type-industry">Industry</span>
           </div>
-          <div class="q-prompt">
+          <div class="q-prompt" style="display: flex; flex-direction: column; align-items: center;">
             <div class="trend-chart-box">
-              <svg class="trend-svg" viewBox="0 0 100 40">
+              <svg class="trend-svg" viewBox="0 0 100 40" style="overflow: visible;">
                 <line x1="0" y1="35" x2="100" y2="35" class="trend-grid" />
                 <line x1="0" y1="20" x2="100" y2="20" class="trend-grid" />
                 <line x1="0" y1="5" x2="100" y2="5" class="trend-grid" />
-                <path d="M10,6 L35,14 L60,26 L90,32" class="trend-line falling" fill="none"/>
-                <circle cx="90" cy="32" r="3.5" fill="#ef4444"/>
+                <path d="M10,6 L35,14 L60,26 L90,32" class="trend-line falling" fill="none" />
+                <circle cx="10" cy="6" r="2" fill="#ef4444" />
+                <circle cx="35" cy="14" r="2" fill="#ef4444" />
+                <circle cx="60" cy="26" r="2" fill="#ef4444" />
+                <circle cx="90" cy="32" r="3.5" fill="#ef4444" />
+                <text x="10" y="14" font-size="5.5" fill="#0f172a" text-anchor="middle" font-weight="bold">120L</text>
+                <text x="35" y="22" font-size="5.5" fill="#0f172a" text-anchor="middle" font-weight="bold">90L</text>
+                <text x="60" y="34" font-size="5.5" fill="#0f172a" text-anchor="middle" font-weight="bold">60L</text>
+                <text x="90" y="24" font-size="5.5" fill="#ef4444" text-anchor="middle" font-weight="bold">30L</text>
               </svg>
             </div>
             Fuel Level Status
@@ -514,17 +646,18 @@
                 <line x1="0" y1="35" x2="100" y2="35" class="trend-grid" />
                 <line x1="0" y1="20" x2="100" y2="20" class="trend-grid" />
                 <line x1="0" y1="5" x2="100" y2="5" class="trend-grid" />
-                <path d="M10,30 L30,18 L50,24 L70,12 L90,20" class="trend-line stable" fill="none" style="stroke: #3b82f6;"/>
-                <circle cx="10" cy="30" r="1.5" fill="#3b82f6"/>
-                <circle cx="30" cy="18" r="1.5" fill="#3b82f6"/>
-                <circle cx="50" cy="24" r="1.5" fill="#3b82f6"/>
-                <circle cx="70" cy="12" r="3" fill="#ef4444"/>
-                <circle cx="90" cy="20" r="1.5" fill="#3b82f6"/>
-                <text x="10" y="27" font-size="4" fill="#64748b" text-anchor="middle">$3.10</text>
-                <text x="30" y="15" font-size="4" fill="#64748b" text-anchor="middle">$3.40</text>
-                <text x="50" y="21" font-size="4" fill="#64748b" text-anchor="middle">$3.25</text>
-                <text x="70" y="8" font-size="5.5" fill="#ef4444" font-weight="bold" text-anchor="middle">$3.50</text>
-                <text x="90" y="17" font-size="4" fill="#64748b" text-anchor="middle">$3.35</text>
+                <path d="M10,30 L30,18 L50,24 L70,12 L90,20" class="trend-line stable" fill="none"
+                  style="stroke: #3b82f6;" />
+                <circle cx="10" cy="30" r="1.5" fill="#3b82f6" />
+                <circle cx="30" cy="18" r="1.5" fill="#3b82f6" />
+                <circle cx="50" cy="24" r="1.5" fill="#3b82f6" />
+                <circle cx="70" cy="12" r="3" fill="#ef4444" />
+                <circle cx="90" cy="20" r="1.5" fill="#3b82f6" />
+                <text x="10" y="25" font-size="5.5" fill="#0f172a" text-anchor="middle" font-weight="bold">$3.10</text>
+                <text x="30" y="13" font-size="5.5" fill="#0f172a" text-anchor="middle" font-weight="bold">$3.40</text>
+                <text x="50" y="19" font-size="5.5" fill="#0f172a" text-anchor="middle" font-weight="bold">$3.25</text>
+                <text x="70" y="6" font-size="6" fill="#ef4444" font-weight="bold" text-anchor="middle">$3.50</text>
+                <text x="90" y="15" font-size="5.5" fill="#0f172a" text-anchor="middle" font-weight="bold">$3.35</text>
               </svg>
             </div>
             What is the peak fuel price?
@@ -543,14 +676,21 @@
             <span class="q-number">Question 7</span>
             <span class="q-type type-industry">Industry</span>
           </div>
-          <div class="q-prompt">
+          <div class="q-prompt" style="display: flex; flex-direction: column; align-items: center;">
             <div class="trend-chart-box">
-              <svg class="trend-svg" viewBox="0 0 100 40">
+              <svg class="trend-svg" viewBox="0 0 100 40" style="overflow: visible;">
                 <line x1="0" y1="35" x2="100" y2="35" class="trend-grid" />
                 <line x1="0" y1="20" x2="100" y2="20" class="trend-grid" />
                 <line x1="0" y1="5" x2="100" y2="5" class="trend-grid" />
-                <path d="M10,20 L35,20 L60,20 L90,20" class="trend-line stable" fill="none"/>
-                <circle cx="90" cy="20" r="3.5" fill="#3b82f6"/>
+                <path d="M10,20 L35,20 L60,20 L90,20" class="trend-line stable" fill="none" />
+                <circle cx="10" cy="20" r="2" fill="#3b82f6" />
+                <circle cx="35" cy="20" r="2" fill="#3b82f6" />
+                <circle cx="60" cy="20" r="2" fill="#3b82f6" />
+                <circle cx="90" cy="20" r="3.5" fill="#3b82f6" />
+                <text x="10" y="12" font-size="5.5" fill="#0f172a" text-anchor="middle" font-weight="bold">15 kts</text>
+                <text x="35" y="12" font-size="5.5" fill="#0f172a" text-anchor="middle" font-weight="bold">15 kts</text>
+                <text x="60" y="12" font-size="5.5" fill="#0f172a" text-anchor="middle" font-weight="bold">15 kts</text>
+                <text x="90" y="12" font-size="5.5" fill="#3b82f6" text-anchor="middle" font-weight="bold">15 kts</text>
               </svg>
             </div>
             Wind Speed Status
@@ -570,8 +710,11 @@
             <span class="q-type type-math">Math</span>
           </div>
           <div class="q-prompt">
-            <div class="bold-number">3,000</div>
-            Difference Value
+            <div class="dashboard-kpi-card">
+              <span class="kpi-label">Monthly Active Users (MAU)</span>
+              <span class="kpi-value">3,000</span>
+            </div>
+            <div class="kpi-question">What is the number of active users?</div>
           </div>
           <div class="options-grid">
             <div class="option-item">2,000</div>
@@ -588,14 +731,17 @@
             <span class="q-type type-math">Math</span>
           </div>
           <div class="q-prompt">
-            <div class="bold-number">5</div>
-            Empty Seats Value
+            <div class="dashboard-kpi-card">
+              <span class="kpi-label">Customer Churn Rate</span>
+              <span class="kpi-value">3%</span>
+            </div>
+            <div class="kpi-question">What is the customer churn rate?</div>
           </div>
           <div class="options-grid">
-            <div class="option-item">3</div>
-            <div class="option-item correct">5</div>
-            <div class="option-item">8</div>
-            <div class="option-item">10</div>
+            <div class="option-item">1%</div>
+            <div class="option-item">2%</div>
+            <div class="option-item correct">3%</div>
+            <div class="option-item">5%</div>
           </div>
         </div>
 
@@ -606,14 +752,17 @@
             <span class="q-type type-math">Math</span>
           </div>
           <div class="q-prompt">
-            <div class="bold-number">30</div>
-            Doubled Speed Value
+            <div class="dashboard-kpi-card">
+              <span class="kpi-label">Customer Acquisition Cost (CAC)</span>
+              <span class="kpi-value">$30</span>
+            </div>
+            <div class="kpi-question">What is the customer acquisition cost?</div>
           </div>
           <div class="options-grid">
-            <div class="option-item">20</div>
-            <div class="option-item">25</div>
-            <div class="option-item correct">30</div>
-            <div class="option-item">35</div>
+            <div class="option-item">$15</div>
+            <div class="option-item">$20</div>
+            <div class="option-item correct">$30</div>
+            <div class="option-item">$45</div>
           </div>
         </div>
       </div>
@@ -621,4 +770,5 @@
   </div>
 
 </body>
+
 </html>
