@@ -894,6 +894,35 @@ h2 {
   border-color: var(--primary);
 }
 
+.kpi-cards-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: 12px;
+  margin: 10px auto 20px;
+  width: 100%;
+}
+
+.kpi-cards-row .dashboard-kpi-card {
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+  max-width: 160px;
+  padding: 12px 8px;
+  gap: 6px;
+  border-top-width: 3px;
+}
+
+.kpi-cards-row .dashboard-kpi-card .kpi-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+}
+
+.kpi-cards-row .dashboard-kpi-card .kpi-value {
+  font-size: 1.8rem;
+}
+
 .kpi-label {
   font-size: 0.85rem;
   font-weight: 700;

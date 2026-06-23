@@ -265,6 +265,34 @@
       display: inline-flex;
     }
 
+    .kpi-cards-row {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: center;
+      gap: 10px;
+      margin: 8px auto 12px;
+      width: 100%;
+    }
+
+    .kpi-cards-row .dashboard-kpi-card {
+      margin: 0;
+      display: flex;
+      flex: 1;
+      min-width: 0;
+      max-width: 130px;
+      padding: 10px 4px;
+      gap: 4px;
+    }
+
+    .kpi-cards-row .dashboard-kpi-card .kpi-label {
+      font-size: 0.58rem;
+    }
+
+    .kpi-cards-row .dashboard-kpi-card .kpi-value {
+      font-size: 1.4rem;
+    }
+
     .kpi-label {
       font-size: 0.65rem;
       font-weight: 700;
@@ -710,9 +738,19 @@
             <span class="q-type type-math">Math</span>
           </div>
           <div class="q-prompt">
-            <div class="dashboard-kpi-card">
-              <span class="kpi-label">Monthly Active Users (MAU)</span>
-              <span class="kpi-value">3,000</span>
+            <div class="kpi-cards-row">
+              <div class="dashboard-kpi-card">
+                <span class="kpi-label">Monthly Active Users (MAU)</span>
+                <span class="kpi-value">3,000</span>
+              </div>
+              <div class="dashboard-kpi-card">
+                <span class="kpi-label">Customer Churn Rate</span>
+                <span class="kpi-value">3%</span>
+              </div>
+              <div class="dashboard-kpi-card">
+                <span class="kpi-label">Customer Acquisition Cost (CAC)</span>
+                <span class="kpi-value">$30</span>
+              </div>
             </div>
             <div class="kpi-question">What is the number of active users?</div>
           </div>
@@ -731,9 +769,19 @@
             <span class="q-type type-math">Math</span>
           </div>
           <div class="q-prompt">
-            <div class="dashboard-kpi-card">
-              <span class="kpi-label">Customer Churn Rate</span>
-              <span class="kpi-value">3%</span>
+            <div class="kpi-cards-row">
+              <div class="dashboard-kpi-card">
+                <span class="kpi-label">Monthly Active Users (MAU)</span>
+                <span class="kpi-value">3,000</span>
+              </div>
+              <div class="dashboard-kpi-card">
+                <span class="kpi-label">Customer Churn Rate</span>
+                <span class="kpi-value">3%</span>
+              </div>
+              <div class="dashboard-kpi-card">
+                <span class="kpi-label">Customer Acquisition Cost (CAC)</span>
+                <span class="kpi-value">$30</span>
+              </div>
             </div>
             <div class="kpi-question">What is the customer churn rate?</div>
           </div>
@@ -752,9 +800,19 @@
             <span class="q-type type-math">Math</span>
           </div>
           <div class="q-prompt">
-            <div class="dashboard-kpi-card">
-              <span class="kpi-label">Customer Acquisition Cost (CAC)</span>
-              <span class="kpi-value">$30</span>
+            <div class="kpi-cards-row">
+              <div class="dashboard-kpi-card">
+                <span class="kpi-label">Monthly Active Users (MAU)</span>
+                <span class="kpi-value">3,000</span>
+              </div>
+              <div class="dashboard-kpi-card">
+                <span class="kpi-label">Customer Churn Rate</span>
+                <span class="kpi-value">3%</span>
+              </div>
+              <div class="dashboard-kpi-card">
+                <span class="kpi-label">Customer Acquisition Cost (CAC)</span>
+                <span class="kpi-value">$30</span>
+              </div>
             </div>
             <div class="kpi-question">What is the customer acquisition cost?</div>
           </div>

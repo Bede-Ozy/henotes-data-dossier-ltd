@@ -251,21 +251,21 @@ const getIndustryQuestions = (name, prefix, configs) => {
     {
       id: `${prefix}_rec_8`,
       instruction: "Identify the business KPI value.",
-      prompt: `<div class="dashboard-kpi-card"><span class="kpi-label">${configs.q8_kpi_title}</span><span class="kpi-value">${configs.q8_kpi_value}</span></div><div class="kpi-question">What is the number of active users?</div>`,
+      prompt: `<div class="kpi-cards-row"><div class="dashboard-kpi-card"><span class="kpi-label">${configs.q8_kpi_title}</span><span class="kpi-value">${configs.q8_kpi_value}</span></div><div class="dashboard-kpi-card"><span class="kpi-label">${configs.q9_kpi_title}</span><span class="kpi-value">${configs.q9_kpi_value}</span></div><div class="dashboard-kpi-card"><span class="kpi-label">${configs.q10_kpi_title}</span><span class="kpi-value">${configs.q10_kpi_value}</span></div></div><div class="kpi-question">What is the number of active users?</div>`,
       options: configs.q8_options,
       answer: configs.q8_kpi_value
     },
     {
       id: `${prefix}_rec_9`,
       instruction: "Identify the business KPI value.",
-      prompt: `<div class="dashboard-kpi-card"><span class="kpi-label">${configs.q9_kpi_title}</span><span class="kpi-value">${configs.q9_kpi_value}</span></div><div class="kpi-question">What is the customer churn rate?</div>`,
+      prompt: `<div class="kpi-cards-row"><div class="dashboard-kpi-card"><span class="kpi-label">${configs.q8_kpi_title}</span><span class="kpi-value">${configs.q8_kpi_value}</span></div><div class="dashboard-kpi-card"><span class="kpi-label">${configs.q9_kpi_title}</span><span class="kpi-value">${configs.q9_kpi_value}</span></div><div class="dashboard-kpi-card"><span class="kpi-label">${configs.q10_kpi_title}</span><span class="kpi-value">${configs.q10_kpi_value}</span></div></div><div class="kpi-question">What is the customer churn rate?</div>`,
       options: configs.q9_options,
       answer: configs.q9_kpi_value
     },
     {
       id: `${prefix}_rec_10`,
       instruction: "Identify the business KPI value.",
-      prompt: `<div class="dashboard-kpi-card"><span class="kpi-label">${configs.q10_kpi_title}</span><span class="kpi-value">${configs.q10_kpi_value}</span></div><div class="kpi-question">What is the customer acquisition cost?</div>`,
+      prompt: `<div class="kpi-cards-row"><div class="dashboard-kpi-card"><span class="kpi-label">${configs.q8_kpi_title}</span><span class="kpi-value">${configs.q8_kpi_value}</span></div><div class="dashboard-kpi-card"><span class="kpi-label">${configs.q9_kpi_title}</span><span class="kpi-value">${configs.q9_kpi_value}</span></div><div class="dashboard-kpi-card"><span class="kpi-label">${configs.q10_kpi_title}</span><span class="kpi-value">${configs.q10_kpi_value}</span></div></div><div class="kpi-question">What is the customer acquisition cost?</div>`,
       options: configs.q10_options,
       answer: configs.q10_kpi_value
     }
