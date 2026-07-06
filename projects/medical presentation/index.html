@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monthly Procurement Data | Henotes Medical Presentation</title>
+    <!-- Styles -->
+    <link rel="stylesheet" href="../../css/style.css">
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Page Styles -->
+    <style>
+        .page-hero {
+            height: 35vh;
+            display: flex;
+            align-items: center;
+            background-color: #010f40;
+            /* Glowing orbs + Grid pattern for high tech texture */
+            background-image: 
+                radial-gradient(circle at top right, rgba(0, 199, 235, 0.4) 0%, transparent 60%),
+                radial-gradient(circle at bottom left, rgba(0, 40, 200, 0.5) 0%, transparent 60%),
+                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 30px 30px, 30px 30px;
+            background-position: top right, bottom left, center center, center center;
+            position: relative;
+            margin-top: 80px; /* Navbar height */
+            color: white;
+            overflow: hidden;
+        }
+        
+        .page-hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1.5px, transparent 1.5px);
+            background-size: 15px 15px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .hero-container {
+            z-index: 2;
+            position: relative;
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-hero h1 {
+            font-size: clamp(2rem, 4vw, 2.6rem);
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .page-hero p {
+            font-size: 1rem;
+            color: #cbd5e1;
+            max-width: 600px;
+            margin-bottom: 0;
+        }
+
+        .procurement-section {
+            padding: 50px 0;
+            background-color: var(--bg-light);
+            min-height: 55vh;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 3px;
+            background: var(--primary);
+            margin-top: 6px;
+        }
+
+        .controls-group {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .search-wrapper {
+            position: relative;
+        }
+
+        .search-input {
+            padding: 8px 15px 8px 35px;
+            border-radius: 50px;
+            border: 1px solid rgba(0, 199, 235, 0.3);
+            background: var(--bg-white);
+            color: var(--text-dark);
+            font-family: var(--font-secondary);
+            font-size: 0.85rem;
+            width: 220px;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 8px rgba(0, 199, 235, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .btn-bulk {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--primary-dark) 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(34, 111, 248, 0.25);
+            border-radius: 50px;
+            font-weight: 600;
+            padding: 8px 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-bulk:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(34, 111, 248, 0.35);
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .procurement-card {
+            background: var(--bg-white);
+            border-radius: 16px;
+            border: 1px solid rgba(0, 199, 235, 0.1);
+            box-shadow: var(--shadow-sm);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .procurement-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .procurement-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: rgba(0, 199, 235, 0.3);
+        }
+
+        .procurement-card:hover::before {
+            opacity: 1;
+        }
+
+        .card-top {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .doc-icon-box {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(16, 124, 65, 0.1); /* Excel Green tint */
+            color: #107c41; /* Excel Green */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .procurement-card:hover .doc-icon-box {
+            background: #107c41;
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(16, 124, 65, 0.2);
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            color: var(--secondary);
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .meta-badges {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .meta-badge {
+            font-size: 0.72rem;
+            padding: 3px 8px;
+            border-radius: 6px;
+            background: var(--bg-light);
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .meta-badge.format {
+            background: rgba(16, 124, 65, 0.08);
+            color: #107c41;
+            font-weight: 600;
+        }
+
+        .meta-badge.size {
+            background: rgba(0, 199, 235, 0.08);
+            color: var(--primary-dark);
+        }
+
+        .meta-badge.status {
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        .card-actions {
+            margin-top: 5px;
+        }
+
+        .btn-download {
+            width: 100%;
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            border: 1px solid transparent;
+            border-radius: 50px;
+            padding: 10px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.88rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-download:hover {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 199, 235, 0.25);
+            transform: translateY(-1px);
+        }
+
+        /* Success Toast style */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--secondary);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 2000;
+            font-size: 0.9rem;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast i {
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px 20px;
+            background: white;
+            border-radius: 16px;
+            border: 1px dashed rgba(0, 199, 235, 0.3);
+            display: none;
+        }
+
+        .empty-state i {
+            font-size: 2.5rem;
+            color: var(--text-light);
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .empty-state h3 {
+            font-size: 1.1rem;
+            color: var(--secondary);
+            margin-bottom: 5px;
+        }
+
+        .empty-state p {
+            color: var(--text-light);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="../../index.html">
+                    <img src="../../images/Henotes-loge.png" alt="Henotes Logo">
+                </a>
+            </div>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="../../about.html">About Henotes</a></li>
+                    <li><a href="../../services.html">Our Services</a></li>
+                    <li><a href="../../curriculum/index.html">Curriculum</a></li>
+                    <li><a href="../../contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="page-hero">
+        <div class="hero-container">
+            <h1>Medical Procurement Data</h1>
+            <p>Access, manage, and download monthly procurement sheets for the Henotes Medical Presentation dataset.</p>
+        </div>
+    </header>
+
+    <!-- Main Content Section -->
+    <section class="procurement-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Procurement Files</h2>
+                <div class="controls-group">
+                    <div class="search-wrapper">
+                        <i class="ri-search-line search-icon"></i>
+                        <input type="text" id="search-bar" class="search-input" placeholder="Search files by month...">
+                    </div>
+                    <button class="btn-bulk" onclick="downloadAllFiles()">
+                        <i class="ri-download-cloud-2-line"></i> Download All Reports
+                    </button>
+                </div>
+            </div>
+
+            <!-- Grid container for months -->
+            <div class="grid-container" id="files-grid">
+                
+                <!-- January Card -->
+                <div class="procurement-card" data-month="january">
+                    <div>
+                        <div class="card-top">
+                            <div class="doc-icon-box">
+                                <i class="fa-regular fa-file-excel"></i>
+                            </div>
+                            <h3 class="card-title">January 2026</h3>
+                        </div>
+                        <div class="meta-badges">
+                            <span class="meta-badge format">XLSX</span>
+                            <span class="meta-badge size">13.3 KB</span>
+                            <span class="meta-badge status">Finalized</span>
+                        </div>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Monthly Procurement/01_January_Procurement.xlsx" download class="btn-download" onclick="notifyDownload('January')">
+                            <i class="ri-download-2-line"></i> Download Data
+                        </a>
+                    </div>
+                </div>
+
+                <!-- February Card -->
+                <div class="procurement-card" data-month="february">
+                    <div>
+                        <div class="card-top">
+                            <div class="doc-icon-box">
+                                <i class="fa-regular fa-file-excel"></i>
+                            </div>
+                            <h3 class="card-title">February 2026</h3>
+                        </div>
+                        <div class="meta-badges">
+                            <span class="meta-badge format">XLSX</span>
+                            <span class="meta-badge size">13.3 KB</span>
+                            <span class="meta-badge status">Finalized</span>
+                        </div>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Monthly Procurement/02_February_Procurement.xlsx" download class="btn-download" onclick="notifyDownload('February')">
+                            <i class="ri-download-2-line"></i> Download Data
+                        </a>
+                    </div>
+                </div>
+
+                <!-- March Card -->
+                <div class="procurement-card" data-month="march">
+                    <div>
+                        <div class="card-top">
+                            <div class="doc-icon-box">
+                                <i class="fa-regular fa-file-excel"></i>
+                            </div>
+                            <h3 class="card-title">March 2026</h3>
+                        </div>
+                        <div class="meta-badges">
+                            <span class="meta-badge format">XLSX</span>
+                            <span class="meta-badge size">13.4 KB</span>
+                            <span class="meta-badge status">Finalized</span>
+                        </div>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Monthly Procurement/03_March_Procurement.xlsx" download class="btn-download" onclick="notifyDownload('March')">
+                            <i class="ri-download-2-line"></i> Download Data
+                        </a>
+                    </div>
+                </div>
+
+                <!-- April Card -->
+                <div class="procurement-card" data-month="april">
+                    <div>
+                        <div class="card-top">
+                            <div class="doc-icon-box">
+                                <i class="fa-regular fa-file-excel"></i>
+                            </div>
+                            <h3 class="card-title">April 2026</h3>
+                        </div>
+                        <div class="meta-badges">
+                            <span class="meta-badge format">XLSX</span>
+                            <span class="meta-badge size">13.3 KB</span>
+                            <span class="meta-badge status">Finalized</span>
+                        </div>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Monthly Procurement/04_April_Procurement.xlsx" download class="btn-download" onclick="notifyDownload('April')">
+                            <i class="ri-download-2-line"></i> Download Data
+                        </a>
+                    </div>
+                </div>
+
+                <!-- May Card -->
+                <div class="procurement-card" data-month="may">
+                    <div>
+                        <div class="card-top">
+                            <div class="doc-icon-box">
+                                <i class="fa-regular fa-file-excel"></i>
+                            </div>
+                            <h3 class="card-title">May 2026</h3>
+                        </div>
+                        <div class="meta-badges">
+                            <span class="meta-badge format">XLSX</span>
+                            <span class="meta-badge size">13.4 KB</span>
+                            <span class="meta-badge status">Finalized</span>
+                        </div>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Monthly Procurement/05_May_Procurement.xlsx" download class="btn-download" onclick="notifyDownload('May')">
+                            <i class="ri-download-2-line"></i> Download Data
+                        </a>
+                    </div>
+                </div>
+
+                <!-- June Card -->
+                <div class="procurement-card" data-month="june">
+                    <div>
+                        <div class="card-top">
+                            <div class="doc-icon-box">
+                                <i class="fa-regular fa-file-excel"></i>
+                            </div>
+                            <h3 class="card-title">June 2026</h3>
+                        </div>
+                        <div class="meta-badges">
+                            <span class="meta-badge format">XLSX</span>
+                            <span class="meta-badge size">13.3 KB</span>
+                            <span class="meta-badge status">Finalized</span>
+                        </div>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Monthly Procurement/06_June_Procurement.xlsx" download class="btn-download" onclick="notifyDownload('June')">
+                            <i class="ri-download-2-line"></i> Download Data
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Empty State -->
+                <div class="empty-state" id="empty-state-box">
+                    <i class="ri-file-warning-line"></i>
+                    <h3>No matching reports found</h3>
+                    <p>Try searching for a different month or keyword.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="../../images/Henote-Logo-white-blue.png" alt="Henotes Logo" style="width: 150px;">
+                    <p>Building data-capable organisations by focusing on people, process, and practical analytics.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="../../index.html">Home</a></li>
+                        <li><a href="../../about.html">About Henotes</a></li>
+                        <li><a href="../../services.html">Our Services</a></li>
+                        <li><a href="../../curriculum/index.html">Curriculum</a></li>
+                        <li><a href="../../contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Tutorials</h4>
+                    <ul>
+                        <li><a href="../trainings/data-analysis-tutorial/index.html">Excel Data Analysis for Beginners</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h4>Connect</h4>
+                    <a href="https://www.linkedin.com/company/henotes-data-dossier/" target="_blank"><i class="ri-linkedin-box-fill"></i> LinkedIn</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Henotes Data Dossier. All rights reserved. <span style="margin: 0 10px; color: rgba(255,255,255,0.2);">|</span> <a href="../../privacy.html" style="color: var(--primary); font-weight: 500;">Privacy Policy</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="download-toast">
+        <i class="ri-checkbox-circle-fill"></i>
+        <span id="toast-message">Report download initiated!</span>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/script.js"></script>
+    <script>
+        // Search functionality
+        const searchBar = document.getElementById('search-bar');
+        const cards = document.querySelectorAll('.procurement-card');
+        const emptyState = document.getElementById('empty-state-box');
+
+        searchBar.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            let hasVisible = false;
+
+            cards.forEach(card => {
+                const month = card.getAttribute('data-month');
+                if (month.includes(query)) {
+                    card.style.display = 'flex';
+                    hasVisible = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            if (hasVisible) {
+                emptyState.style.display = 'none';
+            } else {
+                emptyState.style.display = 'block';
+            }
+        });
+
+        // Staggered bulk download of all files
+        function downloadAllFiles() {
+            const files = [
+                { path: 'Monthly Procurement/01_January_Procurement.xlsx', name: 'January' },
+                { path: 'Monthly Procurement/02_February_Procurement.xlsx', name: 'February' },
+                { path: 'Monthly Procurement/03_March_Procurement.xlsx', name: 'March' },
+                { path: 'Monthly Procurement/04_April_Procurement.xlsx', name: 'April' },
+                { path: 'Monthly Procurement/05_May_Procurement.xlsx', name: 'May' },
+                { path: 'Monthly Procurement/06_June_Procurement.xlsx', name: 'June' }
+            ];
+
+            showToast("Initiating bulk download for all 6 reports...");
+
+            files.forEach((file, index) => {
+                setTimeout(() => {
+                    const link = document.createElement('a');
+                    link.href = file.path;
+                    link.setAttribute('download', '');
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }, index * 400); // 400ms stagger to prevent browsers from blocking multiple downloads
+            });
+        }
+
+        // Notification handler
+        function showToast(message) {
+            const toast = document.getElementById('download-toast');
+            const msgSpan = document.getElementById('toast-message');
+            msgSpan.textContent = message;
+            
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        function notifyDownload(monthName) {
+            showToast(`${monthName} report download initiated!`);
+        }
+    </script>
+</body>
+</html>

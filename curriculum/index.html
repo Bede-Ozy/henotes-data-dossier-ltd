@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aviation Data Science Curriculum | Henotes Data Dossier</title>
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/style.css">
+    <!-- Remixicon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Custom Hero for Curriculum */
+        .curriculum-hero {
+            padding: 140px 0 80px;
+            background-color: var(--secondary);
+            background-image: 
+                radial-gradient(circle at top right, rgba(0, 199, 235, 0.4) 0%, transparent 60%),
+                radial-gradient(circle at bottom left, rgba(34, 111, 248, 0.4) 0%, transparent 60%),
+                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 30px 30px, 30px 30px;
+            background-position: top right, bottom left, center center, center center;
+            position: relative;
+            color: white;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .curriculum-hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1.5px, transparent 1.5px);
+            background-size: 15px 15px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .curriculum-hero h1 {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .curriculum-hero p {
+            font-size: 1.15rem;
+            max-width: 700px;
+            margin: 0 auto;
+            color: #cbd5e1;
+        }
+
+        /* View Toggle Section */
+        .controls-section {
+            padding: 40px 0 20px;
+            background-color: var(--bg-white);
+            border-bottom: 1px solid rgba(0, 199, 235, 0.1);
+        }
+
+        .controls-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .view-toggle-wrapper {
+            display: inline-flex;
+            background: var(--bg-light);
+            padding: 5px;
+            border-radius: 50px;
+            border: 1px solid rgba(0, 199, 235, 0.15);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .toggle-btn {
+            border: none;
+            background: transparent;
+            padding: 10px 24px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            font-family: var(--font-main);
+            color: var(--text-light);
+            cursor: pointer;
+            border-radius: 50px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toggle-btn.active {
+            background: var(--secondary);
+            color: var(--bg-white);
+            box-shadow: 0 4px 10px rgba(1, 15, 64, 0.25);
+        }
+
+        .toggle-btn:hover:not(.active) {
+            color: var(--primary-dark);
+        }
+
+        /* Main View Containers */
+        .curriculum-content-section {
+            padding: 60px 0 100px;
+            background-color: var(--bg-light);
+            min-height: 500px;
+        }
+
+        .curriculum-view {
+            display: none;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .curriculum-view.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Cards View Styles */
+        .curriculum-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .session-card {
+            background: var(--bg-white);
+            border: 1px solid rgba(0, 199, 235, 0.15);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .session-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+
+        .session-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: rgba(0, 199, 235, 0.35);
+        }
+
+        .session-badge {
+            display: inline-block;
+            align-self: flex-start;
+            background: var(--primary-light);
+            color: var(--accent);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border-radius: 50px;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        .session-card h3 {
+            font-size: 1.4rem;
+            color: var(--secondary);
+            margin-bottom: 25px;
+            line-height: 1.3;
+        }
+
+        .card-row {
+            padding: 20px 0 0 0;
+            border-top: 1px solid rgba(0, 199, 235, 0.1);
+            margin-top: 15px;
+        }
+
+        .card-row:first-of-type {
+            border-top: none;
+            margin-top: 0;
+            padding-top: 0;
+        }
+
+        .row-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .topics-row .row-label {
+            color: var(--accent);
+        }
+
+        .objectives-row .row-label {
+            color: #10b981; /* Emerald Green */
+        }
+
+        .card-list {
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .card-list li {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 20px;
+            line-height: 1.5;
+        }
+
+        .card-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+
+        .topics-row .card-list li::before {
+            background-color: var(--primary);
+            box-shadow: 0 0 5px var(--primary);
+        }
+
+        .objectives-row .card-list li::before {
+            background-color: #10b981;
+            box-shadow: 0 0 5px #10b981;
+        }
+
+        /* Table View Styles */
+        .table-container {
+            background: var(--bg-white);
+            border-radius: 20px;
+            border: 1px solid rgba(0, 199, 235, 0.15);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+        }
+
+        .curriculum-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .curriculum-table th {
+            background: var(--secondary);
+            color: var(--bg-white);
+            padding: 20px 25px;
+            font-family: var(--font-main);
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        .curriculum-table td {
+            padding: 25px;
+            border-bottom: 1px solid rgba(0, 199, 235, 0.1);
+            vertical-align: top;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .curriculum-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .curriculum-table tr:hover td {
+            background-color: rgba(0, 199, 235, 0.02);
+        }
+
+        .table-session-col {
+            font-weight: bold;
+        }
+
+        .table-session-badge {
+            display: inline-block;
+            background: var(--primary-light);
+            color: var(--accent);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 50px;
+            margin-bottom: 8px;
+        }
+
+        .table-session-title {
+            font-family: var(--font-main);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-top: 4px;
+        }
+
+        .table-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        .table-list li {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 18px;
+        }
+
+        .table-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .table-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 9px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+        }
+
+        .curriculum-table td:nth-child(2) .table-list li::before {
+            background-color: var(--primary);
+        }
+
+        .curriculum-table td:nth-child(3) .table-list li::before {
+            background-color: #10b981;
+        }
+
+        /* Responsive Layouts */
+        @media (max-width: 900px) {
+            .curriculum-hero h1 {
+                font-size: 2.2rem;
+            }
+            .curriculum-hero p {
+                font-size: 1rem;
+            }
+            
+            /* Responsive Table (Collapses to list on mobile) */
+            .curriculum-table, 
+            .curriculum-table thead, 
+            .curriculum-table tbody, 
+            .curriculum-table th, 
+            .curriculum-table td, 
+            .curriculum-table tr {
+                display: block;
+            }
+
+            .curriculum-table thead {
+                display: none;
+            }
+
+            .curriculum-table tr {
+                border-bottom: 2px solid rgba(0, 199, 235, 0.15);
+                padding: 15px 0;
+            }
+
+            .curriculum-table tr:last-child {
+                border-bottom: none;
+            }
+
+            .curriculum-table td {
+                border-bottom: none;
+                padding: 12px 20px;
+                position: relative;
+            }
+
+            .curriculum-table td::before {
+                content: attr(data-label);
+                display: block;
+                font-weight: 800;
+                font-size: 0.75rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                margin-bottom: 8px;
+            }
+
+            .curriculum-table td:nth-child(1)::before {
+                display: none; /* Already has Session badge/title */
+            }
+
+            .curriculum-table td:nth-child(2)::before {
+                color: var(--accent);
+            }
+
+            .curriculum-table td:nth-child(3)::before {
+                color: #10b981;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="../images/Henotes-loge.png" alt="Henotes Logo">
+                </a>
+            </div>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../about.html">About Henotes</a></li>
+                    <li><a href="../services.html">Our Services</a></li>
+                    <li><a href="../curriculum/index.html" class="active">Curriculum</a></li>
+                    <li><a href="../contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="curriculum-hero">
+        <div class="container" style="position: relative; z-index: 2;">
+            <div class="fade-section visible">
+                <h1>Fundamental Data Science in Aviation</h1>
+                <p>Equipping aviation professionals with algorithmic thinking, intuitive data literacy, and no-code predictive tools to lead operational safety and optimization.</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Controls / Toggles -->
+    <section class="controls-section">
+        <div class="container controls-container">
+            <div class="view-toggle-wrapper">
+                <button class="toggle-btn active" id="btn-cards">
+                    <i class="ri-grid-fill"></i> Cards View
+                </button>
+                <button class="toggle-btn" id="btn-table">
+                    <i class="ri-table-line"></i> Table View
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Curriculum Contents -->
+    <main class="curriculum-content-section">
+        <div class="container">
+
+            <!-- CARDS VIEW -->
+            <div id="cards-view" class="curriculum-view active">
+                <div class="curriculum-grid">
+                    
+                    <!-- Session 1 Card -->
+                    <div class="session-card">
+                        <div class="session-badge">Session 1</div>
+                        <h3>Demystifying Data Science & Machine Learning</h3>
+                        
+                        <div class="card-row topics-row">
+                            <div class="row-label"><i class="ri-book-open-line"></i> Core Topics</div>
+                            <ul class="card-list">
+                                <li><strong>Analytics vs. Data Science:</strong> Shifting from retrospective dashboards to predictive algorithms.</li>
+                                <li><strong>How Machines Learn:</strong> Recognizing patterns (e.g. learning lag/delay causes using flight data).</li>
+                                <li><strong>Two Key Categories:</strong> Classification (e.g. maintenance checks) vs. Regression (e.g. delay minutes).</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="card-row objectives-row">
+                            <div class="row-label"><i class="ri-checkbox-circle-line"></i> Objectives</div>
+                            <ul class="card-list">
+                                <li>Contrast historical tracking tools with predictive model outputs.</li>
+                                <li>Examine the mechanics of training algorithms on historical operational datasets.</li>
+                                <li>Classify aviation operational challenges into classification or regression models.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Session 2 Card -->
+                    <div class="session-card">
+                        <div class="session-badge">Session 2</div>
+                        <h3>Exploratory Data Analysis (EDA) & The Detective Work</h3>
+                        
+                        <div class="card-row topics-row">
+                            <div class="row-label"><i class="ri-book-open-line"></i> Core Topics</div>
+                            <ul class="card-list">
+                                <li><strong>Operational Shape:</strong> Inspecting normal operational distributions vs anomalous outliers.</li>
+                                <li><strong>Correlation vs. Causation:</strong> Differentiating events that happen together from those that trigger each other.</li>
+                                <li><strong>Outlier Dangers:</strong> Seeing how logging issues (e.g. 300,000ft altitude data entry errors) distort model predictions.</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="card-row objectives-row">
+                            <div class="row-label"><i class="ri-checkbox-circle-line"></i> Objectives</div>
+                            <ul class="card-list">
+                                <li>Identify normal distributions and flag anomalies within aviation metrics.</li>
+                                <li>Evaluate operational events to distinguish causal relationships from correlation.</li>
+                                <li>Build strategies to identify and filter data outliers that disrupt models.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Session 3 Card -->
+                    <div class="session-card">
+                        <div class="session-badge">Session 3</div>
+                        <h3>Intuitive Modeling with KNIME (No-Code Data Science)</h3>
+                        
+                        <div class="card-row topics-row">
+                            <div class="row-label"><i class="ri-book-open-line"></i> Core Topics</div>
+                            <ul class="card-list">
+                                <li><strong>KNIME Introduction:</strong> Learning visual, drag-and-drop workflow platforms without typing code.</li>
+                                <li><strong>Decision Trees:</strong> Formulating human operational logic as machine-readable flowcharts.</li>
+                                <li><strong>Flight Delay Tree:</strong> Hands-on creation of a simple predictive tree using live logs.</li>
+                                <li><strong>Feature Importance:</strong> Selecting key operational parameters (features) to guide algorithms.</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="card-row objectives-row">
+                            <div class="row-label"><i class="ri-checkbox-circle-line"></i> Objectives</div>
+                            <ul class="card-list">
+                                <li>Navigate visual data science spaces and assemble functional data streams.</li>
+                                <li>Map human procedural knowledge into logical decision structures.</li>
+                                <li>Construct, execute, and validate a basic flight delay predictor tool.</li>
+                                <li>Prioritize and isolate key operational variables within datasets.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Session 4 Card -->
+                    <div class="session-card">
+                        <div class="session-badge">Session 4</div>
+                        <h3>Trust, Safety, & Advanced Trajectory Analytics</h3>
+                        
+                        <div class="card-row topics-row">
+                            <div class="row-label"><i class="ri-book-open-line"></i> Core Topics</div>
+                            <ul class="card-list">
+                                <li><strong>Measuring Success:</strong> Comparing theoretical model accuracy vs real-world operational value.</li>
+                                <li><strong>The Safety Dilemma:</strong> Minimizing critical false negatives (e.g. failing to catch turbine wear).</li>
+                                <li><strong>Garbage In, Garbage Out:</strong> Realizing AI and models depend wholly on a clean workplace data culture.</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="card-row objectives-row">
+                            <div class="row-label"><i class="ri-checkbox-circle-line"></i> Objectives</div>
+                            <ul class="card-list">
+                                <li>Evaluate machine predictions against actual operational performance.</li>
+                                <li>Tune models to prioritize safety by keeping false-negative risks near zero.</li>
+                                <li>Champion data quality, highlighting its impact on AI and trajectory planning.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- TABLE VIEW -->
+            <div id="table-view" class="curriculum-view">
+                <div class="table-container">
+                    <table class="curriculum-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 25%">Session</th>
+                                <th style="width: 37.5%">Core Topics</th>
+                                <th style="width: 37.5%">Objectives</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            <!-- Session 1 -->
+                            <tr>
+                                <td class="table-session-col">
+                                    <span class="table-session-badge">Session 1</span>
+                                    <div class="table-session-title">Demystifying Data Science & ML</div>
+                                </td>
+                                <td data-label="Core Topics">
+                                    <ul class="table-list">
+                                        <li><strong>Analytics vs. Data Science:</strong> Moving from retrospective dashboards to predictive algorithms.</li>
+                                        <li><strong>How Machines Learn:</strong> Understanding training data patterns using flight data (e.g. delay patterns).</li>
+                                        <li><strong>Key Categories:</strong> Classification (e.g. maintenance check predictions) vs. Regression (predicting delay lengths).</li>
+                                    </ul>
+                                </td>
+                                <td data-label="Objectives">
+                                    <ul class="table-list">
+                                        <li>Contrast tracking historical parameters with model forecasts.</li>
+                                        <li>Examine how model files learn behavior from historical databases.</li>
+                                        <li>Differentiate classification and regression flight operation challenges.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                            <!-- Session 2 -->
+                            <tr>
+                                <td class="table-session-col">
+                                    <span class="table-session-badge">Session 2</span>
+                                    <div class="table-session-title">Exploratory Data Analysis (EDA)</div>
+                                </td>
+                                <td data-label="Core Topics">
+                                    <ul class="table-list">
+                                        <li><strong>Operational Shape:</strong> Inspecting normal flight distribution curves vs anomalous outlier points.</li>
+                                        <li><strong>Correlation vs. Causation:</strong> Identifying coincidences versus true root triggers.</li>
+                                        <li><strong>Outliers Danger:</strong> Seeing how basic log errors (e.g. 300,000ft altitude typos) confuse algorithms.</li>
+                                    </ul>
+                                </td>
+                                <td data-label="Objectives">
+                                    <ul class="table-list">
+                                        <li>Delineate normal flight metrics from exceptional edge cases.</li>
+                                        <li>Recognize whether correlating incidents denote direct causation.</li>
+                                        <li>Filter and clean outliers to preserve the integrity of models.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                            <!-- Session 3 -->
+                            <tr>
+                                <td class="table-session-col">
+                                    <span class="table-session-badge">Session 3</span>
+                                    <div class="table-session-title">Intuitive Modeling with KNIME</div>
+                                </td>
+                                <td data-label="Core Topics">
+                                    <ul class="table-list">
+                                        <li><strong>KNIME Introduction:</strong> Establishing a no-code visual workflow to pipe data seamlessly.</li>
+                                        <li><strong>Decision Trees:</strong> Encoding aviation logic into structured, readable flow diagrams.</li>
+                                        <li><strong>Delay Tree Building:</strong> Interactive creation of a custom flight delay predictor tool.</li>
+                                        <li><strong>Feature Importance:</strong> Pointing out operational columns that carry predictive weight.</li>
+                                    </ul>
+                                </td>
+                                <td data-label="Objectives">
+                                    <ul class="table-list">
+                                        <li>Navigate the visual interface to perform code-free analytical flows.</li>
+                                        <li>Convert operational knowledge into sequential decision flows.</li>
+                                        <li>Build a simple operational delay model using real attributes.</li>
+                                        <li>Configure inputs by filtering variables that influence delay behaviors.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                            <!-- Session 4 -->
+                            <tr>
+                                <td class="table-session-col">
+                                    <span class="table-session-badge">Session 4</span>
+                                    <div class="table-session-title">Trust, Safety, & Trajectory Analytics</div>
+                                </td>
+                                <td data-label="Core Topics">
+                                    <ul class="table-list">
+                                        <li><strong>Measuring Success:</strong> Challenging static scorecards against practical flight operations.</li>
+                                        <li><strong>Safety Dilemma:</strong> Avoiding hazardous false negatives (e.g., missed structural defects).</li>
+                                        <li><strong>Garbage In, Garbage Out:</strong> Highlighting clean data habits as the primary base for predictive tools.</li>
+                                    </ul>
+                                </td>
+                                <td data-label="Objectives">
+                                    <ul class="table-list">
+                                        <li>Balance standard mathematical precision with real flight room utility.</li>
+                                        <li>Tune predictors to drive the probability of false-negatives to absolute zero.</li>
+                                        <li>Actively support clean workspace data systems to fuel AI architectures.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="text-center" style="margin-top: 60px;">
+                <a href="../contact.html?service=training" class="btn btn-primary">Enroll in Training</a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="../images/Henote-Logo-white-blue.png" alt="Henotes Logo" style="width: 150px;">
+                    <p>Building data-capable organisations by focusing on people, process, and practical analytics.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../about.html">About Henotes</a></li>
+                        <li><a href="../services.html">Our Services</a></li>
+                        <li><a href="../curriculum/index.html">Curriculum</a></li>
+                        <li><a href="../contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Tutorials</h4>
+                    <ul>
+                        <li><a href="../projects/trainings/data-analysis-tutorial/index.html">Excel Data Analysis for Beginners</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h4>Connect</h4>
+                    <a href="https://www.linkedin.com/company/henotes-data-dossier/" target="_blank"><i
+                            class="ri-linkedin-box-fill"></i> LinkedIn</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Henotes Data Dossier. All rights reserved. <span style="margin: 0 10px; color: rgba(255,255,255,0.2);">|</span> <a href="../privacy.html" style="color: var(--primary); font-weight: 500;">Privacy Policy</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnCards = document.getElementById('btn-cards');
+            const btnTable = document.getElementById('btn-table');
+            const cardsView = document.getElementById('cards-view');
+            const tableView = document.getElementById('table-view');
+
+            function setView(viewName) {
+                if (viewName === 'table') {
+                    btnCards.classList.remove('active');
+                    btnTable.classList.add('active');
+                    cardsView.classList.remove('active');
+                    tableView.classList.add('active');
+                    localStorage.setItem('curriculum-pref-view', 'table');
+                } else {
+                    btnTable.classList.remove('active');
+                    btnCards.classList.add('active');
+                    tableView.classList.remove('active');
+                    cardsView.classList.add('active');
+                    localStorage.setItem('curriculum-pref-view', 'cards');
+                }
+            }
+
+            btnCards.addEventListener('click', () => setView('cards'));
+            btnTable.addEventListener('click', () => setView('table'));
+
+            // Load saved preference
+            const savedView = localStorage.getItem('curriculum-pref-view');
+            if (savedView) {
+                setView(savedView);
+            }
+        });
+    </script>
+</body>
+
+</html>
