@@ -267,10 +267,12 @@
 
         .card-actions {
             margin-top: 5px;
+            display: flex;
+            gap: 10px;
         }
 
         .btn-download {
-            width: 100%;
+            flex: 1;
             background: var(--primary-light);
             color: var(--primary-dark);
             border: 1px solid transparent;
@@ -280,16 +282,42 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            font-size: 0.88rem;
+            gap: 6px;
+            font-size: 0.82rem;
             cursor: pointer;
             transition: all 0.3s ease;
+            white-space: nowrap;
         }
 
         .btn-download:hover {
             background: var(--primary);
             color: white;
             box-shadow: 0 4px 10px rgba(0, 199, 235, 0.25);
+            transform: translateY(-1px);
+        }
+
+        .btn-open {
+            flex: 1;
+            background: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            border-radius: 50px;
+            padding: 10px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 0.82rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .btn-open:hover {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 4px 10px rgba(34, 111, 248, 0.25);
             transform: translateY(-1px);
         }
 
@@ -426,6 +454,9 @@
                         <a href="Monthly Procurement/01_January_Procurement.xlsx" download class="btn-download" onclick="notifyDownload('January')">
                             <i class="ri-download-2-line"></i> Download Data
                         </a>
+                        <a href="viewer.html?file=Monthly Procurement/01_January_Procurement.xlsx&title=January%202026%20Procurement" target="_blank" class="btn-open">
+                            <i class="ri-external-link-line"></i> Open Link
+                        </a>
                     </div>
                 </div>
 
@@ -447,6 +478,9 @@
                     <div class="card-actions">
                         <a href="Monthly Procurement/02_February_Procurement.xlsx" download class="btn-download" onclick="notifyDownload('February')">
                             <i class="ri-download-2-line"></i> Download Data
+                        </a>
+                        <a href="viewer.html?file=Monthly Procurement/02_February_Procurement.xlsx&title=February%202026%20Procurement" target="_blank" class="btn-open">
+                            <i class="ri-external-link-line"></i> Open Link
                         </a>
                     </div>
                 </div>
@@ -470,6 +504,9 @@
                         <a href="Monthly Procurement/03_March_Procurement.xlsx" download class="btn-download" onclick="notifyDownload('March')">
                             <i class="ri-download-2-line"></i> Download Data
                         </a>
+                        <a href="viewer.html?file=Monthly Procurement/03_March_Procurement.xlsx&title=March%202026%20Procurement" target="_blank" class="btn-open">
+                            <i class="ri-external-link-line"></i> Open Link
+                        </a>
                     </div>
                 </div>
 
@@ -491,6 +528,9 @@
                     <div class="card-actions">
                         <a href="Monthly Procurement/04_April_Procurement.xlsx" download class="btn-download" onclick="notifyDownload('April')">
                             <i class="ri-download-2-line"></i> Download Data
+                        </a>
+                        <a href="viewer.html?file=Monthly Procurement/04_April_Procurement.xlsx&title=April%202026%20Procurement" target="_blank" class="btn-open">
+                            <i class="ri-external-link-line"></i> Open Link
                         </a>
                     </div>
                 </div>
@@ -514,6 +554,9 @@
                         <a href="Monthly Procurement/05_May_Procurement.xlsx" download class="btn-download" onclick="notifyDownload('May')">
                             <i class="ri-download-2-line"></i> Download Data
                         </a>
+                        <a href="viewer.html?file=Monthly Procurement/05_May_Procurement.xlsx&title=May%202026%20Procurement" target="_blank" class="btn-open">
+                            <i class="ri-external-link-line"></i> Open Link
+                        </a>
                     </div>
                 </div>
 
@@ -535,6 +578,9 @@
                     <div class="card-actions">
                         <a href="Monthly Procurement/06_June_Procurement.xlsx" download class="btn-download" onclick="notifyDownload('June')">
                             <i class="ri-download-2-line"></i> Download Data
+                        </a>
+                        <a href="viewer.html?file=Monthly Procurement/06_June_Procurement.xlsx&title=June%202026%20Procurement" target="_blank" class="btn-open">
+                            <i class="ri-external-link-line"></i> Open Link
                         </a>
                     </div>
                 </div>
