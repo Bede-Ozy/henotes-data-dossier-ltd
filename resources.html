@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business AI Tools Guide & Resources | Henotes Data Dossier</title>
+    <meta name="description" content="Download our curated Business AI Tools Guide. Explore top-tier AI solutions categorized by function including Data Analysis, Customer Support, and more, complete with recommended toolkits.">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .resources-hero {
+            height: 40vh;
+            display: flex;
+            align-items: center;
+            background-color: #010f40;
+            /* Glowing radial light spheres + grid pattern */
+            background-image: 
+                radial-gradient(circle at top right, rgba(0, 199, 235, 0.4) 0%, transparent 60%),
+                radial-gradient(circle at bottom left, rgba(0, 40, 200, 0.5) 0%, transparent 60%),
+                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 30px 30px, 30px 30px;
+            position: relative;
+            margin-top: 80px; /* Navbar height spacing */
+            color: white;
+            overflow: hidden;
+        }
+
+        .resources-hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1.5px, transparent 1.5px);
+            background-size: 15px 15px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .resources-hero h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .resources-body {
+            padding: 80px 0;
+            background-color: var(--bg-white);
+        }
+
+        .resources-content {
+            max-width: 950px;
+            margin: 0 auto;
+        }
+
+        /* PDF Preview Container styling */
+        .pdf-preview-container {
+            position: relative;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 199, 235, 0.15);
+            overflow: hidden;
+            margin-top: 40px;
+            max-height: 820px; /* Force overflow and limit visible content */
+        }
+
+        /* Cover page preview styled like PDF */
+        .pdf-cover-preview {
+            background: linear-gradient(135deg, #010f40 0%, #002266 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            border-bottom: 2px solid var(--primary);
+            overflow: hidden;
+        }
+        
+        .pdf-cover-preview::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at center, rgba(0, 199, 235, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .pdf-cover-tag {
+            font-family: var(--font-secondary);
+            font-size: 0.9rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: inline-block;
+            border: 1px solid var(--primary);
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .pdf-cover-title {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            color: white;
+            margin: 15px 0;
+            font-weight: 900;
+            line-height: 1.2;
+            font-family: var(--font-main);
+        }
+
+        .pdf-cover-line {
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary);
+            margin: 25px auto 0;
+            border-radius: 2px;
+        }
+
+        /* PDF Content Body Preview */
+        .pdf-content-preview {
+            padding: 40px 40px 180px; /* Extra padding at the bottom to give space for the fade */
+            font-family: var(--font-secondary);
+            color: var(--text-dark);
+        }
+
+        .pdf-intro-section {
+            margin-bottom: 40px;
+        }
+
+        .pdf-intro-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .pdf-intro-icon {
+            font-size: 2.2rem;
+        }
+
+        .pdf-intro-title {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            font-weight: 700;
+            font-family: var(--font-main);
+        }
+
+        .pdf-intro-text {
+            color: var(--text-light);
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        /* PDF Table Preview */
+        .pdf-table-container {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .pdf-preview-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .pdf-preview-table th {
+            background-color: var(--bg-light);
+            color: var(--secondary);
+            font-weight: 700;
+            padding: 16px;
+            border-bottom: 2px solid rgba(0, 199, 235, 0.2);
+            font-family: var(--font-main);
+        }
+
+        .pdf-preview-table td {
+            padding: 18px 16px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            vertical-align: top;
+        }
+
+        .pdf-preview-table tr:hover {
+            background-color: rgba(0, 199, 235, 0.02);
+        }
+
+        .col-category {
+            font-weight: 700;
+            color: var(--secondary);
+            width: 25%;
+        }
+
+        .col-tools {
+            color: var(--accent);
+            font-weight: 600;
+            width: 30%;
+        }
+
+        .col-help {
+            color: var(--text-light);
+            width: 45%;
+        }
+
+        /* Fading Overlay & Unlock Overlay */
+        .pdf-fade-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 480px;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.95) 40%, rgba(255, 255, 255, 1) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 40px;
+            z-index: 10;
+        }
+
+        .pdf-unlock-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 199, 235, 0.25);
+            box-shadow: 0 15px 35px rgba(1, 15, 64, 0.15);
+            border-radius: 16px;
+            padding: 35px;
+            text-align: center;
+            max-width: 580px;
+            width: 90%;
+            margin-bottom: 10px;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideUpFade 0.8s ease forwards 0.2s;
+        }
+
+        @keyframes slideUpFade {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .pdf-unlock-card i.lock-icon {
+            font-size: 2.2rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+            display: inline-block;
+            background: rgba(34, 111, 248, 0.1);
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            border-radius: 50%;
+        }
+
+        .pdf-unlock-card h3 {
+            font-size: 1.4rem;
+            color: var(--secondary);
+            margin-bottom: 12px;
+            font-family: var(--font-main);
+        }
+
+        .pdf-unlock-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .pdf-unlock-list {
+            text-align: left;
+            margin: 0 auto 25px;
+            max-width: 420px;
+            padding-left: 0;
+        }
+
+        .pdf-unlock-list li {
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            position: relative;
+            list-style: none;
+            padding-left: 25px;
+        }
+
+        .pdf-unlock-list li::before {
+            content: "\eb7b"; /* Remixicon check icon code */
+            font-family: 'remixicon';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .btn-download-pdf {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white !important;
+            font-family: var(--font-main);
+            font-weight: 700;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            box-shadow: 0 8px 25px rgba(0, 199, 235, 0.35);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: none;
+            cursor: pointer;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .btn-download-pdf:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(0, 199, 235, 0.5);
+            color: white !important;
+        }
+
+        .btn-download-pdf:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-download-pdf i {
+            font-size: 1.25rem;
+            animation: pulse-down 1.5s infinite;
+        }
+
+        @keyframes pulse-down {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(3px); }
+        }
+
+        /* Responsiveness adjustments */
+        @media (max-width: 768px) {
+            .pdf-cover-preview {
+                padding: 40px 20px;
+            }
+            .pdf-content-preview {
+                padding: 30px 20px 200px;
+            }
+            .pdf-preview-table th, .pdf-preview-table td {
+                padding: 12px;
+            }
+            .pdf-preview-table {
+                font-size: 0.85rem;
+            }
+            .pdf-unlock-card {
+                padding: 20px;
+            }
+            .pdf-fade-overlay {
+                height: 480px;
+                padding: 20px;
+            }
+        }
+    </style>
+    
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/Henotes-loge.png" alt="Henotes Logo">
+                </a>
+            </div>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Henotes</a></li>
+                    <li><a href="services.html">Our Services</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Hero -->
+    <header class="resources-hero">
+        <div class="container" style="position: relative; z-index: 2;">
+            <h1 class="fade-section visible">Resources</h1>
+            <p class="fade-section visible">Empower your organization with our curated guides and practical toolkits.</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="resources-body">
+            <div class="container resources-content fade-section visible">
+                <div class="text-center mb-2">
+                    <span class="pdf-cover-tag">Free Resource</span>
+                    <h2 style="font-size: 2.2rem; color: var(--secondary); margin-bottom: 15px;">AI Tools for Business by Category</h2>
+                    <p style="color: var(--text-light); max-width: 650px; margin: 0 auto;">Read a preview of our comprehensive white paper detailing key AI categories and specific applications. Download the full document below.</p>
+                </div>
+
+                <!-- PDF Preview Container -->
+                <div class="pdf-preview-container">
+                    
+                    <!-- Cover Page Preview -->
+                    <div class="pdf-cover-preview">
+                        <span class="pdf-cover-tag">Henotes White Paper</span>
+                        <h2 class="pdf-cover-title">AI Tools for Business by Category</h2>
+                        <div class="pdf-cover-line"></div>
+                    </div>
+
+                    <!-- PDF Content Preview -->
+                    <div class="pdf-content-preview">
+                        <div class="pdf-intro-section">
+                            <div class="pdf-intro-header">
+                                <span class="pdf-intro-icon">🤖</span>
+                                <h3 class="pdf-intro-title">AI Tools for Business</h3>
+                            </div>
+                            <p class="pdf-intro-text">
+                                AI tools are transforming how businesses operate across nearly every function, helping teams work faster, make better decisions, and focus more time on high-value work. From content creation and design to data analysis, customer support, and software development, these tools are reshaping everyday workflows. This document categorizes AI tools by business function to help organizations identify the right solutions for their needs.
+                            </p>
+                        </div>
+
+                        <div class="pdf-table-container">
+                            <table class="pdf-preview-table">
+                                <thead>
+                                    <tr>
+                                        <th>Category</th>
+                                        <th>AI Tools</th>
+                                        <th>What They Help With</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="col-category">Data Analysis &amp; Business Intelligence</td>
+                                        <td class="col-tools">Claude, ChatGPT, Julius AI, Power BI Copilot, Excel Copilot</td>
+                                        <td class="col-help">Analyze spreadsheets, identify trends, generate dashboards, summarize reports, and answer business questions using natural language.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-category">Meeting &amp; Note Taking</td>
+                                        <td class="col-tools">Otter.ai, Fireflies.ai, Fathom, Granola</td>
+                                        <td class="col-help">Record meetings, transcribe conversations, summarize discussions, and generate action items automatically.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-category">Customer Support</td>
+                                        <td class="col-tools">Intercom Fin, Zendesk AI, Freshdesk AI</td>
+                                        <td class="col-help">Build AI-powered customer support agents that answer common questions and improve response times.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Fading Overlay -->
+                    <div class="pdf-fade-overlay">
+                        <!-- Unlock Card -->
+                        <div id="pdf-unlock-box" class="pdf-unlock-card">
+                            <i class="ri-lock-2-line lock-icon"></i>
+                            <h3>Want the full guide?</h3>
+                            <p>Download the complete PDF version to access the remaining sections:</p>
+                            <ul class="pdf-unlock-list">
+                                <li><strong>5 More Business Categories:</strong> Website Building, Software Development, Research, Document Processing, and Recruitment &amp; HR.</li>
+                                <li><strong>Recommended AI Toolkit:</strong> A core list of key AI tools specifically curated for Small &amp; Medium Businesses.</li>
+                                <li><strong>Printable Format:</strong> Save and read offline as a beautifully formatted PDF.</li>
+                            </ul>
+                            
+                            <!-- Download Button -->
+                            <a id="download-pdf-btn" href="resources/AI%20Tools%20For%20Businesses.pdf" download="AI_Tools_For_Businesses.pdf" class="btn-download-pdf">
+                                <i class="ri-download-cloud-2-line"></i> Download Full PDF
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="images/Henote-Logo-white-blue.png" alt="Henotes Logo" style="width: 150px;">
+                    <p>Building data-capable organisations by focusing on people, process, and practical analytics.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Henotes</a></li>
+                        <li><a href="services.html">Our Services</a></li>
+                        <li><a href="resources.html">Resources</a></li>
+                        <li><a href="curriculum/index.html">Curriculum</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Tutorials</h4>
+                    <ul>
+                        <li><a href="projects/trainings/data-analysis-tutorial/index.html">Excel Data Analysis for Beginners</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h4>Connect</h4>
+                    <a href="https://www.linkedin.com/company/henotes-data-dossier/" target="_blank"><i
+                            class="ri-linkedin-box-fill"></i> LinkedIn</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Henotes Data Dossier. All rights reserved. <span style="margin: 0 10px; color: rgba(255,255,255,0.2);">|</span> <a href="privacy.html" style="color: var(--primary); font-weight: 500;">Privacy Policy</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Global Scripts -->
+    <script src="js/script.js"></script>
+</body>
+
+</html>
