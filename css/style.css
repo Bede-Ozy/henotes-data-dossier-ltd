@@ -821,6 +821,7 @@ footer {
 
 .footer-links h4,
 .footer-social h4 {
+    color: var(--primary);
     margin-bottom: 20px;
     font-size: 1.2rem;
 }
@@ -836,6 +837,17 @@ footer {
 .footer-links a:hover {
     color: var(--primary);
     padding-left: 5px;
+}
+
+.footer-social a {
+    color: #cbd5e1;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.footer-social a:hover {
+    color: var(--primary);
 }
 
 .footer-bottom {
