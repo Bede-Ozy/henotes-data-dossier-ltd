@@ -2184,6 +2184,33 @@ body {
     }
 }
 
+/* Print utility classes */
+.print-only {
+    display: none !important;
+}
+
+.screen-only {
+    display: block; /* default screen layout */
+}
+
+/* If screen-only is grid or flex */
+.roadmap-container.screen-only,
+.orbit-container.screen-only,
+.discussion-grid.screen-only {
+    display: grid;
+}
+
+.aircraft-readout-panel.screen-only,
+.staircase-container.screen-only,
+.split-telemetry-container.screen-only,
+.continuum-container.screen-only {
+    display: block;
+}
+
+.sim-grid-layout.screen-only {
+    display: grid;
+}
+
 /* Print Media Styles for High-Fidelity PDF Export */
 @media print {
     body {
@@ -2191,6 +2218,15 @@ body {
         overflow: visible !important;
         height: auto !important;
         width: 100% !important;
+    }
+    
+    /* Utility displays */
+    .screen-only {
+        display: none !important;
+    }
+    
+    .print-only {
+        display: block !important;
     }
     
     .presentation-container {
@@ -2260,9 +2296,21 @@ body {
         height: auto !important;
         background-color: white !important;
         border: 1px solid rgba(0,0,0,0.1) !important;
+        padding: 25px !important;
     }
     
     .slide.theme-dark .slide-visual-col {
         background-color: rgba(6, 30, 104, 0.4) !important;
+        border: 1px solid rgba(255,255,255,0.1) !important;
+    }
+
+    /* Print animations freeze */
+    .hud-radar-sweep {
+        animation: none !important;
+        opacity: 0.15 !important;
+    }
+    .hud-jet-silhouette {
+        animation: none !important;
+        transform: translate(-50%, -50%) rotate(15deg) !important;
     }
 }

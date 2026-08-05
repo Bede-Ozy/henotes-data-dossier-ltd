@@ -117,7 +117,8 @@
                     </div>
                 </div>
                 <div class="slide-visual-col">
-                    <div class="roadmap-container">
+                    <!-- Screen Presentation Mode: Interactive Roadmap -->
+                    <div class="roadmap-container screen-only">
                         <div style="font-weight: 800; font-size: 0.75rem; text-transform: uppercase; color: var(--accent-blue); margin-bottom: 25px; letter-spacing: 1px;">Today's Journey Milestones (Click Steps)</div>
                         <div class="roadmap-path">
                             <div class="roadmap-path-progress" id="roadmap-progress"></div>
@@ -130,6 +131,33 @@
                         <div class="roadmap-description-panel">
                             <div class="roadmap-description-title" id="roadmap-desc-title">Select a step</div>
                             <div class="roadmap-description-text" id="roadmap-desc-text">Click any of the journey nodes above to review the phase deliverables.</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Print PDF Mode: Static List of Milestones -->
+                    <div class="print-only" style="width: 100%;">
+                        <div style="font-weight: 800; font-size: 0.8rem; text-transform: uppercase; color: var(--accent-blue); margin-bottom: 15px; letter-spacing: 1px; border-bottom: 1px solid var(--border-light); padding-bottom: 5px;">Today's Journey Milestones</div>
+                        <div style="display: grid; grid-template-rows: repeat(5, 1fr); gap: 10px;">
+                            <div style="display: flex; gap: 12px; font-size: 0.8rem;">
+                                <span style="font-weight: 800; color: var(--accent-blue); width: 60px;">Phase 1:</span>
+                                <div><strong>4IR Development</strong> - Aviation's transition from computers to sensor data feeds.</div>
+                            </div>
+                            <div style="display: flex; gap: 12px; font-size: 0.8rem;">
+                                <span style="font-weight: 800; color: var(--accent-blue); width: 60px;">Phase 2:</span>
+                                <div><strong>Data Ingestion</strong> - Cleaning and refining databases of engine profiles and logs.</div>
+                            </div>
+                            <div style="display: flex; gap: 12px; font-size: 0.8rem;">
+                                <span style="font-weight: 800; color: var(--accent-blue); width: 60px;">Phase 3:</span>
+                                <div><strong>Analytics Continuum</strong> - Gaining value through predictive models and metrics.</div>
+                            </div>
+                            <div style="display: flex; gap: 12px; font-size: 0.8rem;">
+                                <span style="font-weight: 800; color: var(--accent-blue); width: 60px;">Phase 4:</span>
+                                <div><strong>Leadership Culture</strong> - Marrying pilot experiences with dashboard data evidence.</div>
+                            </div>
+                            <div style="display: flex; gap: 12px; font-size: 0.8rem;">
+                                <span style="font-weight: 800; color: var(--accent-blue); width: 60px;">Phase 5:</span>
+                                <div><strong>Mission Success</strong> - Improving aircraft availability and reducing fuel costs.</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -281,9 +309,31 @@
                             </svg>
                         </div>
                         
-                        <div class="aircraft-readout-panel">
+                        <!-- Screen Only Interactive Readout -->
+                        <div class="aircraft-readout-panel screen-only">
                             <div class="readout-title" id="aircraft-readout-title">Weather Systems & Radar</div>
                             <div class="readout-data" id="aircraft-readout-data">Feeds barometric pressure, external temperature, wind coordinates, and storm path grids directly into route optimization tools.</div>
+                        </div>
+                        
+                        <!-- Print Only Static Details -->
+                        <div class="print-only" style="margin-top: 10px; border-top: 1px solid var(--border-light); padding-top: 10px; width: 100%;">
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 0.72rem; line-height: 1.35; color: var(--text-dark);">
+                                <div>
+                                    <strong style="color: var(--accent-blue);">Nose (Weather):</strong> Barometric pressure, headwind coordinates, and storm path grids.
+                                </div>
+                                <div>
+                                    <strong style="color: var(--accent-blue);">Left Wing (Operations):</strong> Air traffic records, pilot fatigue hours, and squadron duty logs.
+                                </div>
+                                <div>
+                                    <strong style="color: var(--accent-blue);">Right Wing (Sensors):</strong> Turbine exhaust gas temperature, oil pressure, N1/N2 compression cycles.
+                                </div>
+                                <div>
+                                    <strong style="color: var(--accent-blue);">Fuselage (Fuel):</strong> Fuel flow anomalies, fuel levels, tank temperatures, and drag leaks.
+                                </div>
+                                <div style="grid-column: span 2;">
+                                    <strong style="color: var(--accent-blue);">Tail (Safety):</strong> Hydraulic pressure ranges, landing gear deployment counts, and pilot incident logs.
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -308,7 +358,8 @@
                     </div>
                 </div>
                 <div class="slide-visual-col">
-                    <div class="orbit-container">
+                    <!-- Screen Presentation Mode: Interactive Orbits -->
+                    <div class="orbit-container screen-only">
                         <div class="orbit-center-node">Data Science</div>
                         <div class="orbit-ring"></div>
                         
@@ -323,6 +374,28 @@
                         <div class="orbit-details-overlay" id="orbit-overlay">
                             <h3 id="orbit-overlay-title" style="font-size: 0.95rem; font-weight: 800; color: var(--brand-dark); margin-bottom: 5px;">Node Details</h3>
                             <p id="orbit-overlay-desc" style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.4;">Click any surrounding circle to inspect its contribution to data science.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Print PDF Mode: Static Cards Grid -->
+                    <div class="print-only" style="width: 100%;">
+                        <div style="font-weight: 800; font-size: 0.8rem; text-transform: uppercase; color: var(--accent-blue); margin-bottom: 12px; letter-spacing: 1px; border-bottom: 1px solid var(--border-light); padding-bottom: 5px;">Data Science Disciplines</div>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 0.7rem; line-height: 1.4; color: var(--text-dark);">
+                            <div style="border: 1px solid rgba(0,0,0,0.08); padding: 8px; border-radius: 4px; background: white;">
+                                <strong>1. Data Engineering:</strong> Ingests raw logs and consolidates diverse flight data files cleanly.
+                            </div>
+                            <div style="border: 1px solid rgba(0,0,0,0.08); padding: 8px; border-radius: 4px; background: white;">
+                                <strong>2. Infrastructure & Cloud:</strong> Builds database servers and edge cores for deployable operations.
+                            </div>
+                            <div style="border: 1px solid rgba(0,0,0,0.08); padding: 8px; border-radius: 4px; background: white;">
+                                <strong>3. Applied Math & Stats:</strong> Models flight signals to isolate failures from wind noise.
+                            </div>
+                            <div style="border: 1px solid rgba(0,0,0,0.08); padding: 8px; border-radius: 4px; background: white;">
+                                <strong>4. Domain Knowledge:</strong> Combines air force guidelines, mechanics expertise, and rules.
+                            </div>
+                            <div style="border: 1px solid rgba(0,0,0,0.08); padding: 8px; border-radius: 4px; background: white; grid-column: span 2;">
+                                <strong>5. AI & Machine Learning:</strong> Employs networks to analyze historical metrics and forecasts cracks/wear.
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -399,28 +472,53 @@
                     </div>
                 </div>
                 <div class="slide-visual-col" style="flex-direction: column; justify-content: space-between;">
-                    <div class="staircase-container">
-                        <button class="stair stair-1 active" data-stair="0">
-                            <span class="stair-num">Level 1</span>
-                            <h3 class="stair-title">Data</h3>
-                            <p class="stair-desc">Raw telemetry sensor readings.</p>
-                        </button>
-                        <button class="stair stair-2" data-stair="1">
-                            <span class="stair-num">Level 2</span>
-                            <h3 class="stair-title">Information</h3>
-                            <p class="stair-desc">Structured contextual metrics.</p>
-                        </button>
-                        <button class="stair stair-3" data-stair="2">
-                            <span class="stair-num">Level 3</span>
-                            <h3 class="stair-title">Intelligence</h3>
-                            <p class="stair-desc">Synthesized actionable insights.</p>
-                        </button>
+                    <!-- Screen Presentation Mode: Interactive Staircase -->
+                    <div class="screen-only" style="width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+                        <div class="staircase-container" style="height: 60%;">
+                            <button class="stair stair-1 active" data-stair="0">
+                                <span class="stair-num">Level 1</span>
+                                <h3 class="stair-title">Data</h3>
+                                <p class="stair-desc">Raw telemetry sensor readings.</p>
+                            </button>
+                            <button class="stair stair-2" data-stair="1">
+                                <span class="stair-num">Level 2</span>
+                                <h3 class="stair-title">Information</h3>
+                                <p class="stair-desc">Structured contextual metrics.</p>
+                            </button>
+                            <button class="stair stair-3" data-stair="2">
+                                <span class="stair-num">Level 3</span>
+                                <h3 class="stair-title">Intelligence</h3>
+                                <p class="stair-desc">Synthesized actionable insights.</p>
+                            </button>
+                        </div>
+                        
+                        <div style="background: rgba(34,111,248,0.03); border: 1px solid var(--border-light); width: 90%; margin: 0 auto 20px; border-radius: 6px; padding: 15px 20px;">
+                            <h4 id="stairs-readout-title" style="font-size: 0.9rem; font-weight: 800; color: var(--brand-dark); margin-bottom: 5px;">Data Level</h4>
+                            <div id="stairs-readout-example" style="font-family: monospace; font-size: 0.8rem; color: var(--accent-blue); margin-bottom: 8px; font-weight: 700;">Example: 5,000 lbs</div>
+                            <p id="stairs-readout-desc" style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.4;">Select a staircase step above to inspect the aviation mapping case.</p>
+                        </div>
                     </div>
-                    
-                    <div style="background: rgba(34,111,248,0.03); border: 1px solid var(--border-light); width: 90%; margin: 0 auto 20px; border-radius: 6px; padding: 15px 20px;">
-                        <h4 id="stairs-readout-title" style="font-size: 0.9rem; font-weight: 800; color: var(--brand-dark); margin-bottom: 5px;">Data Level</h4>
-                        <div id="stairs-readout-example" style="font-family: monospace; font-size: 0.8rem; color: var(--accent-blue); margin-bottom: 8px; font-weight: 700;">Example: 5,000 lbs</div>
-                        <p id="stairs-readout-desc" style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.4;">Select a staircase step above to inspect the aviation mapping case.</p>
+
+                    <!-- Print PDF Mode: Static Levels List -->
+                    <div class="print-only" style="width: 100%;">
+                        <div style="font-weight: 800; font-size: 0.8rem; text-transform: uppercase; color: var(--accent-blue); margin-bottom: 12px; letter-spacing: 1px; border-bottom: 1px solid var(--border-light); padding-bottom: 5px;">Data Hierarchy Comparison</div>
+                        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 0.72rem; line-height: 1.4; color: var(--text-dark);">
+                            <div style="border-left: 3px solid var(--accent-cyan); padding-left: 10px; background: rgba(0,0,0,0.01); padding-top: 4px; padding-bottom: 4px;">
+                                <strong>LEVEL 1: DATA (Raw Fact)</strong><br>
+                                <span style="font-family: monospace; color: var(--accent-blue);">Example: Fuel Level = 5,000 lbs</span><br>
+                                Raw isolated metrics from tank float indicators. Provides value but zero operational significance.
+                            </div>
+                            <div style="border-left: 3px solid var(--accent-blue); padding-left: 10px; background: rgba(0,0,0,0.01); padding-top: 4px; padding-bottom: 4px;">
+                                <strong>LEVEL 2: INFORMATION (Structured Meaning)</strong><br>
+                                <span style="font-family: monospace; color: var(--accent-blue);">Example: Helicopter remaining fuel is 5,000 lbs</span><br>
+                                Adding context by mapping metrics to specific tails. Identifies what tail it measures, but doesn't solve task criteria.
+                            </div>
+                            <div style="border-left: 3px solid var(--brand-dark); padding-left: 10px; background: rgba(0,0,0,0.01); padding-top: 4px; padding-bottom: 4px;">
+                                <strong>LEVEL 3: INTELLIGENCE (Refined Insight)</strong><br>
+                                <span style="font-family: monospace; color: var(--accent-blue);">Example: Safely reaches base with 45-minute reserve based on flight winds</span><br>
+                                Synthesizes fuel flow, alternative runways, wind drag, and distance rules to guide command actions.
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -478,7 +576,8 @@
                     </div>
                 </div>
                 <div class="slide-visual-col">
-                    <div class="split-telemetry-container">
+                    <!-- Screen Presentation Mode: Interactive Tabs -->
+                    <div class="split-telemetry-container screen-only">
                         <div class="telemetry-tabs">
                             <button class="telemetry-tab-btn active" data-tab="f1">F1 Pit Wall</button>
                             <button class="telemetry-tab-btn" data-tab="naf">NAF Tactical HUD</button>
@@ -505,6 +604,29 @@
                                     <span class="telemetry-label">Parameter 4</span>
                                     <span class="telemetry-val">Reading 4</span>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Print PDF Mode: Side-by-Side Dashboard -->
+                    <div class="print-only" style="width: 100%;">
+                        <div style="font-weight: 800; font-size: 0.8rem; text-transform: uppercase; color: var(--accent-blue); margin-bottom: 12px; letter-spacing: 1px; border-bottom: 1px solid var(--border-light); padding-bottom: 5px;">F1 Pit Telemetry vs. NAF HUD Telemetry</div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <!-- F1 panel -->
+                            <div style="background: #02071a; border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 12px; color: white; font-family: monospace; font-size: 0.68rem; line-height: 1.4;">
+                                <div style="color: var(--accent-cyan); font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 4px; margin-bottom: 8px;">F1 LIVE PIT WALL</div>
+                                <div>• TYRE WEAR: L 28% | R 32%</div>
+                                <div>• FUEL STOCK: 14.2 kg</div>
+                                <div>• BRAKE DISC TEMP: 680 °C</div>
+                                <div>• EST PIT WINDOW: Lap 34</div>
+                            </div>
+                            <!-- NAF panel -->
+                            <div style="background: #02071a; border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 12px; color: white; font-family: monospace; font-size: 0.68rem; line-height: 1.4;">
+                                <div style="color: var(--accent-cyan); font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 4px; margin-bottom: 8px;">NAF SQUADRON TELEMETRY</div>
+                                <div>• HYDRAULIC VALVE FAULT: 0.02%</div>
+                                <div>• FUEL FLOW ANOMALY: -1.2%</div>
+                                <div>• TURBINE TEMP: 720 °C</div>
+                                <div>• SORTIE READY INDEX: 94.2%</div>
                             </div>
                         </div>
                     </div>
@@ -596,7 +718,8 @@
                     </div>
                 </div>
                 <div class="slide-visual-col">
-                    <div class="continuum-container">
+                    <!-- Screen Presentation Mode: Interactive Continuum Slider -->
+                    <div class="continuum-container screen-only">
                         <div style="font-weight: 800; font-size: 0.75rem; text-transform: uppercase; color: var(--accent-blue); margin-bottom: 10px;">Drag Slider to Review Continuum Stages</div>
                         
                         <div class="continuum-graph-wrapper">
@@ -628,6 +751,25 @@
                         <div class="continuum-info-pane">
                             <h4 id="continuum-title" style="font-size: 0.9rem; font-weight: 800; color: var(--brand-dark); margin-bottom: 5px;">Stage 1: Descriptive Analytics</h4>
                             <p id="continuum-desc" style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.45;">Details historical results. Example: Total hours logged by tail number last month.</p>
+                        </div>
+                    </div>
+
+                    <!-- Print PDF Mode: Static Stages Grid -->
+                    <div class="print-only" style="width: 100%;">
+                        <div style="font-weight: 800; font-size: 0.8rem; text-transform: uppercase; color: var(--accent-blue); margin-bottom: 12px; letter-spacing: 1px; border-bottom: 1px solid var(--border-light); padding-bottom: 5px;">Analytics Maturity Continuum</div>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; font-size: 0.68rem; line-height: 1.4; color: var(--text-dark);">
+                            <div style="border: 1px solid rgba(0,0,0,0.08); padding: 8px; border-radius: 4px; background: white;">
+                                <strong>Descriptive ("What Happened?"):</strong> Collects historical logs. Example: Fleet hours logged per tail.
+                            </div>
+                            <div style="border: 1px solid rgba(0,0,0,0.08); padding: 8px; border-radius: 4px; background: white;">
+                                <strong>Diagnostic ("Why Did It Happen?"):</strong> Root-cause analysis. Example: Evaluating spike in hydraulic seal failures.
+                            </div>
+                            <div style="border: 1px solid rgba(0,0,0,0.08); padding: 8px; border-radius: 4px; background: white;">
+                                <strong>Predictive ("What Will Happen?"):</strong> Forecast fatigue indexes. Example: Real-time turbine temperature modeling.
+                            </div>
+                            <div style="border: 1px solid rgba(0,0,0,0.08); padding: 8px; border-radius: 4px; background: white;">
+                                <strong>Prescriptive ("What To Do?"):</strong> Action recommendations. Example: Auto-rerouting flights to minimize maintenance delays.
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -770,7 +912,8 @@
                     </div>
                 </div>
                 <div class="slide-visual-col">
-                    <div class="risk-wheel-container">
+                    <!-- Screen Presentation Mode: Interactive Risk Wheel -->
+                    <div class="risk-wheel-container screen-only">
                         <div style="font-weight: 800; font-size: 0.75rem; text-transform: uppercase; color: var(--accent-blue); align-self: flex-start; width: 100%;">Interactive Risk Wheel (Click Segments)</div>
                         
                         <div class="risk-wheel-svg-wrapper">
@@ -799,12 +942,38 @@
                             <p id="risk-desc" style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.4;">Click segments on the wheel to detail the specific cost of data illiteracy.</p>
                         </div>
                     </div>
+                    
+                    <!-- Print PDF Mode: Static Risks Grid -->
+                    <div class="print-only" style="width: 100%;">
+                        <div style="font-weight: 800; font-size: 0.8rem; text-transform: uppercase; color: var(--accent-blue); margin-bottom: 12px; letter-spacing: 1px; border-bottom: 1px solid var(--border-light); padding-bottom: 5px;">The Six Costs of Poor Data Literacy</div>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; font-size: 0.68rem; line-height: 1.4; color: var(--text-dark);">
+                            <div>
+                                <strong style="color: #ef4444;">1. Operational Guesswork:</strong> Deployments revert to subjective commanders opinions, leading to inconsistent flight outcomes.
+                            </div>
+                            <div>
+                                <strong style="color: #f97316;">2. Wasted Resources:</strong> Fuel loads, cargo routing, and repair depots remain locked in historical patterns.
+                            </div>
+                            <div>
+                                <strong style="color: #f59e0b;">3. Elevated Safety Risks:</strong> Sensor warning signs are brushed aside, causing preventable turbine failures.
+                            </div>
+                            <div>
+                                <strong style="color: #ca8a04;">4. Delayed Discovery:</strong> Component fatigues are only caught during complete tear-downs, maximizing depot downtime.
+                            </div>
+                            <div>
+                                <strong style="color: var(--brand-navy-light);">5. Decreased Transparency:</strong> Squadron records remain locked in paper logs, blocking command fleet visibility.
+                            </div>
+                            <div>
+                                <strong style="color: var(--accent-blue);">6. Reduced Readiness:</strong> Headquarters cannot accurately gauge which sorties are fully combat-ready.
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
             <!-- SLIDE 15 (FUEL SHORTAGE CASE STUDY SIMULATOR) -->
             <section class="slide layout-full" id="slide15">
-                <div class="sim-grid-layout">
+                <!-- Screen Presentation Mode: Interactive Dashboard Simulator -->
+                <div class="sim-grid-layout screen-only">
                     
                     <div class="sim-control-panel">
                         <div>
@@ -888,6 +1057,41 @@
                     </div>
 
                 </div>
+
+                <!-- Print PDF Mode: Static Case Study Sheet -->
+                <div class="print-only" style="width: 100%; padding: 10px 20px;">
+                    <div style="border-bottom: 2px solid var(--brand-dark); padding-bottom: 8px; margin-bottom: 15px;">
+                        <span class="slide-topic">Decision Case Study Simulation</span>
+                        <h2 style="font-family: var(--font-header); font-weight: 900; font-size: 1.6rem; color: var(--brand-dark); margin: 0;">Fuel Shortage Scenario Briefing</h2>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 45% 55%; gap: 20px; font-size: 0.72rem; line-height: 1.45;">
+                        <div>
+                            <h3 style="font-size: 0.85rem; font-weight: 800; color: var(--brand-dark); margin: 0 0 5px 0;">The Tactical Dilemma</h3>
+                            <p style="color: var(--text-muted); margin: 0 0 12px 0;">
+                                A command depot has only <strong>5,000 lbs</strong> of aviation fuel remaining, but three operational sorties require deployment. How should leadership allocate resources?
+                            </p>
+                            <h3 style="font-size: 0.85rem; font-weight: 800; color: var(--brand-dark); margin: 0 0 5px 0;">Mission Profile Options</h3>
+                            <ul style="padding-left: 15px; color: var(--text-muted); margin: 0;">
+                                <li><strong>Mission Alpha (Tactical Recon):</strong> Fuel req: 2,000 lbs. Priority: High. Weather Risk: Low. Target Success: 75%</li>
+                                <li><strong>Mission Bravo (Combat Support):</strong> Fuel req: 3,500 lbs. Priority: Critical. Weather Risk: Medium. Target Success: 90%</li>
+                                <li><strong>Mission Charlie (Logistics Transport):</strong> Fuel req: 1,500 lbs. Priority: Medium. Weather Risk: High. Target Success: 45%</li>
+                            </ul>
+                        </div>
+                        <div style="background: rgba(34, 111, 248, 0.02); border: 1px solid var(--border-light); padding: 12px; border-radius: 6px;">
+                            <h3 style="font-size: 0.85rem; font-weight: 800; color: var(--brand-dark); margin: 0 0 6px 0;">The Data-Driven Allocation Strategy</h3>
+                            <p style="color: var(--text-muted); margin: 0 0 10px 0;">
+                                Traditional guesswork prioritizes "Bravo" and "Charlie" based on combat status alone, which consumes 5,000 lbs but introduces high weather risks on Charlie (only 45% success odds).
+                            </p>
+                            <div style="border-left: 3px solid var(--accent-cyan); padding-left: 10px; margin-bottom: 10px; background: rgba(0, 199, 235, 0.03); padding-top: 4px; padding-bottom: 4px;">
+                                <strong>Optimal Allocation Recommendation:</strong><br>
+                                Deploy <strong>Mission Alpha</strong> and <strong>Mission Charlie</strong> together. Total fuel consumed is 3,500 lbs (leaving 1,500 lbs reserve), resulting in an aggregated 85% success probability and preserving strategic readiness.
+                            </div>
+                            <p style="font-size: 0.65rem; font-style: italic; color: var(--text-muted); margin: 0;">
+                                *Calculations modeled via Abuja Weather radar tracks, wing drag ratios, and pilot incident histories.
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </section>
 
             <!-- SLIDE 16 (DISCUSSION EXERCISE) -->
@@ -911,7 +1115,8 @@
                     </div>
                 </div>
                 <div class="slide-visual-col">
-                    <div class="discussion-grid">
+                    <!-- Screen Presentation Mode: Interactive Flip Cards -->
+                    <div class="discussion-grid screen-only">
                         <!-- Card 1 -->
                         <div class="discussion-card">
                             <div class="discussion-card-inner">
@@ -952,6 +1157,25 @@
                                     <i class="fa-solid fa-shield-halved discussion-icon"></i>
                                     <p>What dashboard would you have wanted to see? Sketch or outline the key telemetry variables.</p>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Print PDF Mode: Static Questions Grid -->
+                    <div class="print-only" style="width: 100%;">
+                        <div style="font-weight: 800; font-size: 0.8rem; text-transform: uppercase; color: var(--accent-blue); margin-bottom: 12px; letter-spacing: 1px; border-bottom: 1px solid var(--border-light); padding-bottom: 5px;">Commander Discussion Prompts</div>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; color: var(--text-dark);">
+                            <div style="border: 1px solid rgba(0,0,0,0.08); background: white; padding: 12px; border-radius: 6px; font-size: 0.75rem; line-height: 1.45;">
+                                <strong style="color: var(--accent-blue); display: block; margin-bottom: 8px; font-size: 0.8rem;"><i class="fa-solid fa-comments"></i> QUESTION 1</strong>
+                                Recall a major operational decision based mainly on experience. What was the tactical outcome?
+                            </div>
+                            <div style="border: 1px solid rgba(0,0,0,0.08); background: white; padding: 12px; border-radius: 6px; font-size: 0.75rem; line-height: 1.45;">
+                                <strong style="color: var(--accent-blue); display: block; margin-bottom: 8px; font-size: 0.8rem;"><i class="fa-solid fa-microchip"></i> QUESTION 2</strong>
+                                What data (engine logs, fuel flow, weather metrics, pilot logs) could have improved that decision?
+                            </div>
+                            <div style="border: 1px solid rgba(0,0,0,0.08); background: white; padding: 12px; border-radius: 6px; font-size: 0.75rem; line-height: 1.45;">
+                                <strong style="color: var(--accent-blue); display: block; margin-bottom: 8px; font-size: 0.8rem;"><i class="fa-solid fa-desktop"></i> QUESTION 3</strong>
+                                What dashboard metrics would you have wanted to see on your console screen to reduce uncertainty?
                             </div>
                         </div>
                     </div>
