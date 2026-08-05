@@ -958,6 +958,304 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+    // --- Export Presentation Controls ---
+    const downloadToggle = document.getElementById("download-toggle");
+    const downloadClose = document.getElementById("download-close");
+    const downloadModal = document.getElementById("download-modal");
+    const btnExportPDF = document.getElementById("btn-export-pdf");
+    const btnExportPPTX = document.getElementById("btn-export-pptx");
+
+    if (downloadToggle) {
+        downloadToggle.addEventListener("click", () => {
+            downloadModal.classList.add("active");
+        });
+    }
+
+    if (downloadClose) {
+        downloadClose.addEventListener("click", () => {
+            downloadModal.classList.remove("active");
+        });
+    }
+
+    if (btnExportPDF) {
+        btnExportPDF.addEventListener("click", () => {
+            downloadModal.classList.remove("active");
+            // Direct native print-to-pdf loader
+            window.print();
+        });
+    }
+
+    // PPTX Generator Slides Data
+    const slidesData = [
+        {
+            title: "Data-Driven Leadership in Modern Aviation",
+            subtitle: "Understanding Why Data Matters in Modern Aviation Management\nExecutive Analytics Programme",
+            bullets: [
+                "Presented by NAF Analytics Division",
+                "Classification: Restricted Command Briefing",
+                "\"Modern aviation superiority depends not only on aircraft and pilots, but also on the quality of decisions powered by data.\""
+            ],
+            isDark: true
+        },
+        {
+            title: "Learning Objectives",
+            subtitle: "By the end of today's session, participants will be able to:",
+            bullets: [
+                "Explain why data is a strategic asset in aviation.",
+                "Differentiate Data, Information, and Intelligence.",
+                "Understand the impact of the Fourth Industrial Revolution.",
+                "Recognize how leading air forces use data.",
+                "Appreciate the role of analytics in executive decision-making."
+            ],
+            isDark: false
+        },
+        {
+            title: "The Fourth Industrial Revolution (4IR)",
+            subtitle: "Aviation systems generate millions of data points daily.",
+            bullets: [
+                "1st Revolution: Steam Power & Mechanization",
+                "2nd Revolution: Electricity & Mass Production",
+                "3rd Revolution: Computers & Automation",
+                "4th Revolution: Artificial Intelligence, Big Data, Cloud, IoT, Drones",
+                "Success now depends on turning those data points into decisions."
+            ],
+            isDark: false
+        },
+        {
+            title: "Why Data Matters in Modern Aviation",
+            subtitle: "Without analytics, aviation data remains unused.",
+            bullets: [
+                "Data generated from: Aircraft sensors, Flight operations, Weather, Fuel, Maintenance, Personnel, Logistics, Safety",
+                "Analytics improves: Safety, Readiness, Efficiency, Cost management, Mission success"
+            ],
+            isDark: false
+        },
+        {
+            title: "What is Data Science?",
+            subtitle: "Data Science supports better decisions.",
+            bullets: [
+                "Combines: Data, Technology, Statistics, Domain Knowledge, AI",
+                "For Executives: You don't need to build the models—you need to understand the insights they produce."
+            ],
+            isDark: false
+        },
+        {
+            title: "Data is the New Oil",
+            subtitle: "Raw crude oil cannot power an aircraft, and raw data has little value.",
+            bullets: [
+                "Oil Path: Crude Oil -> Refinery -> Aviation Fuel -> Aircraft",
+                "Data Path: Raw Data -> Cleaning -> Analysis -> Dashboard -> Decision",
+                "Data becomes valuable only when refined into insight."
+            ],
+            isDark: false
+        },
+        {
+            title: "Data vs Information vs Intelligence",
+            subtitle: "Command example of helicopter fuel levels:",
+            bullets: [
+                "Data (Raw facts): Fuel Level = 5,000 lbs",
+                "Information (Organized meaning): Helicopter has 5,000 lbs remaining",
+                "Intelligence (Actionable insight): Aircraft can safely reach base with 45-min reserve, accounting for weather."
+            ],
+            isDark: false
+        },
+        {
+            title: "From Data to Better Decisions",
+            subtitle: "Data follows a structured journey:",
+            bullets: [
+                "Data Journey: Raw Data -> Information -> Analysis -> Intelligence -> Decision -> Operational Success",
+                "Poor data leads to poor decisions. Good data leads to confident leadership."
+            ],
+            isDark: false
+        },
+        {
+            title: "The Formula 1 Pit Crew Analogy",
+            subtitle: "A driver focuses on driving. A Squadron Commander is like a Pit Manager.",
+            bullets: [
+                "F1 Analysts monitor: Tire pressure, fuel, brake temperature, weather, strategy.",
+                "The driver wins because of both experience and live telemetry.",
+                "Squadron Command cells monitor aircraft telemetry to guide sorties."
+            ],
+            isDark: false
+        },
+        {
+            title: "How Leading Air Forces Use Data",
+            subtitle: "Data enables proactive rather than reactive operations.",
+            bullets: [
+                "Predict aircraft failures before they occur to minimize depot downtime.",
+                "Optimize maintenance schedules and spare parts logistics.",
+                "Monitor fuel consumption, pilot readiness, and weather risk factors.",
+                "Enhance mission planning and preemptively detect safety risks."
+            ],
+            isDark: false
+        },
+        {
+            title: "The Analytics Continuum",
+            subtitle: "Organizations mature through four stages to increase decision quality:",
+            bullets: [
+                "Descriptive: 'What happened?' (e.g. monthly flight hours)",
+                "Diagnostic: 'Why did it happen?' (e.g. why fleet availability dropped)",
+                "Predictive: 'What is likely to happen?' (e.g. forecast turbine failure)",
+                "Prescriptive: 'What should we do?' (e.g. recommend postpone flight)"
+            ],
+            isDark: false
+        },
+        {
+            title: "The Four Types of Analytics",
+            subtitle: "Commanders must deploy both historical and future-focused analytics styles:",
+            bullets: [
+                "Descriptive: Monthly flight hours log.",
+                "Diagnostic: Discovering why aircraft availability fell in June.",
+                "Predictive: Real-time turbine fatigue modeling.",
+                "Prescriptive: Automated routing around bad weather."
+            ],
+            isDark: false
+        },
+        {
+            title: "Why Data-Driven Leaders Perform Better",
+            subtitle: "Data makes command experience more effective.",
+            bullets: [
+                "Reduces uncertainty in planning, improving strategic margins.",
+                "Allocates fuel, resources, and squadron capabilities efficiently.",
+                "Improves flight safety and speeds response times during alerts.",
+                "Builds trust and accountability through objective analytics evidence."
+            ],
+            isDark: false
+        },
+        {
+            title: "The Cost of Poor Data Literacy",
+            subtitle: "Operating without data capabilities introduces severe command risks:",
+            bullets: [
+                "Decisions become guesswork, leading to wasted resources.",
+                "Safety risks increase and structural failures are discovered too late.",
+                "Fleet readiness suffers due to lack of transparent command views."
+            ],
+            isDark: false
+        },
+        {
+            title: "Case Study: Fuel Shortage Scenario",
+            subtitle: "Command decision with fuel for only 1 of 3 missions:",
+            bullets: [
+                "Considerations: Mission priority, readiness, efficiency, weather, pilot, threat.",
+                "Traditional Mode: Relies on assumptions, creating high failure risks.",
+                "Data-Driven Mode: Integrates sensor feeds to choose the optimal sortie."
+            ],
+            isDark: false
+        },
+        {
+            title: "Discussion Exercise",
+            subtitle: "Commander Workshop Questions:",
+            bullets: [
+                "1. Recall an operational decision based mainly on experience. What was the outcome?",
+                "2. What data (engine logs, fuel wear, weather) could have improved that decision?",
+                "3. What dashboard metrics would you have wanted to see?"
+            ],
+            isDark: false
+        },
+        {
+            title: "Key Takeaways",
+            subtitle: "Today's lessons for NAF Leaders:",
+            bullets: [
+                "Data is a strategic asset that must be refined into intelligence.",
+                "Analytics tools support—not replace—leadership intuition.",
+                "Data literacy is now a mandatory leadership competency.",
+                "\"Better Data -> Better Decisions -> Better Missions.\""
+            ],
+            isDark: true
+        }
+    ];
+
+    function exportBriefingToPPTX() {
+        let pptx = new PptxGenJS();
+        pptx.layout = 'LAYOUT_16x9';
+
+        slidesData.forEach((s) => {
+            let slide = pptx.addSlide();
+            
+            if (s.isDark) {
+                // Cover & End slide style - Navy Background
+                slide.background = { color: '010F40' };
+                
+                // NAF Top Accent Bar
+                slide.addShape(pptx.ShapeType.rect, { x: 0, y: 0, w: '100%', h: 0.15, fill: { color: '00C7EB' } });
+                
+                // Add Title
+                slide.addText(s.title, {
+                    x: 0.8, y: 1.4, w: 11.5, h: 1.4,
+                    fontSize: 34, color: 'FFFFFF', bold: true, fontFace: 'Arial'
+                });
+                
+                // Add Subtitle
+                slide.addText(s.subtitle, {
+                    x: 0.8, y: 2.8, w: 11.5, h: 1.0,
+                    fontSize: 16, color: '94A3B8', fontFace: 'Arial'
+                });
+                
+                // Add Bullets
+                let bulletY = 4.0;
+                s.bullets.forEach((b) => {
+                    slide.addText(b, {
+                        x: 0.8, y: bulletY, w: 11.5, h: 0.6,
+                        fontSize: 13, color: '00C7EB', fontFace: 'Arial', italic: b.startsWith('"')
+                    });
+                    bulletY += 0.7;
+                });
+            } else {
+                // Content slide style - Light Background
+                slide.background = { color: 'F4F7FC' };
+                
+                // Sidebar Structural Line
+                slide.addShape(pptx.ShapeType.rect, { x: 0.5, y: 0.4, w: 0.08, h: 5.4, fill: { color: '010F40' } });
+                
+                // Slide Topic (Header indicator)
+                slide.addText('NAF BRIEFING', {
+                    x: 0.8, y: 0.4, w: 11.0, h: 0.3,
+                    fontSize: 9, color: '226FF8', bold: true, fontFace: 'Arial', letterSpacing: 1.5
+                });
+                
+                // Add Title
+                slide.addText(s.title, {
+                    x: 0.8, y: 0.7, w: 11.0, h: 0.8,
+                    fontSize: 26, color: '010F40', bold: true, fontFace: 'Arial'
+                });
+                
+                // Add Subtitle
+                slide.addText(s.subtitle, {
+                    x: 0.8, y: 1.6, w: 11.0, h: 0.5,
+                    fontSize: 13, color: '475569', italic: true, fontFace: 'Arial'
+                });
+                
+                // Add Bullets as PowerPoint bullet text block
+                let bulletTexts = s.bullets.map(b => {
+                    return { text: b, options: { fontSize: 13, color: '0F172A', fontFace: 'Arial', bullet: true, margin: [0, 0, 10, 0] } };
+                });
+                
+                slide.addText(bulletTexts, {
+                    x: 0.8, y: 2.2, w: 11.0, h: 3.5,
+                    lineSpacing: 22
+                });
+            }
+        });
+
+        pptx.writeFile({ fileName: 'NAF_Data_Driven_Leadership.pptx' });
+    }
+
+    if (btnExportPPTX) {
+        btnExportPPTX.addEventListener("click", () => {
+            downloadModal.classList.remove("active");
+            exportBriefingToPPTX();
+        });
+    }
+
+    // Keyboard controls update to toggle download menu on 'd' or 'D'
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "d" || e.key === "D") {
+            e.preventDefault();
+            downloadModal.classList.toggle("active");
+        } else if (e.key === "Escape") {
+            downloadModal.classList.remove("active");
+        }
+    });
 
     // Bootstrap variables on startup
     initPresentation();

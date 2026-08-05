@@ -2183,3 +2183,86 @@ body {
         padding: 30px 40px;
     }
 }
+
+/* Print Media Styles for High-Fidelity PDF Export */
+@media print {
+    body {
+        background-color: #f4f7fc !important;
+        overflow: visible !important;
+        height: auto !important;
+        width: 100% !important;
+    }
+    
+    .presentation-container {
+        box-shadow: none !important;
+        max-width: none !important;
+        max-height: none !important;
+        width: 100% !important;
+        height: auto !important;
+        overflow: visible !important;
+        aspect-ratio: auto !important;
+        background-color: #f4f7fc !important;
+    }
+    
+    .presentation-container::before {
+        display: none !important;
+    }
+    
+    .presentation-header,
+    .presentation-controls,
+    .sidebar-drawer,
+    .notes-panel,
+    .modal-overlay {
+        display: none !important;
+    }
+    
+    .slide {
+        position: relative !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        transform: none !important;
+        display: grid !important;
+        grid-template-columns: 38% 62% !important;
+        page-break-after: always !important;
+        break-after: page !important;
+        height: 100vh !important;
+        width: 100vw !important;
+        padding: 40px 60px !important;
+        box-sizing: border-box !important;
+        top: auto !important;
+        left: auto !important;
+        background-color: #f4f7fc !important;
+    }
+    
+    .slide.theme-dark {
+        background-color: #010f40 !important;
+        color: white !important;
+    }
+    
+    .slide.layout-title {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        padding: 0 !important;
+        background-color: #010f40 !important;
+    }
+    
+    .slide.layout-full {
+        display: block !important;
+    }
+    
+    /* Ensure print captures all text and visual areas nicely */
+    .slide-content-col {
+        height: auto !important;
+    }
+    
+    .slide-visual-col {
+        height: auto !important;
+        background-color: white !important;
+        border: 1px solid rgba(0,0,0,0.1) !important;
+    }
+    
+    .slide.theme-dark .slide-visual-col {
+        background-color: rgba(6, 30, 104, 0.4) !important;
+    }
+}

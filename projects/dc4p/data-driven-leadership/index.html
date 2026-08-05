@@ -1013,6 +1013,7 @@
                 <button id="notes-toggle" class="control-btn" title="Presenter Notes" aria-label="Toggle presenter notes"><i class="ri-article-line"></i></button>
                 <button id="laser-pointer-toggle" class="control-btn" title="Laser Pointer (L)" aria-label="Toggle laser pointer"><i class="ri-contrast-drop-2-line"></i></button>
                 <button id="fullscreen-toggle" class="control-btn" title="Fullscreen (F)" aria-label="Toggle fullscreen"><i class="ri-fullscreen-fill"></i></button>
+                <button id="download-toggle" class="control-btn" title="Download Briefing (D)" aria-label="Download options"><i class="ri-download-line"></i></button>
                 <button id="help-toggle" class="control-btn" title="Keyboard Shortcuts (?)" aria-label="Toggle shortcuts help"><i class="ri-question-line"></i></button>
             </div>
         </footer>
@@ -1044,8 +1045,35 @@
             </div>
         </div>
 
+        <!-- Download Modal Dialog -->
+        <div id="download-modal" class="modal-overlay">
+            <div class="modal-card">
+                <div class="modal-header">
+                    <h3>Export Presentation</h3>
+                    <button id="download-close" class="modal-close" aria-label="Close export menu"><i class="ri-close-line"></i></button>
+                </div>
+                <div class="modal-body" style="text-align: center; padding: 10px 0 20px;">
+                    <p style="margin-bottom: 25px; color: #cbd5e1; font-size: 0.85rem; line-height: 1.5;">Export this NAF Command Briefing deck into standard files for local storage or offline presentations.</p>
+                    
+                    <div style="display: flex; gap: 20px; justify-content: center;">
+                        <button id="btn-export-pdf" class="sim-btn-execute" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 25px 10px; height: auto; border: 1px solid rgba(0, 199, 235, 0.2); background: rgba(34, 111, 248, 0.05);">
+                            <i class="fa-solid fa-file-pdf" style="font-size: 2.2rem; color: #ef4444;"></i>
+                            <span style="font-size: 0.85rem; font-weight: 800; text-transform: uppercase; margin-top: 5px; color: white;">Save as PDF</span>
+                        </button>
+                        
+                        <button id="btn-export-pptx" class="sim-btn-execute" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 25px 10px; height: auto; border: 1px solid rgba(0, 199, 235, 0.2); background: rgba(34, 111, 248, 0.05);">
+                            <i class="fa-solid fa-file-powerpoint" style="font-size: 2.2rem; color: #e05c3e;"></i>
+                            <span style="font-size: 0.85rem; font-weight: 800; text-transform: uppercase; margin-top: 5px; color: white;">Save as PPTX</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
+    <!-- PPTX Generation Library -->
+    <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
     <!-- Presentation Engine -->
     <script src="script.js"></script>
 </body>
