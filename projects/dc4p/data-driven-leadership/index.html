@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data-Driven Leadership in Modern Aviation | NAF Briefing</title>
+    
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Satoshi and Inter Fonts -->
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Page Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Presentation Frame Container -->
+    <div class="presentation-container">
+        
+        <!-- Laser Pointer Dot -->
+        <div id="laser-pointer" class="laser-pointer-dot"></div>
+
+        <!-- Top Header Bar -->
+        <header class="presentation-header">
+            <div class="header-brand">
+                <button class="menu-toggle control-btn" aria-label="Open index menu">
+                    <i class="ri-menu-line"></i>
+                </button>
+                <!-- Vector Aviation Shield Motif -->
+                <svg viewBox="0 0 24 24" width="32" height="32">
+                    <path d="M12 2L2 7v6c0 5.5 4.5 10 10 10s10-4.5 10-10V7L12 2zm0 18c-4.4 0-8-3.6-8-8V8.6l8-4 8 4V12c0 4.4-3.6 8-8 8zm-1-11v4h2V9h-2zm0 6h2v2h-2v-2z" />
+                </svg>
+                <h1 class="header-brand-title">Nigerian Air Force</h1>
+            </div>
+            <div class="header-program">Executive Analytics Programme</div>
+        </header>
+
+        <!-- Sidebar Navigation Drawer -->
+        <aside id="sidebar-menu" class="sidebar-drawer">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0 24px 20px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                <h2 style="color: white; font-size: 0.95rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">Slide Directory</h2>
+                <button id="sidebar-close" class="control-btn" style="width: 30px; height: 30px;"><i class="ri-close-line"></i></button>
+            </div>
+            <div id="sidebar-list" style="margin-top: 15px;">
+                <!-- Sidebar links injected dynamically via JS -->
+            </div>
+        </aside>
+
+        <!-- Slides Viewport -->
+        <main class="slides-viewport">
+
+            <!-- SLIDE 1 (COVER) -->
+            <section class="slide layout-title theme-dark active" id="slide1">
+                <div class="title-slide-container">
+                    <div class="title-slide-info">
+                        <div class="title-badge">Command Briefing</div>
+                        <h2 class="title-main">Data-Driven Leadership in Modern Aviation</h2>
+                        <p class="title-sub">Understanding Why Data Matters in Modern Aviation Management</p>
+                        
+                        <div class="title-meta">
+                            <div class="meta-item">
+                                <span>Programme</span>
+                                <p>Executive Analytics</p>
+                            </div>
+                            <div class="meta-item">
+                                <span>Presented By</span>
+                                <p>NAF Analytics Division</p>
+                            </div>
+                            <div class="meta-item">
+                                <span>Classification</span>
+                                <p>Restricted Briefing</p>
+                            </div>
+                        </div>
+
+                        <div class="title-quote">
+                            <p>"Modern aviation superiority depends not only on aircraft and pilots, but also on the quality of decisions powered by data."</p>
+                            <span class="title-quote-author">— Aviation Leadership Counsel</span>
+                        </div>
+                    </div>
+                    <div class="title-visual-wrapper">
+                        <!-- High Tech Radar & Fighter Jet Animation -->
+                        <div class="hud-grid">
+                            <div class="hud-ring-outer"></div>
+                            <div class="hud-ring-inner"></div>
+                            <div class="hud-radar-sweep"></div>
+                            <div class="hud-crosshair"></div>
+                            <!-- Vector Jet silhouette -->
+                            <svg class="hud-jet-silhouette" viewBox="0 0 24 24">
+                                <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L14 19v-5.5l7 2.5z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 2 (LEARNING OBJECTIVES) -->
+            <section class="slide" id="slide2">
+                <div class="slide-content-col">
+                    <div>
+                        <span class="slide-topic">Today's Goals</span>
+                        <h2 class="slide-title">Learning Objectives</h2>
+                        <ul class="slide-bullets">
+                            <li>Explain why data is a strategic asset in modern aviation.</li>
+                            <li>Differentiate between Data, Information, and Intelligence.</li>
+                            <li>Understand the impact of the Fourth Industrial Revolution (4IR).</li>
+                            <li>Recognize how leading air forces apply analytics.</li>
+                            <li>Appreciate the role of modeling in executive decision-making.</li>
+                        </ul>
+                    </div>
+                    <div class="executive-insight">
+                        <h4>Commander's Note</h4>
+                        <p>The goal is to shift from reactive firefighting to proactive, scheduled command operations using sensor insights.</p>
+                    </div>
+                </div>
+                <div class="slide-visual-col">
+                    <div class="roadmap-container">
+                        <div style="font-weight: 800; font-size: 0.75rem; text-transform: uppercase; color: var(--accent-blue); margin-bottom: 25px; letter-spacing: 1px;">Today's Journey Milestones (Click Steps)</div>
+                        <div class="roadmap-path">
+                            <div class="roadmap-path-progress" id="roadmap-progress"></div>
+                            <button class="roadmap-step active" data-step="0" aria-label="Step 1"><i class="fa-solid fa-cloud"></i>4IR</button>
+                            <button class="roadmap-step" data-step="1" aria-label="Step 2"><i class="fa-solid fa-database"></i>Data</button>
+                            <button class="roadmap-step" data-step="2" aria-label="Step 3"><i class="fa-solid fa-chart-line"></i>Analytics</button>
+                            <button class="roadmap-step" data-step="3" aria-label="Step 4"><i class="fa-solid fa-users-gear"></i>Leaders</button>
+                            <button class="roadmap-step" data-step="4" aria-label="Step 5"><i class="fa-solid fa-circle-check"></i>Success</button>
+                        </div>
+                        <div class="roadmap-description-panel">
+                            <div class="roadmap-description-title" id="roadmap-desc-title">Select a step</div>
+                            <div class="roadmap-description-text" id="roadmap-desc-text">Click any of the journey nodes above to review the phase deliverables.</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 3 (4IR TIMELINE) -->
+            <section class="slide" id="slide3">
+                <div class="slide-content-col">
+                    <div>
+                        <span class="slide-topic">Historical Context</span>
+                        <h2 class="slide-title">The Fourth Industrial Revolution (4IR)</h2>
+                        <ul class="slide-bullets">
+                            <li><strong>1st Revolution:</strong> Steam-powered mechanization.</li>
+                            <li><strong>2nd Revolution:</strong> Electricity & mass production assemblies.</li>
+                            <li><strong>3rd Revolution:</strong> Computer systems & automated logic.</li>
+                            <li><strong>4th Revolution:</strong> Artificial Intelligence, Drones, IoT, and Cloud.</li>
+                        </ul>
+                    </div>
+                    <div class="executive-insight">
+                        <h4>Strategic Shift</h4>
+                        <p>Modern military air superiority is no longer solely about the engine thrust; it is about processing data speed.</p>
+                    </div>
+                </div>
+                <div class="slide-visual-col" style="flex-direction: column;">
+                    <div style="font-weight: 800; font-size: 0.75rem; text-transform: uppercase; color: var(--accent-blue); margin-bottom: 20px; align-self: flex-start;">Evolution Timeline (Hover Cards)</div>
+                    <div class="timeline-grid">
+                        <div class="timeline-card">
+                            <span class="timeline-number">1st Rev</span>
+                            <img src="images/steam.jpg" alt="Steam engine" class="timeline-image">
+                            <h3 class="timeline-title">Steam</h3>
+                            <p class="timeline-desc">Mechanical weavers and steam engines. Relied on physical manual throttle adjustments.</p>
+                        </div>
+                        <div class="timeline-card">
+                            <span class="timeline-number">2nd Rev</span>
+                            <img src="images/Electricity.jpg" alt="Electricity & mass production" class="timeline-image">
+                            <h3 class="timeline-title">Electricity</h3>
+                            <p class="timeline-desc">Mass manufacturing assembly lines. Combustion engines and early flight systems.</p>
+                        </div>
+                        <div class="timeline-card">
+                            <span class="timeline-number">3rd Rev</span>
+                            <img src="images/Computer-and-automation.jpg" alt="Computers & automation" class="timeline-image">
+                            <h3 class="timeline-title">Computers</h3>
+                            <p class="timeline-desc">Automation and digital microprocessors. Avionics computers, radar, and fly-by-wire controls.</p>
+                        </div>
+                        <div class="timeline-card">
+                            <span class="timeline-number">4th Rev</span>
+                            <img src="images/AI-and-big-data.jpg" alt="AI & IoT" class="timeline-image">
+                            <h3 class="timeline-title">AI & IoT</h3>
+                            <p class="timeline-desc">Autonomous drones, connected aircraft sensor clusters, predictive networks, and operations rooms.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 4 (DATA SOURCES & CENTRAL HUD) -->
+            <section class="slide" id="slide4">
+                <div class="slide-content-col">
+                    <div>
+                        <span class="slide-topic">Why Data Matters</span>
+                        <h2 class="slide-title">Why Data Matters in Modern Aviation</h2>
+                        
+                        <p style="font-size: 0.9rem; font-weight: 700; color: var(--brand-dark); margin-bottom: 8px; border-bottom: 1px solid var(--border-light); padding-bottom: 4px;">Modern aviation generates data from:</p>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 0.85rem; color: var(--text-dark); margin-bottom: 20px;">
+                            <div><i class="fa-solid fa-microchip" style="color: var(--accent-cyan); margin-right: 6px;"></i>Aircraft sensors</div>
+                            <div><i class="fa-solid fa-tower-control" style="color: var(--accent-cyan); margin-right: 6px;"></i>Flight operations</div>
+                            <div><i class="fa-solid fa-cloud-sun-rain" style="color: var(--accent-cyan); margin-right: 6px;"></i>Weather systems</div>
+                            <div><i class="fa-solid fa-gas-pump" style="color: var(--accent-cyan); margin-right: 6px;"></i>Fuel usage</div>
+                            <div><i class="fa-solid fa-screwdriver-wrench" style="color: var(--accent-cyan); margin-right: 6px;"></i>Maintenance records</div>
+                            <div><i class="fa-solid fa-users" style="color: var(--accent-cyan); margin-right: 6px;"></i>Personnel management</div>
+                            <div><i class="fa-solid fa-dolly" style="color: var(--accent-cyan); margin-right: 6px;"></i>Logistics</div>
+                            <div><i class="fa-solid fa-clipboard-check" style="color: var(--accent-cyan); margin-right: 6px;"></i>Safety reports</div>
+                        </div>
+
+                        <div style="background: rgba(239, 68, 68, 0.05); border-left: 3px solid #ef4444; padding: 10px 15px; border-radius: 0 6px 6px 0; margin-bottom: 20px;">
+                            <p style="font-size: 0.85rem; font-style: italic; color: #ef4444; font-weight: 600; margin: 0;">
+                                Without analytics, this data remains unused.
+                            </p>
+                        </div>
+
+                        <p style="font-size: 0.9rem; font-weight: 700; color: var(--brand-dark); margin-bottom: 8px; border-bottom: 1px solid var(--border-light); padding-bottom: 4px;">With analytics, it improves:</p>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 0.85rem; color: var(--text-dark); margin-bottom: 15px;">
+                            <div><i class="fa-solid fa-shield-halved" style="color: var(--accent-blue); margin-right: 6px;"></i>Safety</div>
+                            <div><i class="fa-solid fa-jet-fighter" style="color: var(--accent-blue); margin-right: 6px;"></i>Readiness</div>
+                            <div><i class="fa-solid fa-gauge-high" style="color: var(--accent-blue); margin-right: 6px;"></i>Efficiency</div>
+                            <div><i class="fa-solid fa-scale-balanced" style="color: var(--accent-blue); margin-right: 6px;"></i>Cost management</div>
+                            <div style="grid-column: span 2;"><i class="fa-solid fa-circle-check" style="color: var(--accent-blue); margin-right: 6px;"></i>Mission success</div>
+                        </div>
+                    </div>
+                    <div class="executive-insight" style="margin-top: auto;">
+                        <h4>Commander Note</h4>
+                        <p>We are swimming in raw files, yet starving for refined insight. Linking databases into a central operations center is our priority.</p>
+                    </div>
+                </div>
+                <div class="slide-visual-col">
+                    <div class="aircraft-visual-container">
+                        <div style="font-weight: 800; font-size: 0.75rem; text-transform: uppercase; color: var(--accent-blue); display: flex; justify-content: space-between; align-items: center;">
+                            <span>Data Sources Pipeline</span>
+                            <span style="color: var(--accent-cyan); font-size: 0.65rem; font-family: monospace;">TELEMETRY FLOW ACTIVE</span>
+                        </div>
+                        
+                        <div class="aircraft-svg-wrapper">
+                            <!-- SVG Vector Fighter Jet outline with arrows to central dashboard -->
+                            <svg viewBox="0 0 100 100">
+                                <defs>
+                                    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                        <path d="M 0 2 L 8 5 L 0 8 z" fill="var(--brand-dark)" opacity="0.3" />
+                                    </marker>
+                                    <marker id="arrow-active" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                        <path d="M 0 2 L 8 5 L 0 8 z" fill="var(--accent-cyan)" />
+                                    </marker>
+                                </defs>
+
+                                <!-- Grid Lines & concentric rings -->
+                                <line x1="10" y1="50" x2="90" y2="50" stroke="rgba(34,111,248,0.06)" stroke-width="0.5"/>
+                                <line x1="50" y1="10" x2="50" y2="90" stroke="rgba(34,111,248,0.06)" stroke-width="0.5"/>
+                                <circle cx="50" cy="50" r="38" fill="none" stroke="rgba(34,111,248,0.05)" stroke-width="0.5"/>
+                                
+                                <!-- Central Dashboard overlay (destination of arrows) -->
+                                <rect x="42" y="44" width="16" height="12" rx="1.5" fill="#010f40" stroke="var(--accent-blue)" stroke-width="1" />
+                                <rect x="45" y="47" width="10" height="2" rx="0.3" fill="var(--accent-cyan)" />
+                                <line x1="45" y1="51" x2="55" y2="51" stroke="#fff" stroke-width="0.5" />
+                                <line x1="45" y1="53" x2="52" y2="53" stroke="#fff" stroke-width="0.5" />
+                                
+                                <!-- Jet Silhouette path -->
+                                <path d="M50 5 L53 23 L82 48 L82 54 L53 43 L53 72 L62 78 L62 81 L50 78 L38 81 L38 78 L47 72 L47 43 L18 54 L18 48 L47 23 Z" fill="none" stroke="rgba(1, 15, 64, 0.12)" stroke-width="1.2"/>
+                                
+                                <!-- Telemetry lines leading to central dashboard (with arrow markers) -->
+                                <!-- Weather (Nose): (50, 15) -> (50, 42) -->
+                                <path d="M 50 15 L 50 41" stroke="rgba(1, 15, 64, 0.2)" stroke-width="1" marker-end="url(#arrow)" fill="none" class="telemetry-arrow active" data-arrow="weather" />
+                                
+                                <!-- Flight Ops / Safety (Wing L): (26, 45) -> (40, 48) -->
+                                <path d="M 26 45 L 39 48" stroke="rgba(1, 15, 64, 0.2)" stroke-width="1" marker-end="url(#arrow)" fill="none" class="telemetry-arrow" data-arrow="ops" />
+
+                                <!-- Engine Sensors / Maintenance (Wing R): (74, 45) -> (60, 48) -->
+                                <path d="M 74 45 L 61 48" stroke="rgba(1, 15, 64, 0.2)" stroke-width="1" marker-end="url(#arrow)" fill="none" class="telemetry-arrow" data-arrow="engine" />
+
+                                <!-- Fuel Usage (Center): (50, 68) -> (50, 58) (Flowing upward) -->
+                                <path d="M 50 68 L 50 59" stroke="rgba(1, 15, 64, 0.2)" stroke-width="1" marker-end="url(#arrow)" fill="none" class="telemetry-arrow" data-arrow="fuel" />
+
+                                <!-- Safety Reports (Tail): (50, 80) -> (50, 59) (Flowing upward) -->
+                                <path d="M 50 80 L 50 59" stroke="rgba(1, 15, 64, 0.2)" stroke-width="1" marker-end="url(#arrow)" fill="none" class="telemetry-arrow" data-arrow="safety" />
+
+                                <!-- Interactive Hotspots (Circles) -->
+                                <circle cx="50" cy="15" r="3.5" class="aircraft-hotspot hotspot-glow active" data-system="weather" />
+                                <circle cx="26" cy="45" r="3.5" class="aircraft-hotspot hotspot-glow" data-system="ops" />
+                                <circle cx="74" cy="45" r="3.5" class="aircraft-hotspot hotspot-glow" data-system="engine" />
+                                <circle cx="50" cy="68" r="3.5" class="aircraft-hotspot hotspot-glow" data-system="fuel" />
+                                <circle cx="50" cy="80" r="3.5" class="aircraft-hotspot hotspot-glow" data-system="safety" />
+                            </svg>
+                        </div>
+                        
+                        <div class="aircraft-readout-panel">
+                            <div class="readout-title" id="aircraft-readout-title">Weather Systems & Radar</div>
+                            <div class="readout-data" id="aircraft-readout-data">Feeds barometric pressure, external temperature, wind coordinates, and storm path grids directly into route optimization tools.</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 5 (WHAT IS DATA SCIENCE?) -->
+            <section class="slide" id="slide5">
+                <div class="slide-content-col">
+                    <div>
+                        <span class="slide-topic">Definition</span>
+                        <h2 class="slide-title">What is Data Science?</h2>
+                        <ul class="slide-bullets">
+                            <li>Process of collecting, cleaning, analyzing, and translating raw files.</li>
+                            <li>Merges technology, mathematics, and tactical expertise.</li>
+                            <li><strong>Executive Perspective:</strong> You do not need to build statistical algorithms.</li>
+                            <li>Your role is to understand, challenge, and deploy the outputs.</li>
+                        </ul>
+                    </div>
+                    <div class="executive-insight">
+                        <h4>Key Focus</h4>
+                        <p>Data science helps leaders make choices based on probability, reducing reliance on gut instinct.</p>
+                    </div>
+                </div>
+                <div class="slide-visual-col">
+                    <div class="orbit-container">
+                        <div class="orbit-center-node">Data Science</div>
+                        <div class="orbit-ring"></div>
+                        
+                        <!-- Orbit Nodes positioned dynamically via JS -->
+                        <button class="orbit-node" data-field="data"><i class="fa-solid fa-code"></i>Data Eng</button>
+                        <button class="orbit-node" data-field="technology"><i class="fa-solid fa-server"></i>Infrastructure</button>
+                        <button class="orbit-node" data-field="statistics"><i class="fa-solid fa-calculator"></i>Math</button>
+                        <button class="orbit-node" data-field="business"><i class="fa-solid fa-jet-fighter"></i>Command</button>
+                        <button class="orbit-node" data-field="ai"><i class="fa-solid fa-brain"></i>AI / ML</button>
+                        
+                        <!-- Orbital description overlay -->
+                        <div class="orbit-details-overlay" id="orbit-overlay">
+                            <h3 id="orbit-overlay-title" style="font-size: 0.95rem; font-weight: 800; color: var(--brand-dark); margin-bottom: 5px;">Node Details</h3>
+                            <p id="orbit-overlay-desc" style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.4;">Click any surrounding circle to inspect its contribution to data science.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 6 (DATA IS THE NEW OIL) -->
+            <section class="slide" id="slide6">
+                <div class="slide-content-col">
+                    <div>
+                        <span class="slide-topic">The Refinery Analogy</span>
+                        <h2 class="slide-title">Data is the New Oil</h2>
+                        <ul class="slide-bullets">
+                            <li>Crude oil cannot fuel a modern fighter jet directly.</li>
+                            <li>It must be extracted, refined, and distributed.</li>
+                            <li>Raw data has low utility on its own.</li>
+                            <li>It becomes valuable only when refined into active insights.</li>
+                            <li>Cleaned, organized data drives operational decisions.</li>
+                        </ul>
+                    </div>
+                    <div class="executive-insight">
+                        <h4>Command Insight</h4>
+                        <p>Hoarding uncleaned database logs is like storing sludge. Refinement filters are mandatory.</p>
+                    </div>
+                </div>
+                <div class="slide-visual-col">
+                    <div class="refinery-flow-container">
+                        <!-- Petroleum Pipeline -->
+                        <div class="refinery-row">
+                            <div class="refinery-row-header">
+                                <span class="refinery-row-title">Crude Oil</span>
+                                <span class="refinery-row-meta">Physical Refining</span>
+                            </div>
+                            <div class="refinery-track">
+                                <div class="refinery-node" id="oil-n1"><i class="fa-solid fa-oil-can"></i>Crude</div>
+                                <div class="refinery-node" id="oil-n2"><i class="fa-solid fa-industry"></i>Refinery</div>
+                                <div class="refinery-node" id="oil-n3"><i class="fa-solid fa-truck-field"></i>Fuel</div>
+                                <div class="refinery-node" id="oil-n4"><i class="fa-solid fa-jet-fighter"></i>Flight</div>
+                            </div>
+                        </div>
+
+                        <!-- Data Pipeline -->
+                        <div class="refinery-row" style="background: rgba(0, 199, 235, 0.02); border-color: rgba(0, 199, 235, 0.05);">
+                            <div class="refinery-row-header">
+                                <span class="refinery-row-title" style="color: var(--accent-cyan);">Raw Data</span>
+                                <span class="refinery-row-meta">Digital Refining</span>
+                            </div>
+                            <div class="refinery-track">
+                                <div class="refinery-node" id="data-n1"><i class="fa-solid fa-file-csv"></i>Raw Data</div>
+                                <div class="refinery-node" id="data-n2"><i class="fa-solid fa-filter"></i>Cleaned</div>
+                                <div class="refinery-node" id="data-n3"><i class="fa-solid fa-chart-pie"></i>Dashboard</div>
+                                <div class="refinery-node" id="data-n4"><i class="fa-solid fa-user-tie"></i>Decision</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 7 (DATA VS INFO VS INTEL) -->
+            <section class="slide" id="slide7">
+                <div class="slide-content-col">
+                    <div>
+                        <span class="slide-topic">Levels of Context</span>
+                        <h2 class="slide-title">Data vs. Info vs. Intelligence</h2>
+                        <ul class="slide-bullets">
+                            <li><strong>Data:</strong> Isolated, objective facts (e.g., fuel values).</li>
+                            <li><strong>Information:</strong> Adding meaning and identifying details.</li>
+                            <li><strong>Intelligence:</strong> Analysis of multiple data streams.</li>
+                            <li>Intelligence drives commander decisions.</li>
+                        </ul>
+                    </div>
+                    <div class="executive-insight">
+                        <h4>Command Rule</h4>
+                        <p>Never base strategic plans on raw data alone. Always demand intelligence that accounts for operational variables.</p>
+                    </div>
+                </div>
+                <div class="slide-visual-col" style="flex-direction: column; justify-content: space-between;">
+                    <div class="staircase-container">
+                        <button class="stair stair-1 active" data-stair="0">
+                            <span class="stair-num">Level 1</span>
+                            <h3 class="stair-title">Data</h3>
+                            <p class="stair-desc">Raw telemetry sensor readings.</p>
+                        </button>
+                        <button class="stair stair-2" data-stair="1">
+                            <span class="stair-num">Level 2</span>
+                            <h3 class="stair-title">Information</h3>
+                            <p class="stair-desc">Structured contextual metrics.</p>
+                        </button>
+                        <button class="stair stair-3" data-stair="2">
+                            <span class="stair-num">Level 3</span>
+                            <h3 class="stair-title">Intelligence</h3>
+                            <p class="stair-desc">Synthesized actionable insights.</p>
+                        </button>
+                    </div>
+                    
+                    <div style="background: rgba(34,111,248,0.03); border: 1px solid var(--border-light); width: 90%; margin: 0 auto 20px; border-radius: 6px; padding: 15px 20px;">
+                        <h4 id="stairs-readout-title" style="font-size: 0.9rem; font-weight: 800; color: var(--brand-dark); margin-bottom: 5px;">Data Level</h4>
+                        <div id="stairs-readout-example" style="font-family: monospace; font-size: 0.8rem; color: var(--accent-blue); margin-bottom: 8px; font-weight: 700;">Example: 5,000 lbs</div>
+                        <p id="stairs-readout-desc" style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.4;">Select a staircase step above to inspect the aviation mapping case.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 8 (FROM DATA TO BETTER DECISIONS) -->
+            <section class="slide" id="slide8">
+                <div class="slide-content-col">
+                    <div>
+                        <span class="slide-topic">The Decision Path</span>
+                        <h2 class="slide-title">From Data to Better Decisions</h2>
+                        <ul class="slide-bullets">
+                            <li>Data follows a clean logical chain.</li>
+                            <li>Analysis converts raw records into tactical insights.</li>
+                            <li>Flawed telemetry results in high risk.</li>
+                            <li>Validated reports lead to confident military deployments.</li>
+                            <li>Readiness depends on continuous dashboard reviews.</li>
+                        </ul>
+                    </div>
+                    <div class="executive-insight">
+                        <h4>Decision Quality</h4>
+                        <p>Improving dashboard accuracy directly minimizes mistakes during search-and-rescue or air patrol missions.</p>
+                    </div>
+                </div>
+                <div class="slide-visual-col">
+                    <div class="takeaway-graphic-container">
+                        <div class="takeaway-flow">
+                            <div class="takeaway-node"><i class="fa-solid fa-server"></i>Data</div>
+                            <div class="takeaway-node"><i class="fa-solid fa-file-invoice"></i>Info</div>
+                            <div class="takeaway-node"><i class="fa-solid fa-chart-line"></i>Analysis</div>
+                            <div class="takeaway-node"><i class="fa-solid fa-brain"></i>Intel</div>
+                            <div class="takeaway-node"><i class="fa-solid fa-gavel"></i>Decision</div>
+                            <div class="takeaway-node mission-node"><i class="fa-solid fa-circle-check"></i>Mission</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 9 (FORMULA 1 PIT CREW ANALOGY) -->
+            <section class="slide" id="slide9">
+                <div class="slide-content-col">
+                    <div>
+                        <span class="slide-topic">Operational Analogy</span>
+                        <h2 class="slide-title">The Formula 1 Pit Crew</h2>
+                        <ul class="slide-bullets">
+                            <li>An F1 driver cannot inspect tyre wear details while racing.</li>
+                            <li>The pit wall monitors brakes, fuel flow, and weather.</li>
+                            <li>The race is won by combining experience with live telemetry.</li>
+                            <li>A Squadron Commander acts as the operations manager.</li>
+                            <li>Ground crews monitor parameters while pilots fly.</li>
+                        </ul>
+                    </div>
+                    <div class="executive-insight">
+                        <h4>Commander Analogy</h4>
+                        <p>Pilots operate the airframe; operations cells leverage telemetry to optimize maintenance schedules and fuel loads.</p>
+                    </div>
+                </div>
+                <div class="slide-visual-col">
+                    <div class="split-telemetry-container">
+                        <div class="telemetry-tabs">
+                            <button class="telemetry-tab-btn active" data-tab="f1">F1 Pit Wall</button>
+                            <button class="telemetry-tab-btn" data-tab="naf">NAF Tactical HUD</button>
+                        </div>
+                        <div class="telemetry-screen">
+                            <div class="telemetry-title-bar">
+                                <span id="telemetry-title">FORMULA 1 LIVE PIT WALL TELEMETRY</span>
+                                <span style="color: #22c55e;">● SYSTEM ACTIVE</span>
+                            </div>
+                            <div class="telemetry-grid">
+                                <div class="telemetry-item">
+                                    <span class="telemetry-label">Parameter 1</span>
+                                    <span class="telemetry-val">Reading 1</span>
+                                </div>
+                                <div class="telemetry-item">
+                                    <span class="telemetry-label">Parameter 2</span>
+                                    <span class="telemetry-val">Reading 2</span>
+                                </div>
+                                <div class="telemetry-item">
+                                    <span class="telemetry-label">Parameter 3</span>
+                                    <span class="telemetry-val">Reading 3</span>
+                                </div>
+                                <div class="telemetry-item">
+                                    <span class="telemetry-label">Parameter 4</span>
+                                    <span class="telemetry-val">Reading 4</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 10 (HOW LEADING AIR FORCES USE DATA) -->
+            <section class="slide" id="slide10">
+                <div class="slide-content-col">
+                    <div>
+                        <span class="slide-topic">Global Standards</span>
+                        <h2 class="slide-title">How Air Forces Use Data</h2>
+                        <ul class="slide-bullets">
+                            <li>Predictive maintenance avoids engine failures mid-flight.</li>
+                            <li>Optimized flight paths reduce fuel costs.</li>
+                            <li>Flight hour databases index pilot exhaustion levels.</li>
+                            <li>Pre-flight weather mapping limits logistics blockages.</li>
+                            <li>Enables proactive command structures over reactive patterns.</li>
+                        </ul>
+                    </div>
+                    <div class="executive-insight">
+                        <h4>Efficiency Gain</h4>
+                        <p>Predictive parts planning increases fleet availability by up to 20% compared to traditional teardown methods.</p>
+                    </div>
+                </div>
+                <div class="slide-visual-col">
+                    <div class="ops-dashboard-wrapper">
+                        <div class="ops-dashboard-header">
+                            <span style="font-weight: 800; letter-spacing: 1px;"><i class="fa-solid fa-circle-nodes" style="margin-right: 8px;"></i>Fleet Telemetry Operations Console</span>
+                            <span style="font-family: monospace;">AIRCRAFT ID: NAF-038</span>
+                        </div>
+                        <div class="ops-dashboard-grid">
+                            <div class="ops-card">
+                                <div class="ops-card-title">Engine Health Indicators <span class="ops-alert-light"></span></div>
+                                <div class="ops-card-visual">
+                                    <svg viewBox="0 0 100 50" width="80" height="40">
+                                        <path d="M10 40 A 40 40 0 0 1 90 40" fill="none" stroke="#e2e8f0" stroke-width="8" stroke-linecap="round"/>
+                                        <path d="M10 40 A 40 40 0 0 1 80 18" fill="none" stroke="var(--accent-blue)" stroke-width="8" stroke-linecap="round"/>
+                                        <text x="50" y="38" text-anchor="middle" font-family="monospace" font-weight="bold" font-size="12" fill="var(--brand-dark)">92%</text>
+                                    </svg>
+                                </div>
+                                <div class="ops-card-readout">Temp: 720 °C</div>
+                            </div>
+                            <div class="ops-card" style="border-color: rgba(239, 68, 68, 0.2);">
+                                <div class="ops-card-title">Predictive Maintenance <span class="ops-alert-light flashing"></span></div>
+                                <div class="ops-card-visual" style="font-family: monospace; font-size: 0.8rem; font-weight: bold; color: #ef4444; text-align: center;">
+                                    HYDRAULIC VALVE<br>REPLACE &lt; 15 HR
+                                </div>
+                                <div class="ops-card-readout" style="color: #ef4444;">Confidence: 94%</div>
+                            </div>
+                            <div class="ops-card">
+                                <div class="ops-card-title">Fuel Efficiency <span class="ops-alert-light"></span></div>
+                                <div class="ops-card-visual">
+                                    <svg viewBox="0 0 100 40" width="80" height="32">
+                                        <path d="M10 30 Q 30 10, 50 25 T 90 10" fill="none" stroke="var(--accent-cyan)" stroke-width="3"/>
+                                    </svg>
+                                </div>
+                                <div class="ops-card-readout">Flow: -1.2% (Norm)</div>
+                            </div>
+                            <div class="ops-card">
+                                <div class="ops-card-title">Weather Status <span class="ops-alert-light"></span></div>
+                                <div class="ops-card-visual" style="font-family: monospace; font-size: 0.85rem; font-weight: bold; color: var(--accent-blue);">
+                                    ABUJA: CLEAR<br>WIND: 8 KTS NE
+                                </div>
+                                <div class="ops-card-readout">No issues flagged</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 11 (THE ANALYTICS CONTINUUM) -->
+            <section class="slide" id="slide11">
+                <div class="slide-content-col">
+                    <div>
+                        <span class="slide-topic">Maturing Capabilities</span>
+                        <h2 class="slide-title">The Analytics Continuum</h2>
+                        <ul class="slide-bullets">
+                            <li>Organizations develop capabilities across four levels:</li>
+                            <li><strong>Descriptive:</strong> Tracking past flight totals.</li>
+                            <li><strong>Diagnostic:</strong> Querying why engine failures rose.</li>
+                            <li><strong>Predictive:</strong> Forecasting component fatigue.</li>
+                            <li><strong>Prescriptive:</strong> Optimizing schedules dynamically.</li>
+                        </ul>
+                    </div>
+                    <div class="executive-insight">
+                        <h4>Maturity Value</h4>
+                        <p>Moving from descriptive logs to predictive warnings significantly limits engine maintenance downtime.</p>
+                    </div>
+                </div>
+                <div class="slide-visual-col">
+                    <div class="continuum-container">
+                        <div style="font-weight: 800; font-size: 0.75rem; text-transform: uppercase; color: var(--accent-blue); margin-bottom: 10px;">Drag Slider to Review Continuum Stages</div>
+                        
+                        <div class="continuum-graph-wrapper">
+                            <svg viewBox="0 0 450 180">
+                                <!-- Axes -->
+                                <line x1="30" y1="150" x2="430" y2="150" stroke="var(--brand-dark)" stroke-width="2"/>
+                                <line x1="30" y1="10" x2="30" y2="150" stroke="var(--brand-dark)" stroke-width="2"/>
+                                <text x="420" y="170" text-anchor="end" font-size="8" font-weight="bold" fill="var(--brand-dark)">COMPLEXITY</text>
+                                <text x="12" y="20" transform="rotate(-90 12 20)" text-anchor="end" font-size="8" font-weight="bold" fill="var(--brand-dark)">VALUE</text>
+                                
+                                <!-- Curve -->
+                                <path id="continuum-curve-path" d="M30 150 Q 160 140, 290 98 T 420 33" fill="none" stroke="var(--accent-blue)" stroke-width="3" style="stroke-dasharray: 450; stroke-dashoffset: 450; transition: stroke-dashoffset 0.1s;"/>
+                                
+                                <!-- Slider Position Indicator Node -->
+                                <circle id="continuum-indicator-dot" cx="30" cy="150" r="7" fill="var(--accent-cyan)" stroke="var(--brand-dark)" stroke-width="2" />
+                            </svg>
+                        </div>
+
+                        <div class="continuum-slider-control">
+                            <input type="range" min="0" max="3" value="0" class="continuum-range-input" id="continuum-slider" aria-label="Continuum stage slider">
+                            <div style="display: flex; justify-content: space-between; width: 90%; font-size: 0.7rem; font-weight: 800; color: var(--brand-dark);">
+                                <span>DESCRIPTIVE</span>
+                                <span>DIAGNOSTIC</span>
+                                <span>PREDICTIVE</span>
+                                <span>PRESCRIPTIVE</span>
+                            </div>
+                        </div>
+
+                        <div class="continuum-info-pane">
+                            <h4 id="continuum-title" style="font-size: 0.9rem; font-weight: 800; color: var(--brand-dark); margin-bottom: 5px;">Stage 1: Descriptive Analytics</h4>
+                            <p id="continuum-desc" style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.45;">Details historical results. Example: Total hours logged by tail number last month.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 12 (THE FOUR TYPES OF ANALYTICS GRID) -->
+            <section class="slide" id="slide12">
+                <div class="slide-content-col">
+                    <div>
+                        <span class="slide-topic">Comparative Matrix</span>
+                        <h2 class="slide-title">The Four Types of Analytics</h2>
+                        <p style="font-size: 0.95rem; line-height: 1.5; color: var(--text-muted); margin-bottom: 25px;">
+                            Air force executives must distinguish between analytics styles to fund project pipelines appropriately.
+                        </p>
+                        <ul class="slide-bullets">
+                            <li>Descriptive and Diagnostic look backward.</li>
+                            <li>Predictive and Prescriptive guide future events.</li>
+                            <li>Prescriptive delivers specific operational action recommendations.</li>
+                        </ul>
+                    </div>
+                    <div class="executive-insight">
+                        <h4>Funding Note</h4>
+                        <p>Prioritize predictive and prescriptive algorithms to reduce waste across maintenance and fuel depots.</p>
+                    </div>
+                </div>
+                <div class="slide-visual-col">
+                    <div class="four-card-grid">
+                        <div class="grid-hover-card">
+                            <div>
+                                <i class="fa-solid fa-clock-rotate-left grid-card-icon"></i>
+                                <h3 class="grid-card-title">Descriptive</h3>
+                                <p class="grid-card-desc">What happened? Historical logs.</p>
+                            </div>
+                            <div class="grid-card-example">Example: Flight hours logged in July.</div>
+                        </div>
+                        <div class="grid-hover-card">
+                            <div>
+                                <i class="fa-solid fa-circle-question grid-card-icon"></i>
+                                <h3 class="grid-card-title">Diagnostic</h3>
+                                <p class="grid-card-desc">Why did it happen? Root-cause.</p>
+                            </div>
+                            <div class="grid-card-example">Example: Investigating fleet availability drops.</div>
+                        </div>
+                        <div class="grid-hover-card">
+                            <div>
+                                <i class="fa-solid fa-compass-drafting grid-card-icon"></i>
+                                <h3 class="grid-card-title">Predictive</h3>
+                                <p class="grid-card-desc">What will happen? Proactive trends.</p>
+                            </div>
+                            <div class="grid-card-example">Example: Forecasting turbine fatigue bounds.</div>
+                        </div>
+                        <div class="grid-hover-card">
+                            <div>
+                                <i class="fa-solid fa-wand-magic-sparkles grid-card-icon"></i>
+                                <h3 class="grid-card-title">Prescriptive</h3>
+                                <p class="grid-card-desc">What should we do? Optimal paths.</p>
+                            </div>
+                            <div class="grid-card-example">Example: Auto-routing missions around storms.</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 13 (LEADER COMPARISON) -->
+            <section class="slide" id="slide13">
+                <div class="slide-content-col">
+                    <div>
+                        <span class="slide-topic">Leadership Models</span>
+                        <h2 class="slide-title">Why Data Leaders Perform Better</h2>
+                        <ul class="slide-bullets">
+                            <li>Intuition remains vital in tactical warfare.</li>
+                            <li>Data augments intuition, reducing uncertainty.</li>
+                            <li>Allocates logistics and fuel resources efficiently.</li>
+                            <li>Creates accountability and trust through evidence.</li>
+                            <li>Speeds up response times during emergency threats.</li>
+                        </ul>
+                    </div>
+                    <div class="executive-insight">
+                        <h4>Core Concept</h4>
+                        <p>Data does not replace command experience; it makes command experience more accurate.</p>
+                    </div>
+                </div>
+                <div class="slide-visual-col">
+                    <div class="leader-comparison-grid">
+                        <div class="leader-col traditional">
+                            <h3 class="leader-header">Traditional Leader</h3>
+                            <div class="leader-bars">
+                                <div class="leader-bar-item">
+                                    <span class="leader-bar-label">UNCERTAINTY IN PLANNING</span>
+                                    <div class="leader-bar-track"><div class="leader-bar-fill" data-value="85"></div></div>
+                                </div>
+                                <div class="leader-bar-item">
+                                    <span class="leader-bar-label">RESOURCE WASTAGE</span>
+                                    <div class="leader-bar-track"><div class="leader-bar-fill" data-value="70"></div></div>
+                                </div>
+                                <div class="leader-bar-item">
+                                    <span class="leader-bar-label">RESPONSE SPEED</span>
+                                    <div class="leader-bar-track"><div class="leader-bar-fill" data-value="45"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="leader-col data-driven">
+                            <h3 class="leader-header" style="color: var(--accent-blue);">Data-Driven Leader</h3>
+                            <div class="leader-bars">
+                                <div class="leader-bar-item">
+                                    <span class="leader-bar-label">UNCERTAINTY IN PLANNING</span>
+                                    <div class="leader-bar-track"><div class="leader-bar-fill" data-value="20"></div></div>
+                                </div>
+                                <div class="leader-bar-item">
+                                    <span class="leader-bar-label">RESOURCE WASTAGE</span>
+                                    <div class="leader-bar-track"><div class="leader-bar-fill" data-value="15"></div></div>
+                                </div>
+                                <div class="leader-bar-item">
+                                    <span class="leader-bar-label">RESPONSE SPEED</span>
+                                    <div class="leader-bar-track"><div class="leader-bar-fill" data-value="90"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 14 (THE COST OF POOR DATA LITERACY) -->
+            <section class="slide" id="slide14">
+                <div class="slide-content-col">
+                    <div>
+                        <span class="slide-topic">Command Risks</span>
+                        <h2 class="slide-title">Cost of Poor Data Literacy</h2>
+                        <ul class="slide-bullets">
+                            <li>Decisions become expensive guesswork.</li>
+                            <li>Maintenance problems are found too late.</li>
+                            <li>Wastes expensive fuel stocks and supply chains.</li>
+                            <li>Increases risk and safety concerns during flights.</li>
+                            <li>Reduces visible readiness reports.</li>
+                        </ul>
+                    </div>
+                    <div class="executive-insight">
+                        <h4>Warning Sign</h4>
+                        <p>Without data literacy, commanders become vulnerable to vendor calculations and incorrect safety reports.</p>
+                    </div>
+                </div>
+                <div class="slide-visual-col">
+                    <div class="risk-wheel-container">
+                        <div style="font-weight: 800; font-size: 0.75rem; text-transform: uppercase; color: var(--accent-blue); align-self: flex-start; width: 100%;">Interactive Risk Wheel (Click Segments)</div>
+                        
+                        <div class="risk-wheel-svg-wrapper">
+                            <!-- SVG Segment Wheel -->
+                            <svg viewBox="0 0 200 200" id="wheel-svg">
+                                <!-- Segment 0 -->
+                                <path d="M100 100 L100 10 A 90 90 0 0 1 178 55 Z" fill="#ef4444" opacity="0.85" class="wheel-segment" data-segment="0"/>
+                                <!-- Segment 1 -->
+                                <path d="M100 100 L178 55 A 90 90 0 0 1 178 145 Z" fill="#f97316" opacity="0.85" class="wheel-segment" data-segment="1"/>
+                                <!-- Segment 2 -->
+                                <path d="M100 100 L178 145 A 90 90 0 0 1 100 190 Z" fill="#f59e0b" opacity="0.85" class="wheel-segment" data-segment="2"/>
+                                <!-- Segment 3 -->
+                                <path d="M100 100 L100 190 A 90 90 0 0 1 22 145 Z" fill="#ca8a04" opacity="0.85" class="wheel-segment" data-segment="3"/>
+                                <!-- Segment 4 -->
+                                <path d="M100 100 L22 145 A 90 90 0 0 1 22 55 Z" fill="#010f40" opacity="0.85" class="wheel-segment" data-segment="4"/>
+                                <!-- Segment 5 -->
+                                <path d="M100 100 L22 55 A 90 90 0 0 1 100 10 Z" fill="#061e68" opacity="0.85" class="wheel-segment" data-segment="5"/>
+                            </svg>
+                            <div class="risk-wheel-center-content">
+                                <span>NAF<br>Risk<br>Index</span>
+                            </div>
+                        </div>
+
+                        <div class="risk-readout-overlay">
+                            <h4 id="risk-title" style="font-size: 0.9rem; font-weight: 800; color: var(--brand-dark); margin-bottom: 5px;">Operational Guesswork</h4>
+                            <p id="risk-desc" style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.4;">Click segments on the wheel to detail the specific cost of data illiteracy.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 15 (FUEL SHORTAGE CASE STUDY SIMULATOR) -->
+            <section class="slide layout-full" id="slide15">
+                <div class="sim-grid-layout">
+                    
+                    <div class="sim-control-panel">
+                        <div>
+                            <span class="slide-topic">Command Simulator</span>
+                            <h3 style="font-family: var(--font-header); font-weight: 900; font-size: 1.3rem; color: var(--brand-dark); margin-bottom: 12px;">Fuel Allocation Challenge</h3>
+                            
+                            <!-- Toggle Mode -->
+                            <div class="sim-mode-toggle">
+                                <button class="sim-mode-btn active" data-mode="traditional">Traditional Mode</button>
+                                <button class="sim-mode-btn" data-mode="data-driven">Data-Driven Mode</button>
+                            </div>
+
+                            <!-- Fuel Remaining Bar -->
+                            <div class="sim-fuel-bar">
+                                <div class="sim-fuel-label">
+                                    <span>Available Fuel Tank</span>
+                                    <span id="sim-fuel-val">5,000 lbs</span>
+                                </div>
+                                <div class="sim-fuel-indicator">
+                                    <div class="sim-fuel-fill" id="sim-fuel-fill"></div>
+                                </div>
+                            </div>
+
+                            <!-- Mission Cards -->
+                            <div class="sim-missions-list">
+                                <div class="sim-mission-card" data-mission="alpha">
+                                    <div class="sim-mission-meta">
+                                        <span class="sim-mission-name">Mission Alpha (Tactical Recon)</span>
+                                        <span class="sim-mission-req">Req: 2,000 lbs</span>
+                                        <span class="mission-risk-span" style="font-size: 0.72rem; font-weight: 700; color:#94a3b8; margin-top: 2px;">Risk: UNKNOWN</span>
+                                    </div>
+                                    <span class="sim-mission-priority high">High</span>
+                                </div>
+                                <div class="sim-mission-card" data-mission="bravo">
+                                    <div class="sim-mission-meta">
+                                        <span class="sim-mission-name">Mission Bravo (Combat Support)</span>
+                                        <span class="sim-mission-req">Req: 3,500 lbs</span>
+                                        <span class="mission-risk-span" style="font-size: 0.72rem; font-weight: 700; color:#94a3b8; margin-top: 2px;">Risk: UNKNOWN</span>
+                                    </div>
+                                    <span class="sim-mission-priority critical">Critical</span>
+                                </div>
+                                <div class="sim-mission-card" data-mission="charlie">
+                                    <div class="sim-mission-meta">
+                                        <span class="sim-mission-name">Mission Charlie (Logistics Transport)</span>
+                                        <span class="sim-mission-req">Req: 1,500 lbs</span>
+                                        <span class="mission-risk-span" style="font-size: 0.72rem; font-weight: 700; color:#94a3b8; margin-top: 2px;">Risk: UNKNOWN</span>
+                                    </div>
+                                    <span class="sim-mission-priority medium">Medium</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="sim-btn-execute" id="sim-btn-execute">Execute Operations</button>
+                    </div>
+
+                    <div class="sim-display-panel">
+                        <div class="sim-display-header">COMMAND READOUT TELEMETRY</div>
+                        
+                        <div class="sim-dashboard-grid">
+                            <div class="sim-telemetry-box">
+                                <div class="sim-telemetry-label">Fuel Allocated</div>
+                                <div class="sim-telemetry-num" id="sim-tele-allocated">0 lbs</div>
+                            </div>
+                            <div class="sim-telemetry-box">
+                                <div class="sim-telemetry-label">Fuel Remaining</div>
+                                <div class="sim-telemetry-num" id="sim-tele-remaining">5,000 lbs</div>
+                            </div>
+                            <div class="sim-telemetry-box">
+                                <div class="sim-telemetry-label">Max Mission Priority</div>
+                                <div class="sim-telemetry-num" id="sim-tele-priority" style="font-size: 1.25rem;">N/A</div>
+                            </div>
+                            <div class="sim-telemetry-box">
+                                <div class="sim-telemetry-label">Est. Success Rate</div>
+                                <div class="sim-telemetry-num" id="sim-tele-success" style="font-size: 1.25rem; color: #eab308;">EST. OK</div>
+                            </div>
+                        </div>
+
+                        <div class="sim-simulation-output" id="sim-console">
+                            <div class="sim-output-line system">> SYSTEM INITIALIZED. WAITING FOR COMMAND SELECTIONS...</div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- SLIDE 16 (DISCUSSION EXERCISE) -->
+            <section class="slide" id="slide16">
+                <div class="slide-content-col">
+                    <div>
+                        <span class="slide-topic">Workshop Activity</span>
+                        <h2 class="slide-title">Discussion Exercise</h2>
+                        <p style="font-size: 0.95rem; line-height: 1.5; color: var(--text-muted); margin-bottom: 25px;">
+                            Engage with the officer next to you to evaluate how telemetry could assist NAF squadron decision pipelines.
+                        </p>
+                        <ul class="slide-bullets">
+                            <li>Identify decisions based purely on experience.</li>
+                            <li>Define what telemetry indicators were missing.</li>
+                            <li>Map out a dashboard that would resolve the conflict.</li>
+                        </ul>
+                    </div>
+                    <div class="executive-insight">
+                        <h4>Commander Guidance</h4>
+                        <p>Focus on real scenarios: bad weather flights, aircraft groundings, or spare shortages.</p>
+                    </div>
+                </div>
+                <div class="slide-visual-col">
+                    <div class="discussion-grid">
+                        <!-- Card 1 -->
+                        <div class="discussion-card">
+                            <div class="discussion-card-inner">
+                                <div class="discussion-card-front">
+                                    <i class="fa-solid fa-comments discussion-icon"></i>
+                                    <h3>Question 1</h3>
+                                    <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 10px;">Click to Reveal Prompt</p>
+                                </div>
+                                <div class="discussion-card-back">
+                                    <i class="fa-solid fa-clipboard-question discussion-icon"></i>
+                                    <p>Recall a major operational decision based mainly on experience. What was the outcome?</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="discussion-card">
+                            <div class="discussion-card-inner">
+                                <div class="discussion-card-front">
+                                    <i class="fa-solid fa-microchip discussion-icon"></i>
+                                    <h3>Question 2</h3>
+                                    <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 10px;">Click to Reveal Prompt</p>
+                                </div>
+                                <div class="discussion-card-back">
+                                    <i class="fa-solid fa-chart-line discussion-icon"></i>
+                                    <p>What data could have improved that decision? Think about weather sensor arrays, fuel metrics, or engine logs.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card 3 -->
+                        <div class="discussion-card">
+                            <div class="discussion-card-inner">
+                                <div class="discussion-card-front">
+                                    <i class="fa-solid fa-desktop discussion-icon"></i>
+                                    <h3>Question 3</h3>
+                                    <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 10px;">Click to Reveal Prompt</p>
+                                </div>
+                                <div class="discussion-card-back">
+                                    <i class="fa-solid fa-shield-halved discussion-icon"></i>
+                                    <p>What dashboard would you have wanted to see? Sketch or outline the key telemetry variables.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 17 (KEY TAKEAWAYS) -->
+            <section class="slide theme-dark" id="slide17">
+                <div class="title-slide-container">
+                    <div class="title-slide-info">
+                        <div class="title-badge" style="background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-blue) 100%);">Summary</div>
+                        <h2 class="title-main">Key Takeaways</h2>
+                        <ul class="slide-bullets" style="margin-bottom: 40px;">
+                            <li style="color: white;">Data is a strategic asset for modern air forces.</li>
+                            <li style="color: white;">Refine raw telemetry files into intelligence insights.</li>
+                            <li style="color: white;">Analytics tools support and augment commander intuition.</li>
+                            <li style="color: white;">Data literacy is a core leadership competency.</li>
+                        </ul>
+                        
+                        <div class="title-quote" style="border-left-color: var(--accent-cyan);">
+                            <p style="font-size: 1.1rem; color: white;">"Better Data → Better Decisions → Better Missions."</p>
+                        </div>
+                    </div>
+                    
+                    <div class="takeaway-graphic-container">
+                        <div class="takeaway-flow" style="flex-direction: column; gap: 20px; align-items: center; border: 1px solid rgba(255,255,255,0.08); padding: 40px; border-radius: 12px; background: rgba(255,255,255,0.02); height: 80%; justify-content: space-around;">
+                            <div style="font-weight: 800; font-size: 0.75rem; text-transform: uppercase; color: var(--accent-cyan); letter-spacing: 1px;">The Command Chain Flow</div>
+                            <div style="display: flex; gap: 25px; align-items: center; flex-wrap: wrap; justify-content: center;">
+                                <div class="takeaway-node"><i class="fa-solid fa-database"></i>Data</div>
+                                <i class="fa-solid fa-arrow-right" style="color: var(--accent-cyan);"></i>
+                                <div class="takeaway-node"><i class="fa-solid fa-brain"></i>Intel</div>
+                                <i class="fa-solid fa-arrow-right" style="color: var(--accent-cyan);"></i>
+                                <div class="takeaway-node"><i class="fa-solid fa-user-tie"></i>Decision</div>
+                                <i class="fa-solid fa-arrow-right" style="color: var(--accent-cyan);"></i>
+                                <div class="takeaway-node mission-node" style="box-shadow: 0 0 20px var(--accent-cyan);"><i class="fa-solid fa-award"></i>Mission</div>
+                            </div>
+                            <p style="font-size: 0.8rem; color: #94a3b8; text-align: center; max-width: 400px; line-height: 1.5;">Refining raw data into combat outcomes secures airspace safety and optimizes resource usage.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Presentation Navigation & Control Toolbar -->
+        <footer class="presentation-controls">
+            <div class="controls-left">
+                <button id="prev-slide" class="control-btn" aria-label="Previous Slide"><i class="ri-arrow-left-line"></i></button>
+                <button id="next-slide" class="control-btn" aria-label="Next Slide"><i class="ri-arrow-right-line"></i></button>
+                <button id="autoplay-toggle" class="control-btn" aria-label="Toggle Autoplay"><i class="ri-play-fill"></i></button>
+                <span class="slide-number-display" id="slide-num">1 / 17</span>
+            </div>
+            
+            <div class="progress-bar-wrapper">
+                <div class="progress-bar-fill"></div>
+            </div>
+            
+            <div class="controls-right">
+                <button id="notes-toggle" class="control-btn" title="Presenter Notes" aria-label="Toggle presenter notes"><i class="ri-article-line"></i></button>
+                <button id="laser-pointer-toggle" class="control-btn" title="Laser Pointer (L)" aria-label="Toggle laser pointer"><i class="ri-contrast-drop-2-line"></i></button>
+                <button id="fullscreen-toggle" class="control-btn" title="Fullscreen (F)" aria-label="Toggle fullscreen"><i class="ri-fullscreen-fill"></i></button>
+                <button id="help-toggle" class="control-btn" title="Keyboard Shortcuts (?)" aria-label="Toggle shortcuts help"><i class="ri-question-line"></i></button>
+            </div>
+        </footer>
+
+        <!-- Presenter Notes Drawer Panel -->
+        <div id="notes-panel" class="notes-panel">
+            <div class="notes-header">Presenter Notes</div>
+            <div class="notes-content">Presenter notes will render here during slides presentation.</div>
+        </div>
+
+        <!-- Help Modal Dialog -->
+        <div id="help-modal" class="modal-overlay">
+            <div class="modal-card">
+                <div class="modal-header">
+                    <h3>Keyboard Shortcuts</h3>
+                    <button id="help-close" class="modal-close" aria-label="Close shortcuts help"><i class="ri-close-line"></i></button>
+                </div>
+                <div class="modal-body">
+                    <p>Use the following shortcuts to control the slide deck during your briefing presentation:</p>
+                    <ul class="shortcuts-list">
+                        <li><span>Next Slide</span> <span class="shortcuts-key">Right Arrow / Space</span></li>
+                        <li><span>Previous Slide</span> <span class="shortcuts-key">Left Arrow / Backspace</span></li>
+                        <li><span>Toggle Fullscreen</span> <span class="shortcuts-key">F</span></li>
+                        <li><span>Toggle Laser Pointer</span> <span class="shortcuts-key">L</span></li>
+                        <li><span>Toggle Presenter Notes</span> <span class="shortcuts-key">N</span></li>
+                        <li><span>Close Menus / Dialogs</span> <span class="shortcuts-key">ESC</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Presentation Engine -->
+    <script src="script.js"></script>
+</body>
+</html>
