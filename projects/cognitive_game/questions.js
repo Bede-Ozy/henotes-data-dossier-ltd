@@ -445,13 +445,48 @@ const configs = {
     q9_kpi_value: "3%",
     q10_kpi_title: "Customer Acquisition Cost (CAC)",
     q10_kpi_value: "$30"
+  },
+  military_aviation: {
+    q4_prompt: "Threat Level: Zone A: 10% ➔ Zone B: 20% ➔ Zone C: 30%.<br>What threat trend is occurring?",
+    q5_prompt: "Radar Contacts: 120 ➔ 90 ➔ 60.<br>What is the contact trend?",
+    q6_prompt: "Target Altitude log:<br>10s: 31,000ft | 20s: 34,000ft | 30s: 32,500ft | 40s: 35,000ft | 50s: 33,500ft<br><br>What is the peak altitude?",
+    q6_options: ["34,000ft", "35,000ft", "32,500ft", "33,500ft"],
+    q6_answer: "35,000ft",
+    q7_prompt: "Airspace Temperature: -15°C ➔ -15°C ➔ -15°C.<br>What is the trend?",
+    
+    q8_prompt: "If last month's active personnel was 2,400 and we deployed 600 more, what is the current active count?",
+    q8_options: ["2,000", "3,000", "4,000", "5,000"],
+    q8_answer: "3,000",
+    q9_prompt: "We had 300 aircraft, and 9 of them were grounded for maintenance. What is the grounding rate?",
+    q9_options: ["1%", "2%", "3%", "5%"],
+    q9_answer: "3%",
+    q10_prompt: "Maintenance spend was $900 for 30 flight hours. What is the cost per flight hour?",
+    q10_options: ["$15", "$20", "$30", "$45"],
+    q10_answer: "$30",
+
+    q4_title: "Threat Status",
+    q4_vals: ["10%", "20%", "30%", "40%"],
+    q5_title: "Radar Contacts Status",
+    q5_vals: ["120", "90", "60", "30"],
+    q6_title: "What is the peak altitude?",
+    q6_chart_vals: ["31,000ft", "34,000ft", "32,500ft", "35,000ft", "33,500ft"],
+    q7_title: "Airspace Temperature Status",
+    q7_vals: ["-15°C", "-15°C", "-15°C", "-15°C"],
+
+    q8_kpi_title: "Active Personnel Deployed",
+    q8_kpi_value: "3,000",
+    q9_kpi_title: "Aircraft Grounding Rate",
+    q9_kpi_value: "3%",
+    q10_kpi_title: "Maintenance Cost / Hour",
+    q10_kpi_value: "$30"
   }
 };
 
 window.industryQuestions = {
   aviation: getIndustryQuestions("Aviation", "av", configs.aviation),
-  finance: getIndustryQuestions("Finance", "fin", configs.aviation),
-  healthcare: getIndustryQuestions("Healthcare", "hc", configs.aviation),
-  retail: getIndustryQuestions("Retail", "ret", configs.aviation),
-  manufacturing: getIndustryQuestions("Manufacturing", "mfg", configs.aviation)
+  finance: getIndustryQuestions("Finance", "fin", configs.finance),
+  healthcare: getIndustryQuestions("Healthcare", "hc", configs.healthcare),
+  retail: getIndustryQuestions("Retail", "ret", configs.retail),
+  manufacturing: getIndustryQuestions("Manufacturing", "mfg", configs.manufacturing),
+  military_aviation: getIndustryQuestions("Military Aviation", "mil", configs.military_aviation)
 };

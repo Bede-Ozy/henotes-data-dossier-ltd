@@ -69,6 +69,10 @@ document.addEventListener('DOMContentLoaded', () => {
     manufacturing: {
       raw: ["Spindle Temp: 185°F", "Spindle Temp: 192°F", "Spindle Temp: 204°F", "Spindle Temp: 218°F", "Spindle Temp: 230°F"],
       insight: "Machine Temperature Rising Critically"
+    },
+    military_aviation: {
+      raw: ["Threat Alt: 25,000ft", "Threat Alt: 28,000ft", "Threat Alt: 31,000ft", "Threat Alt: 33,000ft", "Threat Alt: 35,000ft"],
+      insight: "Threat Aircraft Altitude Rising"
     }
   };
 
