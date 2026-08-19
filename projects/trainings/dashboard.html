@@ -197,7 +197,7 @@
                 <thead>
                     <tr>
                         <th>Participant</th>
-                        <th>Location</th>
+                        <th id="thLocation">Location</th>
                         <th>Score</th>
                         <th>Date</th>
                         <th>Time</th>
@@ -427,6 +427,9 @@
                 label2.innerText = "Total Quizzes / Cohorts";
                 label3.innerText = "Overall Avg Performance";
 
+                const thLocation = document.getElementById('thLocation');
+                if (thLocation) thLocation.innerText = "Location / Rank";
+
                 // Unique names across all results
                 const uniqueNames = new Set(allResults.map(r => r.name.toLowerCase()));
                 document.getElementById('statTotal').innerText = uniqueNames.size;
@@ -457,6 +460,9 @@
                 label1.innerText = "Total Attempts";
                 label2.innerText = "Average Score";
                 label3.innerText = "Highest Score";
+
+                const thLocation = document.getElementById('thLocation');
+                if (thLocation) thLocation.innerText = selectedTraining === 'dsima' ? 'Rank' : 'Location';
 
                 const tableBody = document.getElementById('resultsTableBody');
                 tableBody.innerHTML = '';

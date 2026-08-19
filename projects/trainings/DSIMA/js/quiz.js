@@ -59,7 +59,7 @@ function initializeQuizContent() {
         filtered = [...allQuestions];
     }
 
-    // Shuffle and pick 12 questions (which is the full bank)
+    // Shuffle and pick 12 questions
     shuffle(filtered);
     quizQuestions = filtered.slice(0, 12);
 
@@ -70,139 +70,139 @@ function initializeQuizContent() {
     if (headerDesc) headerDesc.innerText = sessionName;
 }
 
-// DSIMA Questions bank
+// DSIMA Questions bank - Revised to match Day 1 slides exactly
 const allQuestions = [
     {
-        question: "What is the primary value of data in modern aviation?",
+        question: "Based on the slides, which definition best describes Data Science?",
         options: [
-            "To replace the experience of commanders",
-            "To provide evidence that supports better operational decisions",
-            "To eliminate the need for human judgement",
-            "To automate every aviation process"
+            "A technical coding paradigm with no business application",
+            "The process of collecting, organizing, analyzing, and interpreting data to support better decisions",
+            "A system that automates decisions to eliminate human commanders",
+            "The study of crude oil refining processes"
         ],
         correct: 1,
-        explanation: "Data provides the empirical evidence to guide and validate critical operational decisions in aviation."
+        explanation: "As defined in Slide 4, Data Science is the process of collecting, organizing, analyzing, and interpreting data to support better decisions."
     },
     {
-        question: "Which statement best describes the relationship between Data, Information and Intelligence?",
+        question: "Which industrial revolution phase is characterized by Artificial Intelligence (AI) and Big Data?",
         options: [
-            "They all mean exactly the same thing",
-            "Data is analysed into information, while intelligence adds context to support action",
-            "Intelligence is raw data collected from aircraft",
-            "Information is always more accurate than data"
+            "The First Industrial Revolution",
+            "The Second Industrial Revolution",
+            "The Third Industrial Revolution",
+            "The Fourth Industrial Revolution (4IR)"
         ],
-        correct: 1,
-        explanation: "Data consists of raw facts. Information is structured data. Intelligence goes further by applying analysis and context to enable action."
+        correct: 3,
+        explanation: "Slide 3 highlights that the Fourth Industrial Revolution (4IR) is the phase centered on Artificial Intelligence & Big Data."
     },
     {
-        question: "A squadron reports that it flew 420 flight hours in July. What does this represent?",
+        question: "Why is data compared to 'Crude Oil' in modern aviation management?",
         options: [
-            "Data",
+            "It is thick and clutters engines in its raw state",
+            "It is expensive to buy and sell on the open market",
+            "It has little value until it is cleaned, analyzed, and refined into action",
+            "It is used primarily as a fuel source for aircraft"
+        ],
+        correct: 2,
+        explanation: "Slide 6 notes that like crude oil, raw data has little value until it is cleaned, analyzed, and refined to support operational decisions."
+    },
+    {
+        question: "In the context of the Tucano fuel remaining example, what does the unstructured value '5000' represent?",
+        options: [
+            "Raw Data",
             "Information",
             "Intelligence",
-            "Prescriptive analytics"
+            "Analytics Continuum"
         ],
-        correct: 1,
-        explanation: "420 flight hours in July is information because it organizes raw flight logs into a meaningful context (a specific squadron and timeframe)."
+        correct: 0,
+        explanation: "Slide 9 indicates that raw data represents unstructured values and metrics in isolation with zero situational context."
     },
     {
-        question: "A commander discovers that aircraft availability dropped from 78% to 61% over three months. Which type of analytics is being used when the commander asks: 'Why did availability decline?'",
+        question: "The statement 'The Tucano currently has 5000 kg of fuel remaining' represents which level of the data hierarchy?",
         options: [
-            "Descriptive",
-            "Diagnostic",
-            "Predictive",
-            "Prescriptive"
+            "Raw Data",
+            "Information",
+            "Intelligence",
+            "Prescriptive Analytics"
         ],
         correct: 1,
-        explanation: "Diagnostic analytics focuses on understanding the root causes behind past events ('Why did it happen?')."
+        explanation: "Slide 9 explains that Information is processed and refined data that has context and meaning (e.g. knowing the value refers to a Tucano's fuel)."
     },
     {
-        question: "Which question represents predictive analytics?",
+        question: "An aviation commander determines: 'The Tucano can safely reach base with a 45-minute reserve.' Under the hierarchy, what is this considered?",
         options: [
-            "How many aircraft were available last month?",
-            "Why did aircraft availability decline?",
-            "Which aircraft is most likely to experience a maintenance issue next month?",
-            "Which aircraft should we ground today?"
+            "Raw Data",
+            "Information",
+            "Intelligence",
+            "Descriptive Analytics"
         ],
         correct: 2,
-        explanation: "Predictive analytics forecasts future occurrences based on historical patterns."
+        explanation: "Intelligence is information put into action and used as the backbone of operational decisions (Slide 9)."
     },
     {
-        question: "Which question represents prescriptive analytics?",
+        question: "A leader expects clear data standards, ownership, accountability, and rules. Which data pillar is this?",
         options: [
-            "What happened to fuel consumption?",
-            "Why did fuel consumption increase?",
-            "What will fuel consumption be next month?",
-            "Given the fuel shortage, which missions should be prioritised?"
+            "Data Security",
+            "Data Governance",
+            "Data Privacy",
+            "Data Analytics"
+        ],
+        correct: 1,
+        explanation: "Slide 8 defines Data Governance as establishing clear ownership, standards, accountability, and rules for data."
+    },
+    {
+        question: "Which of the following is NOT one of the six key criteria for operational data quality?",
+        options: [
+            "Accuracy and Completeness",
+            "Consistency and Reliability",
+            "Complexity and Length",
+            "Timeliness and Relevance"
+        ],
+        correct: 2,
+        explanation: "According to Slide 10, the data quality criteria are Accuracy, Completeness, Consistency, Reliability, Timeliness, and Relevance. Complexity is not a quality standard."
+    },
+    {
+        question: "Under the 'Garbage In, Garbage Out' principle, what is the main consequence of poor data quality?",
+        options: [
+            "Aircraft maintenance turnaround times will decrease",
+            "Data storage costs will immediately double",
+            "Unreliable data will cause analytical models and Artificial Intelligence to fail",
+            "Weather records will become inaccessible"
+        ],
+        correct: 2,
+        explanation: "Slide 10 highlights that if operational data is unreliable, analytical tools and Artificial Intelligence will fail to work effectively as expected."
+    },
+    {
+        question: "Which KPI represents the aviation leadership principle that 'You can only manage what you measure'?",
+        options: [
+            "Maintenance Turnaround Time (e.g., 6.4 days)",
+            "Total Flight Hours (e.g., 1,284 hrs)",
+            "Mission Success Rate (e.g., 94%)",
+            "All of the above"
         ],
         correct: 3,
-        explanation: "Prescriptive analytics recommends specific courses of action in response to scenarios ('What should we do?')."
+        explanation: "Slide 14 outlines key KPIs (Flight Hours, Success Rate, Maintenance Time, Cost, etc.) to reinforce that leaders must measure what they intend to manage."
     },
     {
-        question: "Scenario Question: A commander receives two reports:<br><br><b>Report A:</b><br>Aircraft availability = 58%<br><br><b>Report B:</b><br>Aircraft availability declined from 76% to 58%, with 65% of the downtime linked to three recurring defects.<br><br>Which report provides greater analytical value?",
+        question: "A commander isolates maintenance delays or transit bottlenecks using root-cause analysis to answer: 'Why is aircraft availability declining?' Which type of analytics is this?",
         options: [
-            "Report A, because it is simpler",
-            "Report B, because it provides context and helps identify where action may be required",
-            "Both provide exactly the same information",
-            "Neither report is useful"
+            "Descriptive Analytics",
+            "Diagnostic Analytics",
+            "Predictive Analytics",
+            "Prescriptive Analytics"
         ],
         correct: 1,
-        explanation: "Report B provides context, trends, and actionable root cause details, making it significantly more valuable for command decisions."
+        explanation: "Diagnostic analytics answers the question 'Why did it happen?' by utilizing root-cause analysis to isolate operational bottlenecks (Slide 15)."
     },
     {
-        question: "Why is data quality important in aviation decision-making?",
+        question: "Which match between an analytical question and its continuum stage is correct?",
         options: [
-            "It makes dashboards look better",
-            "It reduces the need for commanders",
-            "Poor-quality data can produce misleading analysis and poor decisions",
-            "It increases the amount of data available"
+            "Descriptive: 'Why did hydraulic leaks occur?'",
+            "Predictive: 'How many aircraft were available last month?'",
+            "Prescriptive: 'Given a fuel shortage, which combat sorties should automated algorithms prioritize?'",
+            "Diagnostic: 'Which aircraft will experience maintenance issues next month?'"
         ],
         correct: 2,
-        explanation: "Poor data quality leads to flawed insights and incorrect conclusions, which is dangerous in mission-critical aviation operations."
-    },
-    {
-        question: "Which of the following is NOT a characteristic of good operational data?",
-        options: [
-            "Accurate",
-            "Complete",
-            "Timely",
-            "Complicated"
-        ],
-        correct: 3,
-        explanation: "Good operational data should be clear and accessible, not unnecessarily complicated."
-    },
-    {
-        question: "What is the main purpose of data governance?",
-        options: [
-            "To prevent personnel from using data",
-            "To establish ownership, accountability, standards and appropriate use of data",
-            "To replace operational commanders",
-            "To make every dataset public"
-        ],
-        correct: 1,
-        explanation: "Data governance ensures data availability, integrity, security, and usability by setting policies, rules, and responsibilities."
-    },
-    {
-        question: "Command Scenario: A commander is told: 'The squadron is fully ready for operations.' However, the dashboard shows: Aircraft Availability: 54%, Pilot Currency: 68%, Fuel Reserve: 42%, Maintenance Backlog: High. What should the commander do?",
-        options: [
-            "Ignore the dashboard because the squadron commander said they are ready",
-            "Accept the report without question",
-            "Investigate the discrepancy and use the available evidence to assess actual readiness",
-            "Immediately cancel all operations"
-        ],
-        correct: 2,
-        explanation: "A commander uses dashboard data as a support tool to ask critical questions, cross-reference reports, and make a balanced, evidence-based judgment."
-    },
-    {
-        question: "Which statement best captures the role of a commander in a data-driven organisation?",
-        options: [
-            "The commander must become a programmer",
-            "The commander should rely entirely on algorithms",
-            "The commander should understand enough about data to ask the right questions, interpret evidence and make informed decisions",
-            "Data analysts should make all operational decisions"
-        ],
-        correct: 2,
-        explanation: "The commander does not need to write code but must have sufficient data literacy to interpret evidence, challenge assumptions, and make final decisions."
+        explanation: "Slide 15 identifies Descriptive as 'What happened?', Predictive as forecasting ('What will happen?'), and Prescriptive as recommending actions ('What should we do?') such as automated sorting algorithms."
     }
 ];
 
@@ -221,7 +221,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Start Quiz Button
     startBtn.addEventListener('click', () => {
         userName = document.getElementById('userName').value.trim();
-        userLocation = document.getElementById('userLocation').value.trim();
+        const locationSelect = document.getElementById('userLocation');
+        userLocation = locationSelect.options[locationSelect.selectedIndex].value;
 
         if (userName && userLocation) {
             if (quizQuestions.length === 0) {
@@ -232,7 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
             quizInterface.classList.remove('hidden');
             showQuestion();
         } else {
-            alert("Please enter both your name and location to begin.");
+            alert("Please enter both your name and select your rank to begin.");
         }
     });
 

@@ -32,8 +32,25 @@
             </div>
             
             <div class="form-group">
-                <label for="userLocation">Location</label>
-                <input type="text" id="userLocation" class="input-field" placeholder="e.g. Lagos, Abuja, Kano" required>
+                <label for="userLocation">Rank</label>
+                <select id="userLocation" class="input-field" style="width: 100%; height: 50px; background: #161b22; border: 1px solid var(--border); border-radius: 8px; color: var(--text); padding: 0 15px; font-size: 1rem; cursor: pointer; box-sizing: border-box;" required>
+                    <option value="" disabled selected>Select your rank</option>
+                    <option value="Wing Commander">Wing Commander</option>
+                    <option value="Squadron Leader">Squadron Leader</option>
+                    <option value="Flight Lieutenant">Flight Lieutenant</option>
+                    <option value="Flying Officer">Flying Officer</option>
+                    <option value="Pilot Officer">Pilot Officer</option>
+                    <option value="Air Warrant Officer">Air Warrant Officer</option>
+                    <option value="Master Warrant Officer">Master Warrant Officer</option>
+                    <option value="Warrant Officer">Warrant Officer</option>
+                    <option value="Flight Sergeant">Flight Sergeant</option>
+                    <option value="Sergeant">Sergeant</option>
+                    <option value="Corporal">Corporal</option>
+                    <option value="Lance Corporal">Lance Corporal</option>
+                    <option value="Aircraftman / Aircraftwoman">Aircraftman / Aircraftwoman</option>
+                    <option value="Recruit">Recruit</option>
+                    <option value="Other">Other</option>
+                </select>
             </div>
             
             <button id="startBtn" class="btn-primary">
