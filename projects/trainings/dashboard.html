@@ -163,20 +163,28 @@
 
         <div class="stats-grid">
             <div class="stat-card">
-                <p class="text-muted">Total Participants</p>
+                <p class="text-muted" id="statLabel1">Total Participants</p>
                 <div id="statTotal" class="stat-value">0</div>
             </div>
             <div class="stat-card">
-                <p class="text-muted">Average Score</p>
+                <p class="text-muted" id="statLabel2">Average Score</p>
                 <div id="statAvg" class="stat-value">0</div>
             </div>
             <div class="stat-card">
-                <p class="text-muted">Highest Score</p>
+                <p class="text-muted" id="statLabel3">Highest Score</p>
                 <div id="statMax" class="stat-value">0</div>
             </div>
         </div>
 
-        <div style="margin-bottom: 40px;">
+        <!-- Overview Section (Dynamic comparative chart) -->
+        <div id="overviewSection" class="hidden animate-in" style="margin-bottom: 40px;">
+            <h2 style="margin-bottom: 20px;"><i class="ri-bar-chart-2-line" style="color: var(--primary-glow);"></i> Quiz Performance Overview</h2>
+            <div id="overviewChartGrid" style="display: flex; flex-direction: column; gap: 20px;">
+                <!-- Chart cards injected via JS -->
+            </div>
+        </div>
+
+        <div id="leaderboardSection" style="margin-bottom: 40px;">
             <h2 style="margin-bottom: 20px;"><i class="ri-trophy-line" style="color: #f6e05e;"></i> Top Performers</h2>
             <div id="leaderboardGrid" class="stats-grid"
                 style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
@@ -184,7 +192,7 @@
             </div>
         </div>
 
-        <div class="results-table-container">
+        <div id="tableSection" class="results-table-container">
             <table>
                 <thead>
                     <tr>
@@ -312,115 +320,248 @@
             }
         }
 
-        function renderDashboard() {
-            const selectedTraining = document.getElementById('trainingFilter').value;
-            const tableBody = document.getElementById('resultsTableBody');
-            tableBody.innerHTML = '';
+        function renderOverviewCharts(uniqueTrainings) {
+            const chartGrid = document.getElementById('overviewChartGrid');
+            chartGrid.innerHTML = '';
 
-            // Filter Results
-            const filteredResults = allResults.filter(r => {
-                if (selectedTraining === 'all') return true;
-                return r.training === selectedTraining;
+            const trainingNames = {
+                "jci": "JCI Excel Training",
+                "dsima": "DSIMA Aviation Leadership"
+            };
+
+            // Calculate aggregates per training
+            const trainingData = [];
+            let maxAttempts = 1;
+
+            uniqueTrainings.forEach(tId => {
+                const results = allResults.filter(r => r.training === tId);
+                const attempts = results.length;
+                if (attempts > maxAttempts) maxAttempts = attempts;
+
+                let scoreSum = 0;
+                let totalSum = 0;
+                results.forEach(r => {
+                    scoreSum += r.score;
+                    totalSum += r.total;
+                });
+
+                const avgPct = totalSum > 0 ? (scoreSum / totalSum) * 100 : 0;
+                const displayScore = totalSum > 0 ? (scoreSum / attempts).toFixed(1) : "0";
+                const displayTotal = totalSum > 0 ? (totalSum / attempts).toFixed(0) : "0";
+
+                trainingData.push({
+                    id: tId,
+                    name: trainingNames[tId] || toProperCase(tId.replace(/[-_]/g, ' ')),
+                    attempts: attempts,
+                    avgPct: avgPct,
+                    displayAvg: `${displayScore} / ${displayTotal}`
+                });
             });
 
-            // Multi-level Sort: Name (A-Z), then Date (Oldest to Newest)
-            filteredResults.sort((a, b) => {
-                const nameA = a.name.toUpperCase();
-                const nameB = b.name.toUpperCase();
-                if (nameA < nameB) return -1;
-                if (nameA > nameB) return 1;
-                
-                // Names are equal, sort by timestamp
-                const timeA = a.timestamp?.toMillis() || 0;
-                const timeB = b.timestamp?.toMillis() || 0;
-                return timeA - timeB;
-            });
+            // Sort trainings alphabetically
+            trainingData.sort((a, b) => a.name.localeCompare(b.name));
 
-            let totalScore = 0;
-            let maxScore = 0;
-
-            // Render Table
-            filteredResults.forEach((data) => {
-                const timestamp = data.timestamp?.toDate() || new Date();
-                totalScore += data.score;
-                if (data.score > maxScore) maxScore = data.score;
-
-                const row = document.createElement('tr');
-                
-                const percentage = data.total > 0 ? (data.score / data.total) * 100 : 0;
-                const scoreClass = percentage >= 75 ? 'score-high' : (percentage >= 50 ? 'score-mid' : 'score-low');
-                
-                row.innerHTML = `
-                    <td style="font-weight:600;">${data.name}</td>
-                    <td class="text-muted">${data.location}</td>
-                    <td><span class="badge-score ${scoreClass}">${data.score} / ${data.total}</span></td>
-                    <td class="text-muted">${timestamp.toLocaleDateString()}</td>
-                    <td class="text-muted">${timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
-                    <td>
-                        <button onclick="deleteEntry('quiz_results', '${data.id}')" style="background:none; border:none; color:var(--error); cursor:pointer; font-size:1.1rem;" title="Delete Result">
-                            <i class="ri-delete-bin-line"></i>
-                        </button>
-                    </td>
-                `;
-                tableBody.appendChild(row);
-            });
-
-            document.getElementById('statTotal').innerText = filteredResults.length;
-            document.getElementById('statAvg').innerText = filteredResults.length > 0 ? (totalScore / filteredResults.length).toFixed(1) : 0;
-            document.getElementById('statMax').innerText = maxScore;
-
-            // Update Leaderboard
-            const leaderboardGrid = document.getElementById('leaderboardGrid');
-            leaderboardGrid.innerHTML = '';
-
-            // Group by participant and calculate average
-            const participantGroups = {};
-            filteredResults.forEach(r => {
-                if (!participantGroups[r.name]) {
-                    participantGroups[r.name] = { 
-                        name: r.name, 
-                        totalScore: 0, 
-                        count: 0, 
-                        location: r.location,
-                        totalPossible: 0
-                    };
-                }
-                participantGroups[r.name].totalScore += r.score;
-                participantGroups[r.name].totalPossible += r.total;
-                participantGroups[r.name].count += 1;
-            });
-
-            const topAverages = Object.values(participantGroups)
-                .map(p => ({
-                    ...p,
-                    avgScore: p.totalScore / p.count,
-                    avgTotal: p.totalPossible / p.count
-                }))
-                .sort((a, b) => b.avgScore - a.avgScore)
-                .slice(0, 5);
-
-            topAverages.forEach((p, index) => {
+            // Render comparative progress bar cards
+            trainingData.forEach(t => {
                 const card = document.createElement('div');
                 card.className = 'stat-card animate-in';
-                card.style.animationDelay = `${index * 0.1}s`;
-                card.style.borderTop = `4px solid ${index === 0 ? '#f6e05e' : (index === 1 ? '#a0aec0' : (index === 2 ? '#ed8936' : 'var(--border)'))}`;
+                card.style.textAlign = 'left';
+                card.style.padding = '24px';
+                card.style.display = 'grid';
+                card.style.gridTemplateColumns = 'repeat(auto-fit, minmax(200px, 1fr))';
+                card.style.gap = '24px';
+                card.style.alignItems = 'center';
+
+                // Attempts progress percentage (max attempts scale to 100%)
+                const attemptsPct = (t.attempts / maxAttempts) * 100;
 
                 card.innerHTML = `
-                    <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 5px;">
-                        #${index + 1} Avg Rank
+                    <div>
+                        <h3 style="font-weight: 800; font-size: 1.2rem; color: var(--primary-glow); margin-bottom: 5px;">${t.name}</h3>
+                        <p style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.5px;">Cohort ID: ${t.id.toUpperCase()}</p>
                     </div>
-                    <div style="font-weight: 800; font-size: 1.1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${p.name}">
-                        ${p.name}
+                    
+                    <!-- Average Score Comparison -->
+                    <div>
+                        <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 6px;">
+                            <span class="text-muted">Average Performance</span>
+                            <span style="font-weight: bold; color: #3fb950;">${t.avgPct.toFixed(1)}% (${t.displayAvg})</span>
+                        </div>
+                        <div style="background: var(--border); height: 10px; border-radius: 5px; overflow: hidden; width: 100%;">
+                            <div style="background: linear-gradient(90deg, #56ab2f, #a8ff78); width: ${t.avgPct}%; height: 100%; border-radius: 5px; transition: width 1s ease-in-out;"></div>
+                        </div>
                     </div>
-                    <div class="stat-value" style="font-size: 1.8rem; margin-top: 5px;">
-                        ${p.avgScore.toFixed(1)}<span style="font-size: 0.9rem; color: var(--text-muted);">/${p.avgTotal.toFixed(0)}</span>
-                    </div>
-                    <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 5px;">
-                        ${p.location} • ${p.count} attempts
+
+                    <!-- Total Attempts Comparison -->
+                    <div>
+                        <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 6px;">
+                            <span class="text-muted">Total Participants</span>
+                            <span style="font-weight: bold; color: #f27121;">${t.attempts}</span>
+                        </div>
+                        <div style="background: var(--border); height: 10px; border-radius: 5px; overflow: hidden; width: 100%;">
+                            <div style="background: linear-gradient(90deg, #f857a6, #ff5858); width: ${attemptsPct}%; height: 100%; border-radius: 5px; transition: width 1s ease-in-out;"></div>
+                        </div>
                     </div>
                 `;
-                leaderboardGrid.appendChild(card);
+                chartGrid.appendChild(card);
             });
+        }
+
+        function renderDashboard() {
+            const selectedTraining = document.getElementById('trainingFilter').value;
+            const overviewSection = document.getElementById('overviewSection');
+            const leaderboardSection = document.getElementById('leaderboardSection');
+            const tableSection = document.getElementById('tableSection');
+
+            const label1 = document.getElementById('statLabel1');
+            const label2 = document.getElementById('statLabel2');
+            const label3 = document.getElementById('statLabel3');
+
+            if (selectedTraining === 'all') {
+                // --- OVERVIEW MODE ---
+                overviewSection.classList.remove('hidden');
+                leaderboardSection.classList.add('hidden');
+                tableSection.classList.add('hidden');
+
+                label1.innerText = "Total Unique Participants";
+                label2.innerText = "Total Quizzes / Cohorts";
+                label3.innerText = "Overall Avg Performance";
+
+                // Unique names across all results
+                const uniqueNames = new Set(allResults.map(r => r.name.toLowerCase()));
+                document.getElementById('statTotal').innerText = uniqueNames.size;
+
+                // Unique training ids
+                const uniqueTrainings = new Set(allResults.map(r => r.training));
+                document.getElementById('statAvg').innerText = uniqueTrainings.size;
+
+                // Overall average score percentage
+                let scoreSum = 0;
+                let totalSum = 0;
+                allResults.forEach(r => {
+                    scoreSum += r.score;
+                    totalSum += r.total;
+                });
+                const overallAvgPct = totalSum > 0 ? (scoreSum / totalSum) * 100 : 0;
+                document.getElementById('statMax').innerText = `${Math.round(overallAvgPct)}%`;
+
+                // Render overview comparative charts
+                renderOverviewCharts(uniqueTrainings);
+
+            } else {
+                // --- COHORT DETAILS MODE ---
+                overviewSection.classList.add('hidden');
+                leaderboardSection.classList.remove('hidden');
+                tableSection.classList.remove('hidden');
+
+                label1.innerText = "Total Attempts";
+                label2.innerText = "Average Score";
+                label3.innerText = "Highest Score";
+
+                const tableBody = document.getElementById('resultsTableBody');
+                tableBody.innerHTML = '';
+
+                // Filter Results
+                const filteredResults = allResults.filter(r => r.training === selectedTraining);
+
+                // Multi-level Sort: Name (A-Z), then Date (Oldest to Newest)
+                filteredResults.sort((a, b) => {
+                    const nameA = a.name.toUpperCase();
+                    const nameB = b.name.toUpperCase();
+                    if (nameA < nameB) return -1;
+                    if (nameA > nameB) return 1;
+                    
+                    const timeA = a.timestamp?.toMillis() || 0;
+                    const timeB = b.timestamp?.toMillis() || 0;
+                    return timeA - timeB;
+                });
+
+                let totalScore = 0;
+                let maxScore = 0;
+
+                // Render Table
+                filteredResults.forEach((data) => {
+                    const timestamp = data.timestamp?.toDate() || new Date();
+                    totalScore += data.score;
+                    if (data.score > maxScore) maxScore = data.score;
+
+                    const row = document.createElement('tr');
+                    
+                    const percentage = data.total > 0 ? (data.score / data.total) * 100 : 0;
+                    const scoreClass = percentage >= 75 ? 'score-high' : (percentage >= 50 ? 'score-mid' : 'score-low');
+                    
+                    row.innerHTML = `
+                        <td style="font-weight:600;">${data.name}</td>
+                        <td class="text-muted">${data.location}</td>
+                        <td><span class="badge-score ${scoreClass}">${data.score} / ${data.total}</span></td>
+                        <td class="text-muted">${timestamp.toLocaleDateString()}</td>
+                        <td class="text-muted">${timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
+                        <td>
+                            <button onclick="deleteEntry('quiz_results', '${data.id}')" style="background:none; border:none; color:var(--error); cursor:pointer; font-size:1.1rem;" title="Delete Result">
+                                <i class="ri-delete-bin-line"></i>
+                            </button>
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+
+                document.getElementById('statTotal').innerText = filteredResults.length;
+                document.getElementById('statAvg').innerText = filteredResults.length > 0 ? (totalScore / filteredResults.length).toFixed(1) : 0;
+                document.getElementById('statMax').innerText = maxScore;
+
+                // Update Leaderboard
+                const leaderboardGrid = document.getElementById('leaderboardGrid');
+                leaderboardGrid.innerHTML = '';
+
+                // Group by participant and calculate average
+                const participantGroups = {};
+                filteredResults.forEach(r => {
+                    if (!participantGroups[r.name]) {
+                        participantGroups[r.name] = { 
+                            name: r.name, 
+                            totalScore: 0, 
+                            count: 0, 
+                            location: r.location,
+                            totalPossible: 0
+                        };
+                    }
+                    participantGroups[r.name].totalScore += r.score;
+                    participantGroups[r.name].totalPossible += r.total;
+                    participantGroups[r.name].count += 1;
+                });
+
+                const topAverages = Object.values(participantGroups)
+                    .map(p => ({
+                        ...p,
+                        avgScore: p.totalScore / p.count,
+                        avgTotal: p.totalPossible / p.count
+                    }))
+                    .sort((a, b) => b.avgScore - a.avgScore)
+                    .slice(0, 5);
+
+                topAverages.forEach((p, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'stat-card animate-in';
+                    card.style.animationDelay = `${index * 0.1}s`;
+                    card.style.borderTop = `4px solid ${index === 0 ? '#f6e05e' : (index === 1 ? '#a0aec0' : (index === 2 ? '#ed8936' : 'var(--border)'))}`;
+
+                    card.innerHTML = `
+                        <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 5px;">
+                            #${index + 1} Avg Rank
+                        </div>
+                        <div style="font-weight: 800; font-size: 1.1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${p.name}">
+                            ${p.name}
+                        </div>
+                        <div class="stat-value" style="font-size: 1.8rem; margin-top: 5px;">
+                            ${p.avgScore.toFixed(1)}<span style="font-size: 0.9rem; color: var(--text-muted);">/${p.avgTotal.toFixed(0)}</span>
+                        </div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 5px;">
+                            ${p.location} • ${p.count} attempts
+                        </div>
+                    `;
+                    leaderboardGrid.appendChild(card);
+                });
+            }
         }
 
         // Add filter listener
