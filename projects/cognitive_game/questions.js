@@ -251,21 +251,21 @@ const getIndustryQuestions = (name, prefix, configs) => {
     {
       id: `${prefix}_rec_8`,
       instruction: "Identify the business KPI value.",
-      prompt: `<div class="kpi-cards-row"><div class="dashboard-kpi-card"><span class="kpi-label">${configs.q8_kpi_title}</span><span class="kpi-value">${configs.q8_kpi_value}</span></div><div class="dashboard-kpi-card"><span class="kpi-label">${configs.q9_kpi_title}</span><span class="kpi-value">${configs.q9_kpi_value}</span></div><div class="dashboard-kpi-card"><span class="kpi-label">${configs.q10_kpi_title}</span><span class="kpi-value">${configs.q10_kpi_value}</span></div></div><div class="kpi-question">What is the number of active users?</div>`,
+      prompt: `<div class="kpi-cards-row"><div class="dashboard-kpi-card"><span class="kpi-label">${configs.q8_kpi_title}</span><span class="kpi-value">${configs.q8_kpi_value}</span></div><div class="dashboard-kpi-card"><span class="kpi-label">${configs.q9_kpi_title}</span><span class="kpi-value">${configs.q9_kpi_value}</span></div><div class="dashboard-kpi-card"><span class="kpi-label">${configs.q10_kpi_title}</span><span class="kpi-value">${configs.q10_kpi_value}</span></div></div><div class="kpi-question">${configs.q8_rec_question || "What is the number of active users?"}</div>`,
       options: configs.q8_options,
       answer: configs.q8_kpi_value
     },
     {
       id: `${prefix}_rec_9`,
       instruction: "Identify the business KPI value.",
-      prompt: `<div class="kpi-cards-row"><div class="dashboard-kpi-card"><span class="kpi-label">${configs.q8_kpi_title}</span><span class="kpi-value">${configs.q8_kpi_value}</span></div><div class="dashboard-kpi-card"><span class="kpi-label">${configs.q9_kpi_title}</span><span class="kpi-value">${configs.q9_kpi_value}</span></div><div class="dashboard-kpi-card"><span class="kpi-label">${configs.q10_kpi_title}</span><span class="kpi-value">${configs.q10_kpi_value}</span></div></div><div class="kpi-question">What is the customer churn rate?</div>`,
+      prompt: `<div class="kpi-cards-row"><div class="dashboard-kpi-card"><span class="kpi-label">${configs.q8_kpi_title}</span><span class="kpi-value">${configs.q8_kpi_value}</span></div><div class="dashboard-kpi-card"><span class="kpi-label">${configs.q9_kpi_title}</span><span class="kpi-value">${configs.q9_kpi_value}</span></div><div class="dashboard-kpi-card"><span class="kpi-label">${configs.q10_kpi_title}</span><span class="kpi-value">${configs.q10_kpi_value}</span></div></div><div class="kpi-question">${configs.q9_rec_question || "What is the customer churn rate?"}</div>`,
       options: configs.q9_options,
       answer: configs.q9_kpi_value
     },
     {
       id: `${prefix}_rec_10`,
       instruction: "Identify the business KPI value.",
-      prompt: `<div class="kpi-cards-row"><div class="dashboard-kpi-card"><span class="kpi-label">${configs.q8_kpi_title}</span><span class="kpi-value">${configs.q8_kpi_value}</span></div><div class="dashboard-kpi-card"><span class="kpi-label">${configs.q9_kpi_title}</span><span class="kpi-value">${configs.q9_kpi_value}</span></div><div class="dashboard-kpi-card"><span class="kpi-label">${configs.q10_kpi_title}</span><span class="kpi-value">${configs.q10_kpi_value}</span></div></div><div class="kpi-question">What is the customer acquisition cost?</div>`,
+      prompt: `<div class="kpi-cards-row"><div class="dashboard-kpi-card"><span class="kpi-label">${configs.q8_kpi_title}</span><span class="kpi-value">${configs.q8_kpi_value}</span></div><div class="dashboard-kpi-card"><span class="kpi-label">${configs.q9_kpi_title}</span><span class="kpi-value">${configs.q9_kpi_value}</span></div><div class="dashboard-kpi-card"><span class="kpi-label">${configs.q10_kpi_title}</span><span class="kpi-value">${configs.q10_kpi_value}</span></div></div><div class="kpi-question">${configs.q10_rec_question || "What is the customer acquisition cost?"}</div>`,
       options: configs.q10_options,
       answer: configs.q10_kpi_value
     }
@@ -454,9 +454,9 @@ const configs = {
     q6_answer: "35,000ft",
     q7_prompt: "Airspace Temperature: -15°C ➔ -15°C ➔ -15°C.<br>What is the trend?",
     
-    q8_prompt: "If last month's active personnel was 2,400 and we deployed 600 more, what is the current active count?",
-    q8_options: ["2,000", "3,000", "4,000", "5,000"],
-    q8_answer: "3,000",
+    q8_prompt: "If last month's Total flight hours was 2,400 and we had 750 more this month, what is the current Total Flight Hours?",
+    q8_options: ["2,150", "3,150", "4,150", "5,150"],
+    q8_answer: "3,150",
     q9_prompt: "We had 300 aircraft, and 9 of them were grounded for maintenance. What is the grounding rate?",
     q9_options: ["1%", "2%", "3%", "5%"],
     q9_answer: "3%",
@@ -473,12 +473,16 @@ const configs = {
     q7_title: "Airspace Temperature Status",
     q7_vals: ["-15°C", "-15°C", "-15°C", "-15°C"],
 
-    q8_kpi_title: "Active Personnel Deployed",
-    q8_kpi_value: "3,000",
+    q8_kpi_title: "Total Flight Hours",
+    q8_kpi_value: "3,150",
     q9_kpi_title: "Aircraft Grounding Rate",
     q9_kpi_value: "3%",
     q10_kpi_title: "Maintenance Cost / Hour",
-    q10_kpi_value: "$30"
+    q10_kpi_value: "$30",
+
+    q8_rec_question: "What is the total flight hours?",
+    q9_rec_question: "What is the aircraft grounding rate?",
+    q10_rec_question: "What is the maintenance cost per flight hour?"
   }
 };
 

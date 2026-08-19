@@ -1219,6 +1219,7 @@ async function finishQuiz() {
         console.log("Attempting to save to Firebase...", { db, userName, score });
 
         const docRef = await addDoc(collection(db, "quiz_results"), {
+            training: "jci",
             name: toProperCase(userName),
             location: toProperCase(userLocation),
             score: score,

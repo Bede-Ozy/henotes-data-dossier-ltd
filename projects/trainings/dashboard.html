@@ -139,16 +139,23 @@
     <div class="dashboard-content hidden" id="mainContent">
         <div class="dashboard-header">
             <div>
-                <h1>JCI Training Dashboard</h1>
+                <h1>Training Dashboard</h1>
                 <p class="text-muted">Real-time performance tracking</p>
             </div>
-            <div style="display: flex; gap: 10px;">
+            <div style="display: flex; gap: 12px; align-items: center;">
+                <div class="filter-group" style="display: flex; align-items: center; gap: 8px;">
+                    <label for="trainingFilter" style="color: var(--text-muted); font-size: 0.9rem; font-weight: 600; white-space: nowrap;">Training:</label>
+                    <select id="trainingFilter" class="input-field" style="width: auto; padding: 8px 16px; margin: 0; background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); cursor: pointer;">
+                        <option value="all">All Trainings</option>
+                        <option value="jci">JCI Excel Training</option>
+                    </select>
+                </div>
                 <button id="downloadCsv" class="btn-primary"
-                    style="width: auto; padding: 10px 20px; background: var(--border);">
+                    style="width: auto; padding: 10px 20px; background: var(--border); margin: 0;">
                     <i class="ri-download-2-line"></i> Export CSV
                 </button>
                 <button id="logoutBtn" class="btn-primary"
-                    style="width: auto; padding: 10px 20px; background: var(--error);">
+                    style="width: auto; padding: 10px 20px; background: var(--error); margin: 0;">
                     <i class="ri-logout-box-line"></i> Logout
                 </button>
             </div>
@@ -181,7 +188,7 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Participant Name</th>
+                        <th>Participant</th>
                         <th>Location</th>
                         <th>Score</th>
                         <th>Date</th>
@@ -190,7 +197,7 @@
                     </tr>
                 </thead>
                 <tbody id="resultsTableBody">
-                    <!-- Data injected here -->
+                    <!-- Results injected here -->
                 </tbody>
             </table>
         </div>
@@ -255,134 +262,191 @@
         function loadData() {
             const q = collection(db, "quiz_results");
             onSnapshot(q, (snapshot) => {
-                const tableBody = document.getElementById('resultsTableBody');
-                tableBody.innerHTML = '';
-                
                 // 1. Process and Format Data
                 allResults = snapshot.docs.map(docSnap => {
                     const data = docSnap.data();
                     return {
                         id: docSnap.id,
                         ...data,
+                        training: (data.training || 'jci').toLowerCase(),
                         name: toProperCase(data.name),
                         location: toProperCase(data.location)
                     };
                 });
 
-                // 2. Multi-level Sort: Name (A-Z), then Date (Oldest to Newest)
-                allResults.sort((a, b) => {
-                    const nameA = a.name.toUpperCase();
-                    const nameB = b.name.toUpperCase();
-                    if (nameA < nameB) return -1;
-                    if (nameA > nameB) return 1;
-                    
-                    // Names are equal, sort by timestamp
-                    const timeA = a.timestamp?.toMillis() || 0;
-                    const timeB = b.timestamp?.toMillis() || 0;
-                    return timeA - timeB;
-                });
+                // Update dynamic dropdown options
+                updateTrainingDropdown();
 
-                let totalScore = 0;
-                let maxScore = 0;
-
-                // 3. Render Table
-                allResults.forEach((data) => {
-                    const timestamp = data.timestamp?.toDate() || new Date();
-                    totalScore += data.score;
-                    if (data.score > maxScore) maxScore = data.score;
-
-                    const row = document.createElement('tr');
-                    const scoreClass = data.score >= 15 ? 'score-high' : (data.score >= 10 ? 'score-mid' : 'score-low');
-                    row.innerHTML = `
-                        <td style="font-weight:600;">${data.name}</td>
-                        <td class="text-muted">${data.location}</td>
-                        <td><span class="badge-score ${scoreClass}">${data.score} / ${data.total}</span></td>
-                        <td class="text-muted">${timestamp.toLocaleDateString()}</td>
-                        <td class="text-muted">${timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
-                        <td>
-                            <button onclick="deleteEntry('quiz_results', '${data.id}')" style="background:none; border:none; color:var(--error); cursor:pointer; font-size:1.1rem;" title="Delete Result">
-                                <i class="ri-delete-bin-line"></i>
-                            </button>
-                        </td>
-                    `;
-                    tableBody.appendChild(row);
-                });
-
-                document.getElementById('statTotal').innerText = allResults.length;
-                document.getElementById('statAvg').innerText = allResults.length > 0 ? (totalScore / allResults.length).toFixed(1) : 0;
-                document.getElementById('statMax').innerText = maxScore;
-
-                // Update Leaderboard (Top 5 by Average Score)
-                const leaderboardGrid = document.getElementById('leaderboardGrid');
-                leaderboardGrid.innerHTML = '';
-
-                // Group by participant and calculate average
-                const participantGroups = {};
-                allResults.forEach(r => {
-                    if (!participantGroups[r.name]) {
-                        participantGroups[r.name] = { 
-                            name: r.name, 
-                            totalScore: 0, 
-                            count: 0, 
-                            location: r.location,
-                            totalPossible: 0
-                        };
-                    }
-                    participantGroups[r.name].totalScore += r.score;
-                    participantGroups[r.name].totalPossible += r.total;
-                    participantGroups[r.name].count += 1;
-                });
-
-                const topAverages = Object.values(participantGroups)
-                    .map(p => ({
-                        ...p,
-                        avgScore: p.totalScore / p.count,
-                        avgTotal: p.totalPossible / p.count
-                    }))
-                    .sort((a, b) => b.avgScore - a.avgScore)
-                    .slice(0, 5);
-
-                topAverages.forEach((p, index) => {
-                    const card = document.createElement('div');
-                    card.className = 'stat-card animate-in';
-                    card.style.animationDelay = `${index * 0.1}s`;
-                    card.style.borderTop = `4px solid ${index === 0 ? '#f6e05e' : (index === 1 ? '#a0aec0' : (index === 2 ? '#ed8936' : 'var(--border)'))}`;
-
-                    card.innerHTML = `
-                        <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 5px;">
-                            #${index + 1} Avg Rank
-                        </div>
-                        <div style="font-weight: 800; font-size: 1.1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${p.name}">
-                            ${p.name}
-                        </div>
-                        <div class="stat-value" style="font-size: 1.8rem; margin-top: 5px;">
-                            ${p.avgScore.toFixed(1)}<span style="font-size: 0.9rem; color: var(--text-muted);">/${p.avgTotal.toFixed(0)}</span>
-                        </div>
-                        <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 5px;">
-                            ${p.location} • ${p.count} attempts
-                        </div>
-                    `;
-                    leaderboardGrid.appendChild(card);
-                });
+                // Render UI
+                renderDashboard();
             });
         }
 
+        function updateTrainingDropdown() {
+            const trainingFilter = document.getElementById('trainingFilter');
+            const currentSelection = trainingFilter.value;
+            
+            const uniqueTrainings = new Set();
+            allResults.forEach(r => {
+                uniqueTrainings.add(r.training);
+            });
+
+            const trainingNames = {
+                "jci": "JCI Excel Training",
+                "dsima": "DSIMA Aviation Leadership"
+            };
+
+            trainingFilter.innerHTML = '<option value="all">All Trainings</option>';
+            Array.from(uniqueTrainings).sort().forEach(tId => {
+                const option = document.createElement('option');
+                option.value = tId;
+                option.textContent = trainingNames[tId] || toProperCase(tId.replace(/[-_]/g, ' '));
+                trainingFilter.appendChild(option);
+            });
+
+            // Restore selection
+            if (Array.from(trainingFilter.options).some(opt => opt.value === currentSelection)) {
+                trainingFilter.value = currentSelection;
+            } else {
+                trainingFilter.value = "all";
+            }
+        }
+
+        function renderDashboard() {
+            const selectedTraining = document.getElementById('trainingFilter').value;
+            const tableBody = document.getElementById('resultsTableBody');
+            tableBody.innerHTML = '';
+
+            // Filter Results
+            const filteredResults = allResults.filter(r => {
+                if (selectedTraining === 'all') return true;
+                return r.training === selectedTraining;
+            });
+
+            // Multi-level Sort: Name (A-Z), then Date (Oldest to Newest)
+            filteredResults.sort((a, b) => {
+                const nameA = a.name.toUpperCase();
+                const nameB = b.name.toUpperCase();
+                if (nameA < nameB) return -1;
+                if (nameA > nameB) return 1;
+                
+                // Names are equal, sort by timestamp
+                const timeA = a.timestamp?.toMillis() || 0;
+                const timeB = b.timestamp?.toMillis() || 0;
+                return timeA - timeB;
+            });
+
+            let totalScore = 0;
+            let maxScore = 0;
+
+            // Render Table
+            filteredResults.forEach((data) => {
+                const timestamp = data.timestamp?.toDate() || new Date();
+                totalScore += data.score;
+                if (data.score > maxScore) maxScore = data.score;
+
+                const row = document.createElement('tr');
+                
+                const percentage = data.total > 0 ? (data.score / data.total) * 100 : 0;
+                const scoreClass = percentage >= 75 ? 'score-high' : (percentage >= 50 ? 'score-mid' : 'score-low');
+                
+                row.innerHTML = `
+                    <td style="font-weight:600;">${data.name}</td>
+                    <td class="text-muted">${data.location}</td>
+                    <td><span class="badge-score ${scoreClass}">${data.score} / ${data.total}</span></td>
+                    <td class="text-muted">${timestamp.toLocaleDateString()}</td>
+                    <td class="text-muted">${timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
+                    <td>
+                        <button onclick="deleteEntry('quiz_results', '${data.id}')" style="background:none; border:none; color:var(--error); cursor:pointer; font-size:1.1rem;" title="Delete Result">
+                            <i class="ri-delete-bin-line"></i>
+                        </button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+
+            document.getElementById('statTotal').innerText = filteredResults.length;
+            document.getElementById('statAvg').innerText = filteredResults.length > 0 ? (totalScore / filteredResults.length).toFixed(1) : 0;
+            document.getElementById('statMax').innerText = maxScore;
+
+            // Update Leaderboard
+            const leaderboardGrid = document.getElementById('leaderboardGrid');
+            leaderboardGrid.innerHTML = '';
+
+            // Group by participant and calculate average
+            const participantGroups = {};
+            filteredResults.forEach(r => {
+                if (!participantGroups[r.name]) {
+                    participantGroups[r.name] = { 
+                        name: r.name, 
+                        totalScore: 0, 
+                        count: 0, 
+                        location: r.location,
+                        totalPossible: 0
+                    };
+                }
+                participantGroups[r.name].totalScore += r.score;
+                participantGroups[r.name].totalPossible += r.total;
+                participantGroups[r.name].count += 1;
+            });
+
+            const topAverages = Object.values(participantGroups)
+                .map(p => ({
+                    ...p,
+                    avgScore: p.totalScore / p.count,
+                    avgTotal: p.totalPossible / p.count
+                }))
+                .sort((a, b) => b.avgScore - a.avgScore)
+                .slice(0, 5);
+
+            topAverages.forEach((p, index) => {
+                const card = document.createElement('div');
+                card.className = 'stat-card animate-in';
+                card.style.animationDelay = `${index * 0.1}s`;
+                card.style.borderTop = `4px solid ${index === 0 ? '#f6e05e' : (index === 1 ? '#a0aec0' : (index === 2 ? '#ed8936' : 'var(--border)'))}`;
+
+                card.innerHTML = `
+                    <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 5px;">
+                        #${index + 1} Avg Rank
+                    </div>
+                    <div style="font-weight: 800; font-size: 1.1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${p.name}">
+                        ${p.name}
+                    </div>
+                    <div class="stat-value" style="font-size: 1.8rem; margin-top: 5px;">
+                        ${p.avgScore.toFixed(1)}<span style="font-size: 0.9rem; color: var(--text-muted);">/${p.avgTotal.toFixed(0)}</span>
+                    </div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 5px;">
+                        ${p.location} • ${p.count} attempts
+                    </div>
+                `;
+                leaderboardGrid.appendChild(card);
+            });
+        }
+
+        // Add filter listener
+        document.getElementById('trainingFilter').addEventListener('change', renderDashboard);
+
         // CSV Export
         document.getElementById('downloadCsv').addEventListener('click', () => {
-            if (allResults.length === 0) return;
-            const headers = ["Name", "Location", "Score", "Total", "Date"];
+            const selectedTraining = document.getElementById('trainingFilter').value;
+            const filteredResults = allResults.filter(r => {
+                if (selectedTraining === 'all') return true;
+                return r.training === selectedTraining;
+            });
+
+            if (filteredResults.length === 0) return;
+            const headers = ["Name", "Location", "Score", "Total", "Date", "Training"];
             const csvRows = [headers.join(',')];
-            allResults.forEach(r => {
+            filteredResults.forEach(r => {
                 const date = r.timestamp?.toDate().toLocaleDateString() || "";
-                csvRows.push([`"${r.name}"`, `"${r.location}"`, r.score, r.total, date].join(','));
+                csvRows.push([`"${r.name}"`, `"${r.location}"`, r.score, r.total, date, `"${r.training}"`].join(','));
             });
             const csvContent = "data:text/csv;charset=utf-8," + csvRows.join("\n");
             const link = document.createElement("a");
             link.setAttribute("href", encodeURI(csvContent));
-            link.setAttribute("download", `jci_quiz_results.csv`);
+            link.setAttribute("download", `${selectedTraining}_quiz_results.csv`);
             link.click();
         });
     </script>
 </body>
-
 </html>
