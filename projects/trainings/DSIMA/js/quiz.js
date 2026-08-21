@@ -16,7 +16,9 @@ let isSubmitting = false;
 
 // Session-to-Question-Index Mapping (0-indexed)
 const sessionMap = {
-    1: { name: "Data-Driven Leadership", ranges: [[0, 11]] }
+    1: { name: "Data-Driven Leadership", ranges: [[0, 11]] },
+    2: { name: "Excel Cleaning & Analysis", ranges: [[12, 23]] },
+    3: { name: "Executive Dashboard", ranges: [[24, 35]] }
 };
 
 /**
@@ -66,14 +68,14 @@ function initializeQuizContent() {
     // Update UI Header
     const headerTitle = document.querySelector('.quiz-header h1');
     const headerDesc = document.querySelector('.quiz-header p');
-    if (headerTitle) headerTitle.innerText = sessionNum > 0 ? `Session ${sessionNum} Quiz` : "Data-Driven Leadership Quiz";
-    if (headerDesc) headerDesc.innerText = sessionName;
+    if (headerTitle) headerTitle.innerText = "Data-Driven Leadership Quiz";
+    if (headerDesc) headerDesc.innerText = sessionNum > 0 ? `Session ${sessionNum}` : "Aviation Leadership";
 }
 
 // DSIMA Questions bank - Revised to match Day 1 slides exactly
 const allQuestions = [
     {
-        question: "Based on the slides, which definition best describes Data Science?",
+        question: "Which definition best describes Data Science?",
         options: [
             "A technical coding paradigm with no business application",
             "The process of collecting, organizing, analyzing, and interpreting data to support better decisions",
@@ -203,6 +205,270 @@ const allQuestions = [
         ],
         correct: 2,
         explanation: "Slide 15 identifies Descriptive as 'What happened?', Predictive as forecasting ('What will happen?'), and Prescriptive as recommending actions ('What should we do?') such as automated sorting algorithms."
+    },
+    {
+        question: "What are the three steps in moving from raw operational data to decision-making?",
+        options: [
+            "Raw Data -> Cleaning & Analysis -> Insights",
+            "Raw Data -> Pivot Tables -> Formatting",
+            "Data Collection -> Data Entry -> Data Deletion",
+            "Programming -> Scripting -> Automation"
+        ],
+        correct: 0,
+        explanation: "Slide 5 states that Excel allows us to move from Raw Data, through Cleaning & Analysis (removing errors, sorting, filtering), to Insights."
+    },
+    {
+        question: "Which part of the Excel interface shows the cell address of the currently active cell (for example, A1)?",
+        options: [
+            "Title Bar",
+            "Formula Bar",
+            "Name Box",
+            "Scroll Bar"
+        ],
+        correct: 2,
+        explanation: "Slide 14 explains that the Name Box shows the cell address of the currently active cell (e.g., A1)."
+    },
+    {
+        question: "What is the primary purpose of the Formula Bar in Microsoft Excel?",
+        options: [
+            "To display the name of the active file",
+            "To make it easy to view or edit the content or formula inside a cell",
+            "To scroll through data horizontally",
+            "To switch between multiple sheets"
+        ],
+        correct: 1,
+        explanation: "Slide 13 states that the Formula Bar makes it easy to view or edit what is inside any cell, showing its content or formula."
+    },
+    {
+        question: "In an Excel worksheet, how are columns and rows labelled?",
+        options: [
+            "Columns are labelled with colors; rows are labelled with letters",
+            "Columns are labelled with letters; rows are labelled with digits",
+            "Columns are labelled with digits; rows are labelled with letters",
+            "Both are labelled with letters only"
+        ],
+        correct: 1,
+        explanation: "Slide 15 shows that Columns are labelled with letters (A, B, C etc.) and Rows/Records are labelled with digits."
+    },
+    {
+        question: "What is a 'cell' in Microsoft Excel?",
+        options: [
+            "A row of data spanning the entire sheet",
+            "A single unit that can hold data or information, referenced by a column letter and row number",
+            "A menu tab on the top ribbon",
+            "An error message tray"
+        ],
+        correct: 1,
+        explanation: "Slide 18 defines a cell as a single unit that can hold data or information, referenced by the column letter and row number."
+    },
+    {
+        question: "Which feature allows you to see only the data you want to view without deleting or changing the rest of your sheet?",
+        options: [
+            "Sorting",
+            "Formatting",
+            "Filtering",
+            "Title Bar"
+        ],
+        correct: 2,
+        explanation: "Slide 20 notes that filters let you select and see only the data you want to view without deleting or changing the rest of your sheet."
+    },
+    {
+        question: "What is the process of rearranging rows or columns of data based on specific criteria (like alphabetical, numerical, or dates)?",
+        options: [
+            "Formatting",
+            "Filtering",
+            "Sorting",
+            "Deleting"
+        ],
+        correct: 2,
+        explanation: "Slide 20 defines sorting as the process of rearranging rows or columns of data based on specific criteria."
+    },
+    {
+        question: "In aviation analysis, which Excel function would you use to calculate the typical or average maintenance turnaround time?",
+        options: [
+            "=SUM()",
+            "=AVERAGE()",
+            "=COUNT()",
+            "=SUMIF()"
+        ],
+        correct: 1,
+        explanation: "Slide 28 explains that =AVERAGE() finds the typical value, which is useful for average maintenance turnaround time."
+    },
+    {
+        question: "If you want to count the number of aircraft that are currently unserviceable (meeting a specific condition), which function is best?",
+        options: [
+            "=SUM()",
+            "=COUNT()",
+            "=COUNTIF()",
+            "=SUMIF()"
+        ],
+        correct: 2,
+        explanation: "Slide 28 notes that =COUNTIF() counts records that meet a condition, such as the number of unserviceable aircraft."
+    },
+    {
+        question: "Which function would you use to add up flying hours specifically for a particular squadron or aircraft type based on a condition?",
+        options: [
+            "=SUM()",
+            "=AVERAGE()",
+            "=SUMIF() or =SUMIFS()",
+            "=COUNTIF()"
+        ],
+        correct: 2,
+        explanation: "Slide 28 explains that =SUMIF() or =SUMIFS() adds values based on conditions, like total flying hours for a particular squadron."
+    },
+    {
+        question: "What is the main benefit of a Pivot Table in Excel?",
+        options: [
+            "It automatically deletes duplicate rows from the workbook",
+            "It allows you to group, sort, and summarize large amounts of raw data into a clear summary table without complex formulas",
+            "It protects your file with administrative passwords",
+            "It draws 3D flight paths on maps"
+        ],
+        correct: 1,
+        explanation: "Slide 30 explains that a Pivot Table lets you group, sort, and summarize large amounts of raw data into a clear summary table without needing any complex math formulas."
+    },
+    {
+        question: "Which part of the Pivot Table feature is used to select the fields/data that the pivot table will summarize automatically?",
+        options: [
+            "Pivot Table Field List",
+            "Scroll Bar",
+            "Formula Bar",
+            "Name Box"
+        ],
+        correct: 0,
+        explanation: "Slide 32 notes that the pivot table field list is used to select data that the pivot table will summarize automatically."
+    },
+    {
+        question: "What is the ultimate purpose of analytics?",
+        options: [
+            "To produce colorful charts and diagrams",
+            "To improve decisions",
+            "To automate all flight operations",
+            "To store large amounts of data in the cloud"
+        ],
+        correct: 1,
+        explanation: "Slide 2 highlights that 'The purpose of analytics is not to produce charts. It is to improve decisions.'"
+    },
+    {
+        question: "What definition best describes an operational dashboard?",
+        options: [
+            "A computer code editor",
+            "A visual summary of important information designed to help leaders monitor performance and identify issues requiring attention",
+            "A spreadsheet listing raw, unorganized numbers",
+            "A radar system showing aircraft positions in real time"
+        ],
+        correct: 1,
+        explanation: "Slide 3 defines an operational dashboard as a visual summary of important information designed to help leaders monitor performance and identify issues requiring attention."
+    },
+    {
+        question: "A dashboard should aim to reduce the time between which two events?",
+        options: [
+            "Entering data and saving the file",
+            "Seeing a problem and responding to it",
+            "Aircraft takeoff and landing",
+            "Writing a formula and calculating the sum"
+        ],
+        correct: 1,
+        explanation: "Slide 3 explicitly states: 'A dashboard should reduce the time between seeing a problem and responding to it.'"
+    },
+    {
+        question: "Which section of an operational dashboard provides a quick snapshot of key performance indicators so commanders can understand the current situation at a glance?",
+        options: [
+            "Slicers Section",
+            "KPI Section",
+            "Scroll Bar",
+            "Title Bar"
+        ],
+        correct: 1,
+        explanation: "Slide 5 states that the KPI section provides a quick snapshot of key performance indicators, allowing commanders to understand the current situation at a glance."
+    },
+    {
+        question: "In an operational logistics dashboard, what is the purpose of Slicers/Filters?",
+        options: [
+            "To permanently delete unused columns from the spreadsheet",
+            "To allow users to focus the dashboard on specific information like a date, squadron, or aircraft type",
+            "To speed up the aircraft engine startup time",
+            "To calculate the average of a selected range"
+        ],
+        correct: 1,
+        explanation: "Slide 6 explains that Slicers/Filters allow users to focus the dashboard on specific information such as a particular date, squadron, aircraft type, base, or status."
+    },
+    {
+        question: "Which section of the dashboard uses visual summaries to reveal trends, comparisons, patterns, relationships, and exceptions?",
+        options: [
+            "Title Section",
+            "Chart Section",
+            "Name Box",
+            "Notification Tray"
+        ],
+        correct: 1,
+        explanation: "Slide 7 states that the Chart Section uses charts and visual summaries to reveal trends, comparisons, patterns, relationships, and exceptions."
+    },
+    {
+        question: "What is the key question leaders should ask when reading a dashboard?",
+        options: [
+            "\"How do I print this chart?\"",
+            "\"What does the chart mean?\" instead of only \"What does the chart say?\"",
+            "\"Who entered this data?\"",
+            "\"Which font style was used?\""
+        ],
+        correct: 1,
+        explanation: "Slide 9 instructs leaders: 'Don't ask only “What does the chart say?” Ask “What does it mean?”'"
+    },
+    {
+        question: "In the dashboard reading framework, which term refers to identifying 'what stands out' in the data?",
+        options: [
+            "Trend",
+            "Status",
+            "Exception",
+            "Implication"
+        ],
+        correct: 2,
+        explanation: "Slide 9 links 'Exception' to the question: 'What stands out?'"
+    },
+    {
+        question: "If a commander sees a decline in aircraft availability, what should the logical decision-making path be?",
+        options: [
+            "Delete the dashboard and start over",
+            "KPI -> Trend -> Cause -> Implication -> Action",
+            "Action -> KPI -> Trend -> Cause",
+            "Ignore the trend until next month"
+        ],
+        correct: 1,
+        explanation: "Slide 10 outlines the progression: KPI -> Trend -> Cause -> Implication -> Action (from KPI to Insight)."
+    },
+    {
+        question: "What does a good command recommendation need to be?",
+        options: [
+            "Complex and detailed",
+            "Traceable to evidence",
+            "Based purely on intuition",
+            "Created without using data"
+        ],
+        correct: 1,
+        explanation: "Slide 12 states that 'A good recommendation is traceable to evidence.'"
+    },
+    {
+        question: "What is the role of data in the commander's decision-making process?",
+        options: [
+            "Data makes the decision for the Commander automatically",
+            "Data replaces the need for a commander",
+            "Data does not make the decision, but gives the Commander better evidence to make it",
+            "Data has no role in decisions"
+        ],
+        correct: 2,
+        explanation: "Slide 13 states: 'Data does not make the decision for the Commander. It gives the Commander better evidence with which to make the decision.'"
+    },
+    {
+        question: "If aircraft availability is declining and maintenance turnaround times (TAT) are increasing, what operational story might connect these numbers?",
+        options: [
+            "Low flying hours are leaving aircraft idle",
+            "Higher flying activity is increasing utilization and maintenance demand, leading to longer turnaround times",
+            "The weather is preventing maintenance teams from working",
+            "Pilot currency is too low"
+        ],
+        correct: 1,
+        explanation: "Slide 11 shows that 'Higher flying activity may be increasing aircraft utilisation and maintenance demand, contributing to longer turnaround times and declining availability.'"
     }
 ];
 
@@ -344,8 +610,12 @@ async function finishQuiz() {
     try {
         console.log("Attempting to save to Firebase...", { db, userName, score });
 
+        const params = new URLSearchParams(window.location.search);
+        const sessionNum = parseInt(params.get('session')) || 0;
+
         const docRef = await addDoc(collection(db, "quiz_results"), {
             training: "dsima",
+            session: sessionNum,
             name: toProperCase(userName),
             location: toProperCase(userLocation),
             score: score,

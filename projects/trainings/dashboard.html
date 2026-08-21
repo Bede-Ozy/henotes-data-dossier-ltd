@@ -17,13 +17,147 @@
             display: block;
             padding: 40px;
             overflow-y: auto;
+            position: relative;
         }
 
         .dashboard-header {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
-            margin-bottom: 40px;
+            text-align: center;
+            margin-bottom: 48px;
+            width: 100%;
+            gap: 24px;
+        }
+
+        .dashboard-title-group h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 0 0 8px 0;
+            background: linear-gradient(135deg, #ffffff 40%, var(--primary-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .dashboard-title-group p {
+            margin: 0;
+            font-size: 1.05rem;
+            color: var(--text-muted);
+        }
+
+        .controls-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            background: rgba(22, 27, 34, 0.4);
+            border: 1px solid var(--border);
+            padding: 16px 28px;
+            border-radius: 16px;
+            backdrop-filter: blur(12px);
+            width: fit-content;
+            max-width: 100%;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .filter-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-right: 4px;
+        }
+
+        .filter-select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background: #161b22 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%238b949e'%3E%3Cpath d='M12 16L6 10H18L12 16Z'%3E%3C/path%3E%3C/svg%3E") no-repeat right 16px center;
+            background-size: 16px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text);
+            padding: 12px 40px 12px 18px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.2s ease;
+            min-width: 200px;
+        }
+
+        .filter-select:hover {
+            border-color: var(--primary-glow);
+            box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15);
+        }
+
+        .filter-select:focus {
+            border-color: var(--primary-glow);
+            box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.25);
+        }
+
+        .btn-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+            outline: none;
+            height: 46px;
+            box-sizing: border-box;
+        }
+
+        .btn-csv {
+            background: rgba(56, 139, 253, 0.1);
+            color: #58a6ff;
+            border-color: rgba(56, 139, 253, 0.4);
+        }
+
+        .btn-csv:hover {
+            background: #1f6feb;
+            color: #ffffff;
+            border-color: #58a6ff;
+            box-shadow: 0 0 12px rgba(88, 166, 255, 0.3);
+        }
+
+        .btn-logout {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            background: rgba(248, 81, 73, 0.1);
+            color: #ff7b72;
+            border-color: rgba(248, 81, 73, 0.4);
+            z-index: 100;
+        }
+
+        .btn-logout:hover {
+            background: #da3633;
+            color: #ffffff;
+            border-color: #ff7b72;
+            box-shadow: 0 0 12px rgba(248, 81, 73, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .btn-logout {
+                position: static;
+                margin-top: 16px;
+                width: 100%;
+            }
         }
 
         .stats-grid {
@@ -137,26 +271,31 @@
 
     <!-- Main Dashboard UI -->
     <div class="dashboard-content hidden" id="mainContent">
+        <button id="logoutBtn" class="btn-action btn-logout">
+            <i class="ri-logout-box-line"></i> Logout
+        </button>
+
         <div class="dashboard-header">
-            <div>
+            <div class="dashboard-title-group">
                 <h1>Training Dashboard</h1>
-                <p class="text-muted">Real-time performance tracking</p>
+                <p>Real-time performance tracking</p>
             </div>
-            <div style="display: flex; gap: 12px; align-items: center;">
-                <div class="filter-group" style="display: flex; align-items: center; gap: 8px;">
-                    <label for="trainingFilter" style="color: var(--text-muted); font-size: 0.9rem; font-weight: 600; white-space: nowrap;">Training:</label>
-                    <select id="trainingFilter" class="input-field" style="width: auto; padding: 8px 16px; margin: 0; background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); cursor: pointer;">
+            <div class="controls-container">
+                <div class="filter-group">
+                    <label for="trainingFilter" class="filter-label">Training:</label>
+                    <select id="trainingFilter" class="filter-select">
                         <option value="all">All Trainings</option>
                         <option value="jci">JCI Excel Training</option>
                     </select>
                 </div>
-                <button id="downloadCsv" class="btn-primary"
-                    style="width: auto; padding: 10px 20px; background: var(--border); margin: 0;">
+                <div id="sessionFilterGroup" class="filter-group hidden">
+                    <label for="sessionFilter" class="filter-label">Quiz/Session:</label>
+                    <select id="sessionFilter" class="filter-select">
+                        <!-- Dynamically populated -->
+                    </select>
+                </div>
+                <button id="downloadCsv" class="btn-action btn-csv">
                     <i class="ri-download-2-line"></i> Export CSV
-                </button>
-                <button id="logoutBtn" class="btn-primary"
-                    style="width: auto; padding: 10px 20px; background: var(--error); margin: 0;">
-                    <i class="ri-logout-box-line"></i> Logout
                 </button>
             </div>
         </div>
@@ -198,6 +337,7 @@
                     <tr>
                         <th>Participant</th>
                         <th id="thLocation">Location</th>
+                        <th id="thSession" class="hidden">Quiz/Session</th>
                         <th>Score</th>
                         <th>Date</th>
                         <th>Time</th>
@@ -265,6 +405,25 @@
             return str.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
         }
 
+        // Session data mapping
+        const sessionsData = {
+            "dsima": {
+                "1": "Day 1: Data-Driven Leadership",
+                "2": "Day 2: Excel Cleaning & Analysis",
+                "3": "Day 3: Executive Dashboard"
+            },
+            "jci": {
+                "1": "Session 1: Excel Fundamentals",
+                "2": "Session 2: Logical Functions",
+                "3": "Session 3: Data Cleaning",
+                "4": "Session 4: Power Query",
+                "5": "Session 5: Data Visualization",
+                "6": "Session 6: Advanced Formulas",
+                "7": "Session 7: PivotTables & Slicers",
+                "8": "Session 8: Final Project"
+            }
+        };
+
         // Load Results
         let allResults = [];
         function loadData() {
@@ -277,6 +436,7 @@
                         id: docSnap.id,
                         ...data,
                         training: (data.training || 'jci').toLowerCase(),
+                        session: data.session !== undefined ? parseInt(data.session) : 1,
                         name: toProperCase(data.name),
                         location: toProperCase(data.location)
                     };
@@ -284,6 +444,7 @@
 
                 // Update dynamic dropdown options
                 updateTrainingDropdown();
+                updateSessionDropdown();
 
                 // Render UI
                 renderDashboard();
@@ -317,6 +478,40 @@
                 trainingFilter.value = currentSelection;
             } else {
                 trainingFilter.value = "all";
+            }
+        }
+
+        function updateSessionDropdown() {
+            const trainingFilter = document.getElementById('trainingFilter');
+            const sessionFilter = document.getElementById('sessionFilter');
+            const sessionFilterGroup = document.getElementById('sessionFilterGroup');
+            
+            const selectedTraining = trainingFilter.value;
+            
+            if (selectedTraining === 'all') {
+                sessionFilterGroup.classList.add('hidden');
+                return;
+            }
+            
+            // Show session filter group
+            sessionFilterGroup.classList.remove('hidden');
+            
+            const currentSessionSelection = sessionFilter.value;
+            sessionFilter.innerHTML = '<option value="all">Overall (All Quizzes)</option>';
+            
+            const trainingSessions = sessionsData[selectedTraining] || {};
+            Object.entries(trainingSessions).forEach(([sVal, sName]) => {
+                const option = document.createElement('option');
+                option.value = sVal;
+                option.textContent = sName;
+                sessionFilter.appendChild(option);
+            });
+            
+            // Restore selection if it exists in new options, otherwise default to all
+            if (Array.from(sessionFilter.options).some(opt => opt.value === currentSessionSelection)) {
+                sessionFilter.value = currentSessionSelection;
+            } else {
+                sessionFilter.value = "all";
             }
         }
 
@@ -409,6 +604,7 @@
 
         function renderDashboard() {
             const selectedTraining = document.getElementById('trainingFilter').value;
+            const selectedSession = document.getElementById('sessionFilter') ? document.getElementById('sessionFilter').value : 'all';
             const overviewSection = document.getElementById('overviewSection');
             const leaderboardSection = document.getElementById('leaderboardSection');
             const tableSection = document.getElementById('tableSection');
@@ -464,11 +660,23 @@
                 const thLocation = document.getElementById('thLocation');
                 if (thLocation) thLocation.innerText = selectedTraining === 'dsima' ? 'Rank' : 'Location';
 
+                const thSession = document.getElementById('thSession');
+                if (thSession) {
+                    if (selectedSession === 'all') {
+                        thSession.classList.remove('hidden');
+                    } else {
+                        thSession.classList.add('hidden');
+                    }
+                }
+
                 const tableBody = document.getElementById('resultsTableBody');
                 tableBody.innerHTML = '';
 
-                // Filter Results
-                const filteredResults = allResults.filter(r => r.training === selectedTraining);
+                // Filter Results by Cohort and Session
+                let filteredResults = allResults.filter(r => r.training === selectedTraining);
+                if (selectedSession !== 'all') {
+                    filteredResults = filteredResults.filter(r => r.session === parseInt(selectedSession));
+                }
 
                 // Multi-level Sort: Name (A-Z), then Date (Oldest to Newest)
                 filteredResults.sort((a, b) => {
@@ -496,9 +704,15 @@
                     const percentage = data.total > 0 ? (data.score / data.total) * 100 : 0;
                     const scoreClass = percentage >= 75 ? 'score-high' : (percentage >= 50 ? 'score-mid' : 'score-low');
                     
+                    const sName = sessionsData[selectedTraining]?.[data.session] || `Session ${data.session}`;
+                    const sessionHtml = selectedSession === 'all' 
+                        ? `<td><span class="text-muted" style="font-size:0.85rem; font-weight:600;">${sName}</span></td>` 
+                        : '';
+
                     row.innerHTML = `
                         <td style="font-weight:600;">${data.name}</td>
                         <td class="text-muted">${data.location}</td>
+                        ${sessionHtml}
                         <td><span class="badge-score ${scoreClass}">${data.score} / ${data.total}</span></td>
                         <td class="text-muted">${timestamp.toLocaleDateString()}</td>
                         <td class="text-muted">${timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
@@ -570,28 +784,44 @@
             }
         }
 
-        // Add filter listener
-        document.getElementById('trainingFilter').addEventListener('change', renderDashboard);
+        // Add filter listeners
+        document.getElementById('trainingFilter').addEventListener('change', () => {
+            updateSessionDropdown();
+            renderDashboard();
+        });
+        document.getElementById('sessionFilter').addEventListener('change', renderDashboard);
 
         // CSV Export
         document.getElementById('downloadCsv').addEventListener('click', () => {
             const selectedTraining = document.getElementById('trainingFilter').value;
-            const filteredResults = allResults.filter(r => {
+            const selectedSession = document.getElementById('sessionFilter') ? document.getElementById('sessionFilter').value : 'all';
+
+            let filteredResults = allResults.filter(r => {
                 if (selectedTraining === 'all') return true;
                 return r.training === selectedTraining;
             });
 
+            if (selectedTraining !== 'all' && selectedSession !== 'all') {
+                filteredResults = filteredResults.filter(r => r.session === parseInt(selectedSession));
+            }
+
             if (filteredResults.length === 0) return;
-            const headers = ["Name", "Location", "Score", "Total", "Date", "Training"];
+            const headers = ["Name", "Location/Rank", "Score", "Total", "Session", "Date", "Training"];
             const csvRows = [headers.join(',')];
             filteredResults.forEach(r => {
                 const date = r.timestamp?.toDate().toLocaleDateString() || "";
-                csvRows.push([`"${r.name}"`, `"${r.location}"`, r.score, r.total, date, `"${r.training}"`].join(','));
+                const sName = selectedTraining !== 'all' ? (sessionsData[r.training]?.[r.session] || `Session ${r.session}`) : `Session ${r.session}`;
+                csvRows.push([`"${r.name}"`, `"${r.location}"`, r.score, r.total, `"${sName}"`, date, `"${r.training}"`].join(','));
             });
             const csvContent = "data:text/csv;charset=utf-8," + csvRows.join("\n");
             const link = document.createElement("a");
             link.setAttribute("href", encodeURI(csvContent));
-            link.setAttribute("download", `${selectedTraining}_quiz_results.csv`);
+            
+            const filename = selectedTraining === 'all' 
+                ? 'all_trainings_quiz_results.csv' 
+                : `${selectedTraining}_session_${selectedSession}_quiz_results.csv`;
+            
+            link.setAttribute("download", filename);
             link.click();
         });
     </script>

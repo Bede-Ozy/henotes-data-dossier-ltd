@@ -1218,8 +1218,12 @@ async function finishQuiz() {
     try {
         console.log("Attempting to save to Firebase...", { db, userName, score });
 
+        const params = new URLSearchParams(window.location.search);
+        const sessionNum = parseInt(params.get('session')) || 0;
+
         const docRef = await addDoc(collection(db, "quiz_results"), {
             training: "jci",
+            session: sessionNum,
             name: toProperCase(userName),
             location: toProperCase(userLocation),
             score: score,
