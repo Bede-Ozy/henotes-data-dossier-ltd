@@ -395,6 +395,116 @@
             display: none !important;
         }
 
+        /* Custom Dropdown Styling */
+        .custom-dropdown {
+            position: relative;
+            width: 100%;
+            background: #21262d;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            padding: 12px 16px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 48px;
+            user-select: none;
+            transition: all 0.2s ease;
+        }
+
+        .custom-dropdown:hover {
+            border-color: var(--primary-glow);
+        }
+
+        .custom-dropdown.active {
+            border-color: var(--primary-glow);
+            box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15);
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        .custom-dropdown-selected {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 90%;
+        }
+
+        .custom-dropdown-selected.placeholder {
+            color: var(--text-muted);
+        }
+
+        .custom-dropdown-arrow {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            transition: transform 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .custom-dropdown.active .custom-dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        .custom-dropdown-options {
+            position: absolute;
+            top: 100%;
+            left: -1px;
+            right: -1px;
+            background: #161b22;
+            border: 1px solid var(--primary-glow);
+            border-top: none;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            max-height: 250px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        .custom-dropdown.active .custom-dropdown-options {
+            display: block;
+        }
+
+        .custom-dropdown-option {
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: background 0.15s ease, color 0.15s ease;
+            font-size: 0.95rem;
+            text-align: left;
+        }
+
+        .custom-dropdown-option:hover {
+            background: var(--primary-glow);
+            color: #0d1117;
+        }
+
+        .custom-dropdown-option.selected {
+            background: rgba(88, 166, 255, 0.15);
+            color: var(--primary-glow);
+            font-weight: 600;
+        }
+
+        .custom-dropdown-options::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .custom-dropdown-options::-webkit-scrollbar-track {
+            background: #161b22;
+        }
+
+        .custom-dropdown-options::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        .custom-dropdown-options::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+
         .animate-spin {
             animation: spin 1s linear infinite;
         }
@@ -449,26 +559,30 @@
                         <label for="userName" class="question-label">Full Name</label>
                         <input type="text" id="userName" class="input-field" placeholder="Enter your name" required>
                     </div>
-                    <div class="form-group" style="margin-bottom: 0;">
-                        <label for="userRank" class="question-label">Rank</label>
-                        <select id="userRank" class="input-field" style="height: 48px; background: #21262d; border: 1px solid var(--border); border-radius: 8px; color: var(--text); padding: 0 12px; font-size: 0.95rem; cursor: pointer; box-sizing: border-box;" required>
-                            <option value="" disabled selected>Select your rank</option>
-                            <option value="Wing Commander">Wing Commander</option>
-                            <option value="Squadron Leader">Squadron Leader</option>
-                            <option value="Flight Lieutenant">Flight Lieutenant</option>
-                            <option value="Flying Officer">Flying Officer</option>
-                            <option value="Pilot Officer">Pilot Officer</option>
-                            <option value="Air Warrant Officer">Air Warrant Officer</option>
-                            <option value="Master Warrant Officer">Master Warrant Officer</option>
-                            <option value="Warrant Officer">Warrant Officer</option>
-                            <option value="Flight Sergeant">Flight Sergeant</option>
-                            <option value="Sergeant">Sergeant</option>
-                            <option value="Corporal">Corporal</option>
-                            <option value="Lance Corporal">Lance Corporal</option>
-                            <option value="Aircraftman / Aircraftwoman">Aircraftman / Aircraftwoman</option>
-                            <option value="Recruit">Recruit</option>
-                            <option value="Other">Other</option>
-                        </select>
+                    <div class="form-group" style="margin-bottom: 0; position: relative;">
+                        <label class="question-label">Rank</label>
+                        <div class="custom-dropdown" id="customRankDropdown">
+                            <div class="custom-dropdown-selected placeholder" id="rankDropdownSelected">Select your rank</div>
+                            <div class="custom-dropdown-arrow"><i class="ri-arrow-down-s-line"></i></div>
+                            <div class="custom-dropdown-options" id="rankDropdownOptions">
+                                <div class="custom-dropdown-option" data-value="Wing Commander">Wing Commander</div>
+                                <div class="custom-dropdown-option" data-value="Squadron Leader">Squadron Leader</div>
+                                <div class="custom-dropdown-option" data-value="Flight Lieutenant">Flight Lieutenant</div>
+                                <div class="custom-dropdown-option" data-value="Flying Officer">Flying Officer</div>
+                                <div class="custom-dropdown-option" data-value="Pilot Officer">Pilot Officer</div>
+                                <div class="custom-dropdown-option" data-value="Air Warrant Officer">Air Warrant Officer</div>
+                                <div class="custom-dropdown-option" data-value="Master Warrant Officer">Master Warrant Officer</div>
+                                <div class="custom-dropdown-option" data-value="Warrant Officer">Warrant Officer</div>
+                                <div class="custom-dropdown-option" data-value="Flight Sergeant">Flight Sergeant</div>
+                                <div class="custom-dropdown-option" data-value="Sergeant">Sergeant</div>
+                                <div class="custom-dropdown-option" data-value="Corporal">Corporal</div>
+                                <div class="custom-dropdown-option" data-value="Lance Corporal">Lance Corporal</div>
+                                <div class="custom-dropdown-option" data-value="Aircraftman / Aircraftwoman">Aircraftman / Aircraftwoman</div>
+                                <div class="custom-dropdown-option" data-value="Recruit">Recruit</div>
+                                <div class="custom-dropdown-option" data-value="Other">Other</div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="userRank" required>
                     </div>
                 </div>
             </div>
@@ -848,11 +962,54 @@
                 userRankInput.value = '';
                 userNameInput.required = false;
                 userRankInput.required = false;
+                
+                // Reset custom dropdown UI state
+                const selectedEl = document.getElementById('rankDropdownSelected');
+                selectedEl.innerText = 'Select your rank';
+                selectedEl.classList.add('placeholder');
+                document.querySelectorAll('.custom-dropdown-option').forEach(opt => opt.classList.remove('selected'));
             } else {
                 detailsGrid.classList.remove('hidden');
                 userNameInput.required = true;
                 userRankInput.required = true;
             }
+        });
+
+        // Custom Rank Dropdown Logic
+        const customRankDropdown = document.getElementById('customRankDropdown');
+        const rankDropdownSelected = document.getElementById('rankDropdownSelected');
+
+        customRankDropdown.addEventListener('click', (e) => {
+            e.stopPropagation();
+            customRankDropdown.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.custom-dropdown-option').forEach(option => {
+            option.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const val = option.getAttribute('data-value');
+                
+                // Set hidden input value
+                userRankInput.value = val;
+                
+                // Update selected text
+                rankDropdownSelected.innerText = val;
+                rankDropdownSelected.classList.remove('placeholder');
+                
+                // Update selection styling classes
+                document.querySelectorAll('.custom-dropdown-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                option.classList.add('selected');
+                
+                // Close dropdown
+                customRankDropdown.classList.remove('active');
+            });
+        });
+
+        // Close dropdown when clicking outside
+        window.addEventListener('click', () => {
+            customRankDropdown.classList.remove('active');
         });
 
         // Form Submit
