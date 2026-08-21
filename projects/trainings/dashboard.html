@@ -160,6 +160,125 @@
             }
         }
 
+        /* Tab Styling */
+        .tab-container {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 36px;
+            border-bottom: 1px solid var(--border);
+            width: 100%;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 12px 24px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            outline: none;
+        }
+
+        .tab-btn:hover {
+            color: var(--text);
+        }
+
+        .tab-btn.active {
+            color: var(--primary-glow);
+            border-bottom-color: var(--primary-glow);
+            font-weight: 700;
+        }
+
+        /* Modal dialog for detailed feedback */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            width: 90%;
+            max-width: 700px;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 32px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.open .modal-box {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--text);
+        }
+
+        .feedback-detail-item {
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .feedback-detail-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .feedback-detail-q {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--primary-glow);
+            margin-bottom: 6px;
+        }
+
+        .feedback-detail-a {
+            font-size: 0.95rem;
+            color: var(--text);
+            line-height: 1.5;
+        }
+
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -300,54 +419,103 @@
             </div>
         </div>
 
-        <div class="stats-grid">
-            <div class="stat-card">
-                <p class="text-muted" id="statLabel1">Total Participants</p>
-                <div id="statTotal" class="stat-value">0</div>
+        <!-- Tab Navigation -->
+        <div class="tab-container">
+            <button id="tabScores" class="tab-btn active">
+                <i class="ri-trophy-line"></i> Quiz Scores
+            </button>
+            <button id="tabFeedback" class="tab-btn">
+                <i class="ri-discuss-line"></i> Course Feedback
+            </button>
+        </div>
+
+        <div id="quizContent">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <p class="text-muted" id="statLabel1">Total Participants</p>
+                    <div id="statTotal" class="stat-value">0</div>
+                </div>
+                <div class="stat-card">
+                    <p class="text-muted" id="statLabel2">Average Score</p>
+                    <div id="statAvg" class="stat-value">0</div>
+                </div>
+                <div class="stat-card">
+                    <p class="text-muted" id="statLabel3">Highest Score</p>
+                    <div id="statMax" class="stat-value">0</div>
+                </div>
             </div>
-            <div class="stat-card">
-                <p class="text-muted" id="statLabel2">Average Score</p>
-                <div id="statAvg" class="stat-value">0</div>
+
+            <!-- Overview Section (Dynamic comparative chart) -->
+            <div id="overviewSection" class="hidden animate-in" style="margin-bottom: 40px;">
+                <h2 style="margin-bottom: 20px;"><i class="ri-bar-chart-2-line" style="color: var(--primary-glow);"></i> Quiz Performance Overview</h2>
+                <div id="overviewChartGrid" style="display: flex; flex-direction: column; gap: 20px;">
+                    <!-- Chart cards injected via JS -->
+                </div>
             </div>
-            <div class="stat-card">
-                <p class="text-muted" id="statLabel3">Highest Score</p>
-                <div id="statMax" class="stat-value">0</div>
+
+            <div id="leaderboardSection" style="margin-bottom: 40px;">
+                <h2 style="margin-bottom: 20px;"><i class="ri-trophy-line" style="color: #f6e05e;"></i> Top Performers</h2>
+                <div id="leaderboardGrid" class="stats-grid"
+                    style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+                    <!-- Leaderboard cards injected here -->
+                </div>
+            </div>
+
+            <div id="tableSection" class="results-table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Participant</th>
+                            <th id="thLocation">Location</th>
+                            <th id="thSession" class="hidden">Quiz/Session</th>
+                            <th>Score</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resultsTableBody">
+                        <!-- Results injected here -->
+                    </tbody>
+                </table>
             </div>
         </div>
 
-        <!-- Overview Section (Dynamic comparative chart) -->
-        <div id="overviewSection" class="hidden animate-in" style="margin-bottom: 40px;">
-            <h2 style="margin-bottom: 20px;"><i class="ri-bar-chart-2-line" style="color: var(--primary-glow);"></i> Quiz Performance Overview</h2>
-            <div id="overviewChartGrid" style="display: flex; flex-direction: column; gap: 20px;">
-                <!-- Chart cards injected via JS -->
+        <div id="feedbackContent" class="hidden animate-in">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <p class="text-muted">Total Responses</p>
+                    <div id="statFeedbackTotal" class="stat-value">0</div>
+                </div>
+                <div class="stat-card">
+                    <p class="text-muted">Average Quality Rating</p>
+                    <div id="statFeedbackQuality" class="stat-value">0</div>
+                </div>
+                <div class="stat-card">
+                    <p class="text-muted">Avg Recommend Likelihood</p>
+                    <div id="statFeedbackRecommend" class="stat-value">0</div>
+                </div>
             </div>
-        </div>
 
-        <div id="leaderboardSection" style="margin-bottom: 40px;">
-            <h2 style="margin-bottom: 20px;"><i class="ri-trophy-line" style="color: #f6e05e;"></i> Top Performers</h2>
-            <div id="leaderboardGrid" class="stats-grid"
-                style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
-                <!-- Leaderboard cards injected here -->
+            <div class="results-table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Participant</th>
+                            <th id="thFeedbackLocation">Rank</th>
+                            <th>Overall Quality</th>
+                            <th>Relevance</th>
+                            <th>Facilitator Comm</th>
+                            <th>Date</th>
+                            <th>Details</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="feedbackTableBody">
+                        <!-- Responses injected here -->
+                    </tbody>
+                </table>
             </div>
-        </div>
-
-        <div id="tableSection" class="results-table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Participant</th>
-                        <th id="thLocation">Location</th>
-                        <th id="thSession" class="hidden">Quiz/Session</th>
-                        <th>Score</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody id="resultsTableBody">
-                    <!-- Results injected here -->
-                </tbody>
-            </table>
         </div>
     </div>
 
@@ -426,10 +594,38 @@
 
         // Load Results
         let allResults = [];
+        let allFeedback = [];
+        let activeTab = 'scores';
+
+        const feedbackQuestionsMap = {
+            q1_quality: "1. How would you rate the overall quality of the training programme?",
+            q2_relevance: "2. How relevant was the training to your professional responsibilities? (1-5)",
+            q3_objectives: "3. To what extent did the programme meet its stated objectives?",
+            q4_data_role: "4. How would you rate your understanding of the role of data in aviation decision-making after this training? (1-5)",
+            q5_dashboard_confidence: "5. How confident are you in interpreting basic aviation performance indicators and dashboards? (1-5)",
+            q6_flow: "6. How well did the training demonstrate the relationship between: Operational Problem → Data → Analysis → Insight → Decision",
+            q7_valuable_areas: "7. Which areas of the training did you find most valuable?",
+            q8_planning_support: "8. To what extent do you believe the concepts demonstrated can support better operational planning and decision-making? (1-5)",
+            q9_scenarios_usefulness: "9. How useful were the aviation scenarios and practical exercises in helping you understand the concepts? (1-5)",
+            q10_practical_aspect: "10. Which aspect of the practical sessions was most useful to you?",
+            q11_facilitators_comm: "11. How would you rate the facilitators' ability to communicate technical concepts in a clear and understandable manner? (1-5)",
+            q12_delivery_balance: "12. How would you rate the balance between explanation, demonstration, discussion and practical exercises? (1-5)",
+            q13_materials_quality: "13. How would you rate the quality and relevance of the presentation materials and visual demonstrations? (1-5)",
+            q14_participation_opp: "14. How would you rate the opportunities provided for questions, discussion and participation? (1-5)",
+            q15_improve: "15. Which aspect of the training would you recommend that we improve for future programmes?",
+            q16_future: "16. What additional areas would you recommend for a future aviation data analytics programme?",
+            q17_apply: "17. How likely are you to apply concepts from this training in your professional activities?",
+            q18_recommend: "18. How likely would you be to recommend a programme of this nature to other aviation personnel?",
+            q19_takeaway: "19. What was the most valuable takeaway from the three-day programme?",
+            q20_comments: "20. Please provide any additional comments or recommendations regarding the training.",
+            q21_appreciation_before: "21a. Appreciation of the role of data BEFORE training:",
+            q21_appreciation_after: "21b. Appreciation of the role of data AFTER training:"
+        };
+
         function loadData() {
+            // Live quiz results
             const q = collection(db, "quiz_results");
             onSnapshot(q, (snapshot) => {
-                // 1. Process and Format Data
                 allResults = snapshot.docs.map(docSnap => {
                     const data = docSnap.data();
                     return {
@@ -442,13 +638,68 @@
                     };
                 });
 
-                // Update dynamic dropdown options
                 updateTrainingDropdown();
                 updateSessionDropdown();
-
-                // Render UI
-                renderDashboard();
+                renderActiveTab();
             });
+
+            // Live course feedback
+            const qFb = collection(db, "training_feedback");
+            onSnapshot(qFb, (snapshot) => {
+                allFeedback = snapshot.docs.map(docSnap => {
+                    const data = docSnap.data();
+                    return {
+                        id: docSnap.id,
+                        ...data,
+                        training: (data.training || 'dsima').toLowerCase(),
+                        name: data.isAnonymous ? "Anonymous" : toProperCase(data.name),
+                        rank: data.isAnonymous ? "Anonymous" : toProperCase(data.rank)
+                    };
+                });
+                renderActiveTab();
+            });
+        }
+
+        // Tab setup
+        const tabScores = document.getElementById('tabScores');
+        const tabFeedback = document.getElementById('tabFeedback');
+        const quizContent = document.getElementById('quizContent');
+        const feedbackContent = document.getElementById('feedbackContent');
+        const sessionFilterGroup = document.getElementById('sessionFilterGroup');
+
+        tabScores.addEventListener('click', () => {
+            activeTab = 'scores';
+            tabScores.classList.add('active');
+            tabFeedback.classList.remove('active');
+            quizContent.classList.remove('hidden');
+            feedbackContent.classList.add('hidden');
+            
+            // Show session group if a training is selected
+            const selectedTraining = document.getElementById('trainingFilter').value;
+            if (selectedTraining !== 'all') {
+                sessionFilterGroup.classList.remove('hidden');
+            }
+            renderActiveTab();
+        });
+
+        tabFeedback.addEventListener('click', () => {
+            activeTab = 'feedback';
+            tabFeedback.classList.add('active');
+            tabScores.classList.remove('active');
+            quizContent.classList.add('hidden');
+            feedbackContent.classList.remove('hidden');
+            
+            // Hide session group in feedback view
+            sessionFilterGroup.classList.add('hidden');
+            renderActiveTab();
+        });
+
+        function renderActiveTab() {
+            if (activeTab === 'scores') {
+                renderDashboard();
+            } else {
+                renderFeedbackDashboard();
+            }
         }
 
         function updateTrainingDropdown() {
@@ -458,6 +709,10 @@
             const uniqueTrainings = new Set();
             allResults.forEach(r => {
                 uniqueTrainings.add(r.training);
+            });
+            // Also include trainings from feedback
+            allFeedback.forEach(f => {
+                uniqueTrainings.add(f.training);
             });
 
             const trainingNames = {
@@ -488,7 +743,8 @@
             
             const selectedTraining = trainingFilter.value;
             
-            if (selectedTraining === 'all') {
+            // In feedback mode, session filter is always hidden
+            if (selectedTraining === 'all' || activeTab === 'feedback') {
                 sessionFilterGroup.classList.add('hidden');
                 return;
             }
@@ -586,7 +842,7 @@
                             <div style="background: linear-gradient(90deg, #56ab2f, #a8ff78); width: ${t.avgPct}%; height: 100%; border-radius: 5px; transition: width 1s ease-in-out;"></div>
                         </div>
                     </div>
-
+ 
                     <!-- Total Attempts Comparison -->
                     <div>
                         <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 6px;">
@@ -784,16 +1040,197 @@
             }
         }
 
+        function renderFeedbackDashboard() {
+            const selectedTraining = document.getElementById('trainingFilter').value;
+            const tableBody = document.getElementById('feedbackTableBody');
+            tableBody.innerHTML = '';
+
+            let filteredFeedback = allFeedback;
+            if (selectedTraining !== 'all') {
+                filteredFeedback = allFeedback.filter(f => f.training === selectedTraining);
+            }
+
+            // Sort: Timestamp (Newest to Oldest)
+            filteredFeedback.sort((a, b) => {
+                const timeA = a.timestamp?.toMillis() || 0;
+                const timeB = b.timestamp?.toMillis() || 0;
+                return timeB - timeA;
+            });
+
+            let qualitySum = 0;
+            let recommendSum = 0;
+            let qualityCount = 0;
+            let recommendCount = 0;
+
+            const qualityMap = { "Excellent": 5, "Very Good": 4, "Good": 3, "Fair": 2, "Poor": 1 };
+            const recommendMap = { "Very Likely": 5, "Likely": 4, "Neutral": 3, "Unlikely": 2, "Very Unlikely": 1 };
+
+            filteredFeedback.forEach((f) => {
+                // Calculate metrics
+                if (f.q1_quality && qualityMap[f.q1_quality]) {
+                    qualitySum += qualityMap[f.q1_quality];
+                    qualityCount++;
+                }
+                if (f.q18_recommend && recommendMap[f.q18_recommend]) {
+                    recommendSum += recommendMap[f.q18_recommend];
+                    recommendCount++;
+                }
+
+                const timestamp = f.timestamp?.toDate() || new Date();
+                const row = document.createElement('tr');
+
+                // Render summary ratings
+                const qValue = f.q1_quality || "N/A";
+                const rValue = f.q2_relevance !== undefined ? `${f.q2_relevance}/5` : "N/A";
+                const cValue = f.q11_facilitators_comm !== undefined ? `${f.q11_facilitators_comm}/5` : "N/A";
+
+                row.innerHTML = `
+                    <td style="font-weight:600;">${f.name}</td>
+                    <td class="text-muted">${f.rank}</td>
+                    <td><span class="badge-score score-high" style="background:rgba(56, 139, 253, 0.1); color:#58a6ff; border:1px solid rgba(56, 139, 253, 0.2);">${qValue}</span></td>
+                    <td class="text-muted">${rValue}</td>
+                    <td class="text-muted">${cValue}</td>
+                    <td class="text-muted">${timestamp.toLocaleDateString()}</td>
+                    <td>
+                        <button onclick="showFeedbackDetails('${f.id}')" class="btn-action btn-csv" style="height:auto; padding: 6px 12px; font-size: 0.8rem; border-radius:6px; margin: 0; background:rgba(88, 166, 255, 0.15)">
+                            <i class="ri-eye-line"></i> View Detail
+                        </button>
+                    </td>
+                    <td>
+                        <button onclick="deleteEntry('training_feedback', '${f.id}')" style="background:none; border:none; color:var(--error); cursor:pointer; font-size:1.1rem;" title="Delete Feedback">
+                            <i class="ri-delete-bin-line"></i>
+                        </button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+
+            // Set Stats Cards
+            document.getElementById('statFeedbackTotal').innerText = filteredFeedback.length;
+            document.getElementById('statFeedbackQuality').innerText = qualityCount > 0 ? (qualitySum / qualityCount).toFixed(1) + " / 5.0" : "0";
+            document.getElementById('statFeedbackRecommend').innerText = recommendCount > 0 ? (recommendSum / recommendCount).toFixed(1) + " / 5.0" : "0";
+        }
+
+        window.showFeedbackDetails = (id) => {
+            const fb = allFeedback.find(item => item.id === id);
+            if (!fb) return;
+
+            const modal = document.getElementById('feedbackModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalSubtitle = document.getElementById('modalSubtitle');
+            const detailsList = document.getElementById('modalDetailsList');
+
+            modalTitle.innerText = `Feedback from ${fb.name}`;
+            const dateStr = fb.timestamp?.toDate().toLocaleString() || "";
+            modalSubtitle.innerText = `Rank: ${fb.rank} | Training: ${fb.training.toUpperCase()} | Submitted on: ${dateStr}`;
+
+            detailsList.innerHTML = '';
+
+            Object.entries(feedbackQuestionsMap).forEach(([key, qText]) => {
+                const answer = fb[key];
+                if (answer !== undefined && answer !== null) {
+                    const item = document.createElement('div');
+                    item.className = 'feedback-detail-item';
+                    
+                    let answerHtml = '';
+                    if (Array.isArray(answer)) {
+                        answerHtml = `<ul style="list-style-type: disc; margin-left: 20px; font-size:0.9rem;">
+                            ${answer.map(val => `<li>${val}</li>`).join('')}
+                        </ul>`;
+                    } else {
+                        answerHtml = `<p class="feedback-detail-a">${answer}</p>`;
+                    }
+
+                    item.innerHTML = `
+                        <div class="feedback-detail-q">${qText}</div>
+                        ${answerHtml}
+                    `;
+                    detailsList.appendChild(item);
+                }
+            });
+
+            modal.classList.add('open');
+        };
+
+        // Close Modal Listeners
+        document.getElementById('closeModalBtn').addEventListener('click', () => {
+            document.getElementById('feedbackModal').classList.remove('open');
+        });
+
+        window.addEventListener('click', (e) => {
+            const modal = document.getElementById('feedbackModal');
+            if (e.target === modal) {
+                modal.classList.remove('open');
+            }
+        });
+
         // Add filter listeners
         document.getElementById('trainingFilter').addEventListener('change', () => {
             updateSessionDropdown();
-            renderDashboard();
+            renderActiveTab();
         });
-        document.getElementById('sessionFilter').addEventListener('change', renderDashboard);
+        document.getElementById('sessionFilter').addEventListener('change', renderActiveTab);
 
         // CSV Export
         document.getElementById('downloadCsv').addEventListener('click', () => {
             const selectedTraining = document.getElementById('trainingFilter').value;
+            
+            if (activeTab === 'feedback') {
+                // Export feedback CSV
+                let filteredFeedback = allFeedback;
+                if (selectedTraining !== 'all') {
+                    filteredFeedback = allFeedback.filter(f => f.training === selectedTraining);
+                }
+                
+                if (filteredFeedback.length === 0) {
+                    alert("No feedback items to export.");
+                    return;
+                }
+                
+                const headers = ["Name", "Rank", "Quality", "Relevance", "Objectives", "Data Role", "Dashboard Conf", "Problem Flow", "Valuable Areas", "Planning Support", "Scenarios Usefulness", "Practical Aspect", "Facil Comm", "Facil Balance", "Materials Quality", "Participation Opp", "Improvements", "Future Recommendations", "Apply Likelihood", "Recommend Likelihood", "Valuable Takeaway", "Additional Comments", "Appreciation Before", "Appreciation After", "Date"];
+                const csvRows = [headers.join(',')];
+                
+                filteredFeedback.forEach(f => {
+                    const date = f.timestamp?.toDate().toLocaleDateString() || "";
+                    const valuableAreasStr = (f.q7_valuable_areas || []).join("; ");
+                    csvRows.push([
+                        `"${f.name}"`,
+                        `"${f.rank}"`,
+                        `"${f.q1_quality || ''}"`,
+                        f.q2_relevance || '',
+                        `"${f.q3_objectives || ''}"`,
+                        f.q4_data_role || '',
+                        f.q5_dashboard_confidence || '',
+                        `"${f.q6_flow || ''}"`,
+                        `"${valuableAreasStr}"`,
+                        f.q8_planning_support || '',
+                        f.q9_scenarios_usefulness || '',
+                        `"${(f.q10_practical_aspect || '').replace(/"/g, '""')}"`,
+                        f.q11_facilitators_comm || '',
+                        f.q12_delivery_balance || '',
+                        f.q13_materials_quality || '',
+                        f.q14_participation_opp || '',
+                        `"${(f.q15_improve || '').replace(/"/g, '""')}"`,
+                        `"${(f.q16_future || '').replace(/"/g, '""')}"`,
+                        `"${f.q17_apply || ''}"`,
+                        `"${f.q18_recommend || ''}"`,
+                        `"${(f.q19_takeaway || '').replace(/"/g, '""')}"`,
+                        `"${(f.q20_comments || '').replace(/"/g, '""')}"`,
+                        `"${f.q21_appreciation_before || ''}"`,
+                        `"${f.q21_appreciation_after || ''}"`,
+                        date
+                    ].join(','));
+                });
+                
+                const csvContent = "data:text/csv;charset=utf-8," + csvRows.join("\n");
+                const link = document.createElement("a");
+                link.setAttribute("href", encodeURI(csvContent));
+                link.setAttribute("download", `${selectedTraining}_course_feedback.csv`);
+                link.click();
+                return;
+            }
+
+            // Export quiz scores (Scores Tab)
             const selectedSession = document.getElementById('sessionFilter') ? document.getElementById('sessionFilter').value : 'all';
 
             let filteredResults = allResults.filter(r => {
@@ -825,5 +1262,18 @@
             link.click();
         });
     </script>
+
+    <!-- Feedback Detail Modal -->
+    <div id="feedbackModal" class="modal-overlay">
+        <div class="modal-box">
+            <button id="closeModalBtn" class="modal-close"><i class="ri-close-line"></i></button>
+            <h2 id="modalTitle" style="font-size: 1.5rem; font-weight: 800; color: var(--primary-glow); margin-bottom: 8px;">Feedback Details</h2>
+            <p id="modalSubtitle" class="text-muted" style="font-size: 0.9rem; margin-bottom: 24px; border-bottom: 1px solid var(--border); padding-bottom: 12px;"></p>
+            
+            <div id="modalDetailsList" style="display: flex; flex-direction: column; gap: 16px;">
+                <!-- Dynamically injected Q&A items -->
+            </div>
+        </div>
+    </div>
 </body>
 </html>

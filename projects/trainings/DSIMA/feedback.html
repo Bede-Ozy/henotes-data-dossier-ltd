@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post-Training Evaluation | DSIMA</title>
+    
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #0d1117;
+            --card-bg: #161b22;
+            --border: #30363d;
+            --text: #c9d1d9;
+            --text-muted: #8b949e;
+            --primary-glow: #58a6ff;
+            --success: #3fb950;
+            --error: #f85149;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .feedback-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .feedback-header img {
+            max-height: 60px;
+            margin-bottom: 20px;
+        }
+
+        .feedback-header h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 40%, var(--primary-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .feedback-header p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .section-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-glow);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .question-label {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .question-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            margin-top: -6px;
+        }
+
+        /* 1-5 Scale Styling */
+        .scale-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .scale-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            width: 80px;
+        }
+        
+        .scale-label.right {
+            text-align: right;
+        }
+
+        .scale-options {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-grow: 1;
+        }
+
+        .scale-btn {
+            position: relative;
+            flex-grow: 1;
+            max-width: 50px;
+            height: 50px;
+        }
+
+        .scale-btn input {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+            cursor: pointer;
+        }
+
+        .scale-btn span {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            background: #21262d;
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .scale-btn input:checked + span {
+            background: var(--primary-glow);
+            border-color: var(--primary-glow);
+            color: #0d1117;
+            box-shadow: 0 0 10px rgba(88, 166, 255, 0.4);
+            transform: scale(1.08);
+        }
+
+        .scale-btn:hover span {
+            border-color: var(--primary-glow);
+            background: rgba(88, 166, 255, 0.1);
+        }
+
+        /* Standard Radio List (Horizontal / Vertical) */
+        .radio-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #21262d;
+            border: 1px solid var(--border);
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .radio-option input {
+            cursor: pointer;
+            accent-color: var(--primary-glow);
+        }
+
+        .radio-option:hover {
+            border-color: var(--primary-glow);
+            background: rgba(88, 166, 255, 0.05);
+        }
+
+        .radio-option.selected {
+            border-color: var(--primary-glow);
+            background: rgba(88, 166, 255, 0.1);
+        }
+
+        /* Checkbox List */
+        .checkbox-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        @media (min-width: 600px) {
+            .checkbox-list {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #21262d;
+            border: 1px solid var(--border);
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+
+        .checkbox-option input {
+            cursor: pointer;
+            accent-color: var(--primary-glow);
+        }
+
+        .checkbox-option:hover {
+            border-color: var(--primary-glow);
+            background: rgba(88, 166, 255, 0.05);
+        }
+
+        .checkbox-option.selected {
+            border-color: var(--primary-glow);
+            background: rgba(88, 166, 255, 0.1);
+        }
+
+        /* Inputs & Textareas */
+        .input-field, .textarea-field {
+            width: 100%;
+            background: #21262d;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            padding: 12px 16px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .input-field:focus, .textarea-field:focus {
+            border-color: var(--primary-glow);
+            box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15);
+        }
+
+        .textarea-field {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* Participant details row */
+        .participant-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        @media (min-width: 600px) {
+            .participant-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* Grid Evaluation Styling (Before vs After) */
+        .evaluation-grid {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            background: #21262d;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .evaluation-grid th, .evaluation-grid td {
+            padding: 12px 16px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .evaluation-grid th {
+            background: rgba(0, 0, 0, 0.2);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .evaluation-grid td:first-child {
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.95rem;
+            width: 250px;
+        }
+
+        .evaluation-grid input[type="radio"] {
+            cursor: pointer;
+            accent-color: var(--primary-glow);
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Submit Button Styling */
+        .btn-submit {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            background: linear-gradient(135deg, #1f6feb, var(--primary-glow));
+            color: #ffffff;
+            border: none;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(31, 111, 235, 0.2);
+        }
+
+        .btn-submit:hover {
+            opacity: 0.95;
+            box-shadow: 0 4px 20px rgba(88, 166, 255, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .btn-submit:disabled {
+            background: var(--border);
+            color: var(--text-muted);
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        /* Success Card */
+        .success-card {
+            text-align: center;
+            padding: 50px 30px;
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            color: var(--success);
+            margin-bottom: 20px;
+        }
+
+        .success-card h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .success-card p {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- Header -->
+        <div class="feedback-header">
+            <img src="../../../../images/Henotes-loge.png" alt="Henotes Logo" onerror="this.style.display='none'">
+            <h1>Post-Training Evaluation</h1>
+            <p>Introduction to Data Science for Military Aviation</p>
+        </div>
+
+        <!-- Success Message -->
+        <div id="successSection" class="section-card success-card hidden">
+            <i class="ri-checkbox-circle-fill success-icon"></i>
+            <h2>Thank You!</h2>
+            <p>Your feedback has been successfully submitted. We appreciate your insights to help improve our training programs.</p>
+            <button onclick="location.reload()" class="btn-submit" style="width: auto; padding: 12px 30px;">
+                <i class="ri-refresh-line"></i> Submit Another Feedback
+            </button>
+        </div>
+
+        <!-- Feedback Form -->
+        <form id="feedbackForm">
+            
+            <!-- Opening Statement & Details -->
+            <div class="section-card">
+                <p style="margin-bottom: 20px; font-size: 0.95rem;">
+                    Thank you for participating in the <em>Introduction to Data Science for Military Aviation</em> programme.
+                    Your feedback will help us assess the effectiveness and relevance of the programme and improve future training. 
+                    <strong>Please do not include classified, operationally sensitive, personal, or restricted information in your responses.</strong>
+                </p>
+                
+                <div class="form-group" style="margin-bottom: 16px;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <input type="checkbox" id="anonymousCheckbox" style="cursor: pointer; accent-color: var(--primary-glow); width: 16px; height: 16px;">
+                        <label for="anonymousCheckbox" style="font-size: 0.9rem; font-weight: 600; cursor: pointer;">Submit feedback anonymously</label>
+                    </div>
+                </div>
+
+                <div id="participantDetails" class="participant-grid">
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label for="userName" class="question-label">Full Name</label>
+                        <input type="text" id="userName" class="input-field" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label for="userRank" class="question-label">Rank</label>
+                        <select id="userRank" class="input-field" style="height: 48px; background: #21262d; border: 1px solid var(--border); border-radius: 8px; color: var(--text); padding: 0 12px; font-size: 0.95rem; cursor: pointer; box-sizing: border-box;" required>
+                            <option value="" disabled selected>Select your rank</option>
+                            <option value="Wing Commander">Wing Commander</option>
+                            <option value="Squadron Leader">Squadron Leader</option>
+                            <option value="Flight Lieutenant">Flight Lieutenant</option>
+                            <option value="Flying Officer">Flying Officer</option>
+                            <option value="Pilot Officer">Pilot Officer</option>
+                            <option value="Air Warrant Officer">Air Warrant Officer</option>
+                            <option value="Master Warrant Officer">Master Warrant Officer</option>
+                            <option value="Warrant Officer">Warrant Officer</option>
+                            <option value="Flight Sergeant">Flight Sergeant</option>
+                            <option value="Sergeant">Sergeant</option>
+                            <option value="Corporal">Corporal</option>
+                            <option value="Lance Corporal">Lance Corporal</option>
+                            <option value="Aircraftman / Aircraftwoman">Aircraftman / Aircraftwoman</option>
+                            <option value="Recruit">Recruit</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 1 — Overall Assessment -->
+            <div class="section-card">
+                <h2 class="section-title"><i class="ri-survey-line"></i> Section 1 — Overall Assessment</h2>
+                
+                <!-- Q1 -->
+                <div class="form-group">
+                    <label class="question-label">1. How would you rate the overall quality of the training programme?</label>
+                    <div class="radio-list">
+                        <label class="radio-option"><input type="radio" name="q1_quality" value="Excellent" required> <span>Excellent</span></label>
+                        <label class="radio-option"><input type="radio" name="q1_quality" value="Very Good"> <span>Very Good</span></label>
+                        <label class="radio-option"><input type="radio" name="q1_quality" value="Good"> <span>Good</span></label>
+                        <label class="radio-option"><input type="radio" name="q1_quality" value="Fair"> <span>Fair</span></label>
+                        <label class="radio-option"><input type="radio" name="q1_quality" value="Poor"> <span>Poor</span></label>
+                    </div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="form-group">
+                    <label class="question-label">2. How relevant was the training to your professional responsibilities?</label>
+                    <div class="scale-container">
+                        <span class="scale-label">1 — Not Relevant</span>
+                        <div class="scale-options">
+                            <label class="scale-btn"><input type="radio" name="q2_relevance" value="1" required><span>1</span></label>
+                            <label class="scale-btn"><input type="radio" name="q2_relevance" value="2"><span>2</span></label>
+                            <label class="scale-btn"><input type="radio" name="q2_relevance" value="3"><span>3</span></label>
+                            <label class="scale-btn"><input type="radio" name="q2_relevance" value="4"><span>4</span></label>
+                            <label class="scale-btn"><input type="radio" name="q2_relevance" value="5"><span>5</span></label>
+                        </div>
+                        <span class="scale-label right">5 — Highly Relevant</span>
+                    </div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="form-group">
+                    <label class="question-label">3. To what extent did the programme meet its stated objectives?</label>
+                    <div class="radio-list">
+                        <label class="radio-option"><input type="radio" name="q3_objectives" value="Not at all" required> <span>Not at all</span></label>
+                        <label class="radio-option"><input type="radio" name="q3_objectives" value="To a limited extent"> <span>To a limited extent</span></label>
+                        <label class="radio-option"><input type="radio" name="q3_objectives" value="To some extent"> <span>To some extent</span></label>
+                        <label class="radio-option"><input type="radio" name="q3_objectives" value="To a great extent"> <span>To a great extent</span></label>
+                        <label class="radio-option"><input type="radio" name="q3_objectives" value="To a very great extent"> <span>To a very great extent</span></label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2 — Learning Outcomes -->
+            <div class="section-card">
+                <h2 class="section-title"><i class="ri-book-open-line"></i> Section 2 — Learning Outcomes</h2>
+                
+                <!-- Q4 -->
+                <div class="form-group">
+                    <label class="question-label">4. How would you rate your understanding of the role of data in aviation decision-making after this training?</label>
+                    <div class="scale-container">
+                        <span class="scale-label">1 — Poor</span>
+                        <div class="scale-options">
+                            <label class="scale-btn"><input type="radio" name="q4_data_role" value="1" required><span>1</span></label>
+                            <label class="scale-btn"><input type="radio" name="q4_data_role" value="2"><span>2</span></label>
+                            <label class="scale-btn"><input type="radio" name="q4_data_role" value="3"><span>3</span></label>
+                            <label class="scale-btn"><input type="radio" name="q4_data_role" value="4"><span>4</span></label>
+                            <label class="scale-btn"><input type="radio" name="q4_data_role" value="5"><span>5</span></label>
+                        </div>
+                        <span class="scale-label right">5 — Excellent</span>
+                    </div>
+                </div>
+
+                <!-- Q5 -->
+                <div class="form-group">
+                    <label class="question-label">5. How confident are you in interpreting basic aviation performance indicators and dashboards?</label>
+                    <div class="scale-container">
+                        <span class="scale-label">1 — Not Confident</span>
+                        <div class="scale-options">
+                            <label class="scale-btn"><input type="radio" name="q5_dashboard_confidence" value="1" required><span>1</span></label>
+                            <label class="scale-btn"><input type="radio" name="q5_dashboard_confidence" value="2"><span>2</span></label>
+                            <label class="scale-btn"><input type="radio" name="q5_dashboard_confidence" value="3"><span>3</span></label>
+                            <label class="scale-btn"><input type="radio" name="q5_dashboard_confidence" value="4"><span>4</span></label>
+                            <label class="scale-btn"><input type="radio" name="q5_dashboard_confidence" value="5"><span>5</span></label>
+                        </div>
+                        <span class="scale-label right">5 — Very Confident</span>
+                    </div>
+                </div>
+
+                <!-- Q6 -->
+                <div class="form-group">
+                    <label class="question-label">6. How well did the training demonstrate the relationship between: Operational Problem → Data → Analysis → Insight → Decision</label>
+                    <div class="radio-list">
+                        <label class="radio-option"><input type="radio" name="q6_flow" value="Not well" required> <span>Not well</span></label>
+                        <label class="radio-option"><input type="radio" name="q6_flow" value="Slightly well"> <span>Slightly well</span></label>
+                        <label class="radio-option"><input type="radio" name="q6_flow" value="Moderately well"> <span>Moderately well</span></label>
+                        <label class="radio-option"><input type="radio" name="q6_flow" value="Very well"> <span>Very well</span></label>
+                        <label class="radio-option"><input type="radio" name="q6_flow" value="Extremely well"> <span>Extremely well</span></label>
+                    </div>
+                </div>
+
+                <!-- Q7 -->
+                <div class="form-group">
+                    <label class="question-label">7. Which areas of the training did you find most valuable? (Select all that apply)</label>
+                    <div class="checkbox-list">
+                        <label class="checkbox-option"><input type="checkbox" name="q7_valuable" value="Data literacy and data science concepts"> <span>Data literacy & concepts</span></label>
+                        <label class="checkbox-option"><input type="checkbox" name="q7_valuable" value="Data as a strategic/operational asset"> <span>Data as a strategic asset</span></label>
+                        <label class="checkbox-option"><input type="checkbox" name="q7_valuable" value="Data quality, security and governance"> <span>Data quality & governance</span></label>
+                        <label class="checkbox-option"><input type="checkbox" name="q7_valuable" value="Aviation data sources"> <span>Aviation data sources</span></label>
+                        <label class="checkbox-option"><input type="checkbox" name="q7_valuable" value="Excel-based analysis"> <span>Excel-based analysis</span></label>
+                        <label class="checkbox-option"><input type="checkbox" name="q7_valuable" value="Aviation KPIs and performance measurement"> <span>Aviation KPIs & metrics</span></label>
+                        <label class="checkbox-option"><input type="checkbox" name="q7_valuable" value="Dashboard interpretation"> <span>Dashboard interpretation</span></label>
+                        <label class="checkbox-option"><input type="checkbox" name="q7_valuable" value="Evidence-based decision-making"> <span>Evidence-based decisions</span></label>
+                        <label class="checkbox-option"><input type="checkbox" name="q7_valuable" value="Translating analytical findings into recommendations"> <span>Translating findings</span></label>
+                        <label class="checkbox-option"><input type="checkbox" name="q7_valuable" value="Practical exercises and scenarios"> <span>Practical scenarios</span></label>
+                    </div>
+                    <div style="margin-top: 12px; display: flex; align-items: center; gap: 10px;">
+                        <span style="font-size: 0.9rem; font-weight: 600; white-space: nowrap;">Other:</span>
+                        <input type="text" id="q7_other" class="input-field" placeholder="Specify other areas">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3 — Practical Relevance -->
+            <div class="section-card">
+                <h2 class="section-title"><i class="ri-focus-3-line"></i> Section 3 — Practical Relevance</h2>
+                
+                <!-- Q8 -->
+                <div class="form-group">
+                    <label class="question-label">8. To what extent do you believe the concepts demonstrated can support better operational planning and decision-making?</label>
+                    <div class="scale-container">
+                        <span class="scale-label">1 — Not at all</span>
+                        <div class="scale-options">
+                            <label class="scale-btn"><input type="radio" name="q8_planning_support" value="1" required><span>1</span></label>
+                            <label class="scale-btn"><input type="radio" name="q8_planning_support" value="2"><span>2</span></label>
+                            <label class="scale-btn"><input type="radio" name="q8_planning_support" value="3"><span>3</span></label>
+                            <label class="scale-btn"><input type="radio" name="q8_planning_support" value="4"><span>4</span></label>
+                            <label class="scale-btn"><input type="radio" name="q8_planning_support" value="5"><span>5</span></label>
+                        </div>
+                        <span class="scale-label right">5 — Extremely</span>
+                    </div>
+                </div>
+
+                <!-- Q9 -->
+                <div class="form-group">
+                    <label class="question-label">9. How useful were the aviation scenarios and practical exercises in helping you understand the concepts?</label>
+                    <div class="scale-container">
+                        <span class="scale-label">1 — Not Useful</span>
+                        <div class="scale-options">
+                            <label class="scale-btn"><input type="radio" name="q9_scenarios_usefulness" value="1" required><span>1</span></label>
+                            <label class="scale-btn"><input type="radio" name="q9_scenarios_usefulness" value="2"><span>2</span></label>
+                            <label class="scale-btn"><input type="radio" name="q9_scenarios_usefulness" value="3"><span>3</span></label>
+                            <label class="scale-btn"><input type="radio" name="q9_scenarios_usefulness" value="4"><span>4</span></label>
+                            <label class="scale-btn"><input type="radio" name="q9_scenarios_usefulness" value="5"><span>5</span></label>
+                        </div>
+                        <span class="scale-label right">5 — Very Useful</span>
+                    </div>
+                </div>
+
+                <!-- Q10 -->
+                <div class="form-group">
+                    <label for="q10_aspect" class="question-label">10. Which aspect of the practical sessions was most useful to you?</label>
+                    <input type="text" id="q10_aspect" class="input-field" placeholder="Enter short answer" required>
+                </div>
+            </div>
+
+            <!-- Section 4 — Facilitation & Delivery -->
+            <div class="section-card">
+                <h2 class="section-title"><i class="ri-user-voice-line"></i> Section 4 — Facilitation & Delivery</h2>
+                
+                <!-- Q11 -->
+                <div class="form-group">
+                    <label class="question-label">11. How would you rate the facilitators' ability to communicate technical concepts in a clear and understandable manner?</label>
+                    <div class="scale-container">
+                        <span class="scale-label">1 — Poor</span>
+                        <div class="scale-options">
+                            <label class="scale-btn"><input type="radio" name="q11_facilitators_comm" value="1" required><span>1</span></label>
+                            <label class="scale-btn"><input type="radio" name="q11_facilitators_comm" value="2"><span>2</span></label>
+                            <label class="scale-btn"><input type="radio" name="q11_facilitators_comm" value="3"><span>3</span></label>
+                            <label class="scale-btn"><input type="radio" name="q11_facilitators_comm" value="4"><span>4</span></label>
+                            <label class="scale-btn"><input type="radio" name="q11_facilitators_comm" value="5"><span>5</span></label>
+                        </div>
+                        <span class="scale-label right">5 — Excellent</span>
+                    </div>
+                </div>
+
+                <!-- Q12 -->
+                <div class="form-group">
+                    <label class="question-label">12. How would you rate the balance between explanation, demonstration, discussion and practical exercises?</label>
+                    <div class="scale-container">
+                        <span class="scale-label">1 — Poor</span>
+                        <div class="scale-options">
+                            <label class="scale-btn"><input type="radio" name="q12_delivery_balance" value="1" required><span>1</span></label>
+                            <label class="scale-btn"><input type="radio" name="q12_delivery_balance" value="2"><span>2</span></label>
+                            <label class="scale-btn"><input type="radio" name="q12_delivery_balance" value="3"><span>3</span></label>
+                            <label class="scale-btn"><input type="radio" name="q12_delivery_balance" value="4"><span>4</span></label>
+                            <label class="scale-btn"><input type="radio" name="q12_delivery_balance" value="5"><span>5</span></label>
+                        </div>
+                        <span class="scale-label right">5 — Excellent</span>
+                    </div>
+                </div>
+
+                <!-- Q13 -->
+                <div class="form-group">
+                    <label class="question-label">13. How would you rate the quality and relevance of the presentation materials and visual demonstrations?</label>
+                    <div class="scale-container">
+                        <span class="scale-label">1 — Poor</span>
+                        <div class="scale-options">
+                            <label class="scale-btn"><input type="radio" name="q13_materials_quality" value="1" required><span>1</span></label>
+                            <label class="scale-btn"><input type="radio" name="q13_materials_quality" value="2"><span>2</span></label>
+                            <label class="scale-btn"><input type="radio" name="q13_materials_quality" value="3"><span>3</span></label>
+                            <label class="scale-btn"><input type="radio" name="q13_materials_quality" value="4"><span>4</span></label>
+                            <label class="scale-btn"><input type="radio" name="q13_materials_quality" value="5"><span>5</span></label>
+                        </div>
+                        <span class="scale-label right">5 — Excellent</span>
+                    </div>
+                </div>
+
+                <!-- Q14 -->
+                <div class="form-group">
+                    <label class="question-label">14. How would you rate the opportunities provided for questions, discussion and participation?</label>
+                    <div class="scale-container">
+                        <span class="scale-label">1 — Poor</span>
+                        <div class="scale-options">
+                            <label class="scale-btn"><input type="radio" name="q14_participation_opp" value="1" required><span>1</span></label>
+                            <label class="scale-btn"><input type="radio" name="q14_participation_opp" value="2"><span>2</span></label>
+                            <label class="scale-btn"><input type="radio" name="q14_participation_opp" value="3"><span>3</span></label>
+                            <label class="scale-btn"><input type="radio" name="q14_participation_opp" value="4"><span>4</span></label>
+                            <label class="scale-btn"><input type="radio" name="q14_participation_opp" value="5"><span>5</span></label>
+                        </div>
+                        <span class="scale-label right">5 — Excellent</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 5 — Programme Improvement -->
+            <div class="section-card">
+                <h2 class="section-title"><i class="ri-tools-line"></i> Section 5 — Programme Improvement</h2>
+                
+                <!-- Q15 -->
+                <div class="form-group">
+                    <label for="q15_improve" class="question-label">15. Which aspect of the training would you recommend that we improve for future programmes?</label>
+                    <p class="question-desc"><i class="ri-information-line"></i> Please provide general feedback only. Do not include classified, restricted or operationally sensitive information.</p>
+                    <textarea id="q15_improve" class="textarea-field" placeholder="Enter comments" required></textarea>
+                </div>
+
+                <!-- Q16 -->
+                <div class="form-group">
+                    <label for="q16_future" class="question-label">16. What additional areas would you recommend for a future aviation data analytics programme?</label>
+                    <p class="question-desc"><i class="ri-information-line"></i> E.g., Predictive analytics, AI/machine learning, maintenance analytics, Power BI, data governance, advanced dashboards, etc.</p>
+                    <textarea id="q16_future" class="textarea-field" placeholder="Enter suggestions" required></textarea>
+                </div>
+            </div>
+
+            <!-- Section 6 — Overall Value -->
+            <div class="section-card">
+                <h2 class="section-title"><i class="ri-star-line"></i> Section 6 — Overall Value</h2>
+                
+                <!-- Q17 -->
+                <div class="form-group">
+                    <label class="question-label">17. How likely are you to apply concepts from this training in your professional activities?</label>
+                    <div class="radio-list">
+                        <label class="radio-option"><input type="radio" name="q17_apply" value="Very Likely" required> <span>Very Likely</span></label>
+                        <label class="radio-option"><input type="radio" name="q17_apply" value="Likely"> <span>Likely</span></label>
+                        <label class="radio-option"><input type="radio" name="q17_apply" value="Neutral"> <span>Neutral</span></label>
+                        <label class="radio-option"><input type="radio" name="q17_apply" value="Unlikely"> <span>Unlikely</span></label>
+                        <label class="radio-option"><input type="radio" name="q17_apply" value="Very Unlikely"> <span>Very Unlikely</span></label>
+                    </div>
+                </div>
+
+                <!-- Q18 -->
+                <div class="form-group">
+                    <label class="question-label">18. How likely would you be to recommend a programme of this nature to other aviation personnel?</label>
+                    <div class="radio-list">
+                        <label class="radio-option"><input type="radio" name="q18_recommend" value="Very Likely" required> <span>Very Likely</span></label>
+                        <label class="radio-option"><input type="radio" name="q18_recommend" value="Likely"> <span>Likely</span></label>
+                        <label class="radio-option"><input type="radio" name="q18_recommend" value="Neutral"> <span>Neutral</span></label>
+                        <label class="radio-option"><input type="radio" name="q18_recommend" value="Unlikely"> <span>Unlikely</span></label>
+                        <label class="radio-option"><input type="radio" name="q18_recommend" value="Very Unlikely"> <span>Very Unlikely</span></label>
+                    </div>
+                </div>
+
+                <!-- Q19 -->
+                <div class="form-group">
+                    <label for="q19_takeaway" class="question-label">19. What was the most valuable takeaway from the three-day programme?</label>
+                    <textarea id="q19_takeaway" class="textarea-field" placeholder="Enter answer" required></textarea>
+                </div>
+
+                <!-- Q20 -->
+                <div class="form-group">
+                    <label for="q20_comments" class="question-label">20. Please provide any additional comments or recommendations regarding the training.</label>
+                    <p class="question-desc"><i class="ri-information-line"></i> Please do not include classified, restricted, personal, or operationally sensitive information.</p>
+                    <textarea id="q20_comments" class="textarea-field" placeholder="Enter comments" required></textarea>
+                </div>
+            </div>
+
+            <!-- Section 7 — Appraisal of Data Role -->
+            <div class="section-card">
+                <h2 class="section-title"><i class="ri-line-chart-line"></i> Section 7 — Role Appreciation</h2>
+                <label class="question-label">21. Compared with before the training, how would you rate your appreciation of the role of data in supporting aviation decision-making?</label>
+                
+                <table class="evaluation-grid">
+                    <thead>
+                        <tr>
+                            <th>Phase</th>
+                            <th>Very Low</th>
+                            <th>Low</th>
+                            <th>Moderate</th>
+                            <th>High</th>
+                            <th>Very High</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Before Training</td>
+                            <td><input type="radio" name="q21_appreciation_before" value="Very Low" required></td>
+                            <td><input type="radio" name="q21_appreciation_before" value="Low"></td>
+                            <td><input type="radio" name="q21_appreciation_before" value="Moderate"></td>
+                            <td><input type="radio" name="q21_appreciation_before" value="High"></td>
+                            <td><input type="radio" name="q21_appreciation_before" value="Very High"></td>
+                        </tr>
+                        <tr>
+                            <td>After Training</td>
+                            <td><input type="radio" name="q21_appreciation_after" value="Very Low" required></td>
+                            <td><input type="radio" name="q21_appreciation_after" value="Low"></td>
+                            <td><input type="radio" name="q21_appreciation_after" value="Moderate"></td>
+                            <td><input type="radio" name="q21_appreciation_after" value="High"></td>
+                            <td><input type="radio" name="q21_appreciation_after" value="Very High"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <button type="submit" id="submitBtn" class="btn-submit" style="margin-bottom: 40px;">
+                <i class="ri-send-plane-line"></i> Submit Evaluation Form
+            </button>
+
+        </form>
+
+    </div>
+
+    <!-- Firebase Integration -->
+    <script type="module">
+        import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { db } from "./js/firebase-config.js";
+
+        // Styling helpers for checking options
+        const styleOptionChecks = (selector) => {
+            const list = document.querySelectorAll(selector);
+            list.forEach(el => {
+                const input = el.querySelector('input');
+                input.addEventListener('change', () => {
+                    if (input.type === 'radio') {
+                        // Deselect others in group
+                        document.querySelectorAll(`input[name="${input.name}"]`).forEach(inp => {
+                            inp.closest(selector).classList.remove('selected');
+                        });
+                    }
+                    if (input.checked) {
+                        el.classList.add('selected');
+                    } else {
+                        el.classList.remove('selected');
+                    }
+                });
+            });
+        };
+
+        styleOptionChecks('.radio-option');
+        styleOptionChecks('.checkbox-option');
+
+        // Anonymous toggle
+        const anonymousCheck = document.getElementById('anonymousCheckbox');
+        const detailsGrid = document.getElementById('participantDetails');
+        const userNameInput = document.getElementById('userName');
+        const userRankInput = document.getElementById('userRank');
+
+        anonymousCheck.addEventListener('change', () => {
+            if (anonymousCheck.checked) {
+                detailsGrid.classList.add('hidden');
+                userNameInput.value = '';
+                userRankInput.value = '';
+                userNameInput.required = false;
+                userRankInput.required = false;
+            } else {
+                detailsGrid.classList.remove('hidden');
+                userNameInput.required = true;
+                userRankInput.required = true;
+            }
+        });
+
+        // Form Submit
+        const form = document.getElementById('feedbackForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const successSection = document.getElementById('successSection');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Disable button
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<i class="ri-loader-4-line animate-spin"></i> Submitting...`;
+
+            // Prepare checked checkboxes array for Q7
+            const q7_checked = [];
+            document.querySelectorAll('input[name="q7_valuable"]:checked').forEach(cb => {
+                q7_checked.push(cb.value);
+            });
+            const q7_other_val = document.getElementById('q7_other').value.trim();
+            if (q7_other_val) {
+                q7_checked.push("Other: " + q7_other_val);
+            }
+
+            // Get selected radio values
+            const getRadioVal = (name) => {
+                const active = document.querySelector(`input[name="${name}"]:checked`);
+                return active ? active.value : null;
+            };
+
+            // Package data
+            const feedbackData = {
+                training: "dsima",
+                isAnonymous: anonymousCheck.checked,
+                name: anonymousCheck.checked ? "Anonymous" : (userNameInput.value.trim() || "Anonymous"),
+                rank: anonymousCheck.checked ? "Anonymous" : (userRankInput.value || "Anonymous"),
+                
+                q1_quality: getRadioVal('q1_quality'),
+                q2_relevance: parseInt(getRadioVal('q2_relevance')),
+                q3_objectives: getRadioVal('q3_objectives'),
+                
+                q4_data_role: parseInt(getRadioVal('q4_data_role')),
+                q5_dashboard_confidence: parseInt(getRadioVal('q5_dashboard_confidence')),
+                q6_flow: getRadioVal('q6_flow'),
+                q7_valuable_areas: q7_checked,
+                
+                q8_planning_support: parseInt(getRadioVal('q8_planning_support')),
+                q9_scenarios_usefulness: parseInt(getRadioVal('q9_scenarios_usefulness')),
+                q10_practical_aspect: document.getElementById('q10_aspect').value.trim(),
+                
+                q11_facilitators_comm: parseInt(getRadioVal('q11_facilitators_comm')),
+                q12_delivery_balance: parseInt(getRadioVal('q12_delivery_balance')),
+                q13_materials_quality: parseInt(getRadioVal('q13_materials_quality')),
+                q14_participation_opp: parseInt(getRadioVal('q14_participation_opp')),
+                
+                q15_improve: document.getElementById('q15_improve').value.trim(),
+                q16_future: document.getElementById('q16_future').value.trim(),
+                
+                q17_apply: getRadioVal('q17_apply'),
+                q18_recommend: getRadioVal('q18_recommend'),
+                q19_takeaway: document.getElementById('q19_takeaway').value.trim(),
+                q20_comments: document.getElementById('q20_comments').value.trim(),
+                
+                q21_appreciation_before: getRadioVal('q21_appreciation_before'),
+                q21_appreciation_after: getRadioVal('q21_appreciation_after'),
+                
+                timestamp: serverTimestamp()
+            };
+
+            try {
+                // Submit to Firestore
+                await addDoc(collection(db, "training_feedback"), feedbackData);
+                
+                // Show success UI
+                form.classList.add('hidden');
+                successSection.classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } catch (error) {
+                console.error("Firebase Error saving feedback:", error);
+                alert("An error occurred while saving your feedback: " + error.message);
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = `<i class="ri-send-plane-line"></i> Submit Evaluation Form`;
+            }
+        });
+    </script>
+</body>
+</html>
