@@ -152,6 +152,10 @@ function prefillForm() {
             case 'ai':
                 prefilledMessage = "I'd like to explore how Business AI Agents can help our workflows.";
                 break;
+            case 'retail':
+            case 'retail-bi':
+                prefilledMessage = "I'm interested in Retail Business Intelligence and would like to claim the 60-day free trial for our retail business.";
+                break;
             default:
                 prefilledMessage = `I'm interested in learning more about your ${service} service.`;
         }
